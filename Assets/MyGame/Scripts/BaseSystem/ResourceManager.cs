@@ -1,21 +1,29 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
-using UniRx.Triggers;
-using Unity.VisualScripting;
+
+
 /// <summary>
-/// フィールドにアタッチされていればResourceManager.Instance.○○で利用できるクラス。
-/// シングルトンを継承しています。
+/// 現在のリソースの秒間生産量を提供してほしい
 /// </summary>
+public interface IRpsProvider
+{
+    ReactiveProperty<float> CurrentRPS { get; set; }
+}
 public class ResourceManager : SingletonMonoBehavior<ResourceManager>
 {
-    [SerializeField,Header("リソーステスト　1秒間あたりのリソース生成量")] 
-    private float _cookiesGeneratePerSecond;
-    private decimal _currentCookies = 0;
-    //Calculate Classが現在のCPSを計算してほしい
-    private float _currentTestCPS;
+    /// <summary>
+    /// ここでIRpsProviderを継承したコンポーネントを受け取りたい。
+    /// </summary>
+    [SerializeField] 
+    private IRpsProvider _rpsProvider;
+    private void Awake()
+    {
+        _rpsProvider.CurrentRPS.Subscribe(x => _resourceGeneratePerSecond = x);
+    }
+    
+    private float _resourceGeneratePerSecond;
+    private decimal _currentResources = 0;
     
     /// <summary>
     /// 現在のリソース値が変更された場合に呼ばれる
@@ -29,42 +37,42 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
     /// <summary>
     /// 現在のクッキー量のプロパティ
     /// </summary>
-    public decimal CurrentCookies
+    public decimal CurrentResources
     {
         get
         {
-            return _currentCookies;
+            return _currentResources;
         }
         private set
         {
             OnResourceChanged.Invoke(value);
-            _currentCookies = value;
+            _currentResources = value;
         }
     }
     /// <summary>
     /// 現在のCPSのプロパティ
     /// </summary>
-    public float CookiesGeneratePerSecond
+    public float ResourceGeneratePerSecond
     {
         get
         {
-            return _cookiesGeneratePerSecond;
+            return _resourceGeneratePerSecond;
         }
         set
         {
             OnResourceGenerateChanged.Invoke(value);
-            _cookiesGeneratePerSecond = value;
+            _resourceGeneratePerSecond = value;
         }
     }
 
     /// <summary>
     /// クッキーを使う
     /// </summary>
-    /// <param name="cookies"></param>
-    public void UseCoolies(decimal cookies)
+    /// <param name="resources"></param>
+    public void UseResources(decimal resources)
     {
-        if(_currentCookies >= cookies)
-            _currentCookies -= (decimal) cookies;
+        if(_currentResources >= resources)
+            _currentResources -= resources;
         else
         {
             Debug.LogWarning("クッキーが足りないので買えませんでした");
@@ -72,19 +80,16 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
     }
     
     
-    private void Start()
-    {
-        //this.ObserveEveryValueChanged(x => x._currentTestCPS).Subscribe(x => CookiesGeneratePerSecond = x);
-    }
+
 
     private void FixedUpdate()
     {
-        CurrentCookies += (decimal)(_cookiesGeneratePerSecond * Time.fixedDeltaTime);
+        CurrentResources += (decimal)(_resourceGeneratePerSecond * Time.fixedDeltaTime);
     }
 
     public void OnClick()
     {
-        _currentTestCPS += 0.1f;
+        //_currentTestRPS += 0.1f;
     }
 
 
