@@ -1,38 +1,38 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TestUI : MonoBehaviour
 {
-    [SerializeField] private Text _cookieText;
-    [SerializeField] private Text _cpsText;
+    [SerializeField] private Text _resourceText;
+    [SerializeField] private Text _facilityPowerText;
+    [SerializeField] private Text _clickPowerText;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        ResourceManager.Instance.OnResourceChanged += ExpressResource;
-        ResourceManager.Instance.OnResourceGenerateChanged += ExpressCPS;
+        ResourceManager.OnResourceChanged += ExpressResource;
+        ResourceManager.OnFacilityPowerChanged += ExpressFacilityPower;
+        ResourceManager.OnClickPowerChanged += ExpressClickPower;
     }
 
     private void OnDisable()
     {
-        ResourceManager.Instance.OnResourceChanged -= ExpressResource;
-        ResourceManager.Instance.OnResourceGenerateChanged -= ExpressCPS;
+        ResourceManager.OnResourceChanged -= ExpressResource;
+        ResourceManager.OnFacilityPowerChanged -= ExpressFacilityPower;
+        ResourceManager.OnClickPowerChanged -= ExpressClickPower;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void ExpressResource(decimal currentResource)
     {
-        
+        _resourceText.text = currentResource.ToString(".00");
     }
 
-    void ExpressResource(decimal currentResource)
+    private void ExpressFacilityPower(float currentFacilityPower)
     {
-        _cookieText.text = currentResource.ToString(".00");
+        _facilityPowerText.text = currentFacilityPower.ToString(".00");
     }
-    void ExpressCPS(float currentCps)
+    private void ExpressClickPower(float currentClickPower)
     {
-        _cpsText.text = currentCps.ToString(".00");
+        _clickPowerText.text = currentClickPower.ToString(".00");
     }
 }
