@@ -12,10 +12,10 @@ using Unity.VisualScripting;
 public class ResourceManager : SingletonMonoBehavior<ResourceManager>
 {
     [SerializeField,Header("リソーステスト　1秒間あたりのリソース生成量")] 
-    private float _cookiesGeneratePerSecond;
-    private decimal _currentCookies = 0;
-    //Calculate Classが現在のCPSを計算してほしい
-    private float _currentTestCPS;
+    private float _resourceGeneratePerSecond;
+    private decimal _currentResources = 0;
+    //Calculate Classが現在のRPSを計算してほしい
+    private float _currentTestRPS;
     
     /// <summary>
     /// 現在のリソース値が変更された場合に呼ばれる
@@ -29,42 +29,42 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
     /// <summary>
     /// 現在のクッキー量のプロパティ
     /// </summary>
-    public decimal CurrentCookies
+    public decimal CurrentResources
     {
         get
         {
-            return _currentCookies;
+            return _currentResources;
         }
         private set
         {
             OnResourceChanged.Invoke(value);
-            _currentCookies = value;
+            _currentResources = value;
         }
     }
     /// <summary>
     /// 現在のCPSのプロパティ
     /// </summary>
-    public float CookiesGeneratePerSecond
+    public float ResourceGeneratePerSecond
     {
         get
         {
-            return _cookiesGeneratePerSecond;
+            return _resourceGeneratePerSecond;
         }
         set
         {
             OnResourceGenerateChanged.Invoke(value);
-            _cookiesGeneratePerSecond = value;
+            _resourceGeneratePerSecond = value;
         }
     }
 
     /// <summary>
     /// クッキーを使う
     /// </summary>
-    /// <param name="cookies"></param>
-    public void UseCoolies(decimal cookies)
+    /// <param name="resources"></param>
+    public void UseResources(decimal resources)
     {
-        if(_currentCookies >= cookies)
-            _currentCookies -= (decimal) cookies;
+        if(_currentResources >= resources)
+            _currentResources -= resources;
         else
         {
             Debug.LogWarning("クッキーが足りないので買えませんでした");
@@ -74,17 +74,17 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
     
     private void Start()
     {
-        //this.ObserveEveryValueChanged(x => x._currentTestCPS).Subscribe(x => CookiesGeneratePerSecond = x);
+        //this.ObserveEveryValueChanged(x => x._currentTestRPS).Subscribe(x => ResourceGeneratePerSecond = x);
     }
 
     private void FixedUpdate()
     {
-        CurrentCookies += (decimal)(_cookiesGeneratePerSecond * Time.fixedDeltaTime);
+        CurrentResources += (decimal)(_resourceGeneratePerSecond * Time.fixedDeltaTime);
     }
 
     public void OnClick()
     {
-        _currentTestCPS += 0.1f;
+        _currentTestRPS += 0.1f;
     }
 
 
