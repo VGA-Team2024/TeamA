@@ -1,21 +1,29 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
-using UniRx.Triggers;
-using Unity.VisualScripting;
+
+
 /// <summary>
-/// フィールドにアタッチされていればResourceManager.Instance.○○で利用できるクラス。
-/// シングルトンを継承しています。
+/// 現在のリソースの秒間生産量を提供してほしい
 /// </summary>
+public interface IRpsProvider
+{
+    ReactiveProperty<float> CurrentRPS { get; set; }
+}
 public class ResourceManager : SingletonMonoBehavior<ResourceManager>
 {
-    [SerializeField,Header("リソーステスト　1秒間あたりのリソース生成量")] 
+    /// <summary>
+    /// ここでIRpsProviderを継承したコンポーネントを受け取りたい。
+    /// </summary>
+    [SerializeField] 
+    private IRpsProvider _rpsProvider;
+    private void Awake()
+    {
+        _rpsProvider.CurrentRPS.Subscribe(x => _resourceGeneratePerSecond = x);
+    }
+    
     private float _resourceGeneratePerSecond;
     private decimal _currentResources = 0;
-    //Calculate Classが現在のRPSを計算してほしい
-    private float _currentTestRPS;
     
     /// <summary>
     /// 現在のリソース値が変更された場合に呼ばれる
@@ -72,10 +80,7 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
     }
     
     
-    private void Start()
-    {
-        //this.ObserveEveryValueChanged(x => x._currentTestRPS).Subscribe(x => ResourceGeneratePerSecond = x);
-    }
+
 
     private void FixedUpdate()
     {
@@ -84,7 +89,7 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
 
     public void OnClick()
     {
-        _currentTestRPS += 0.1f;
+        //_currentTestRPS += 0.1f;
     }
 
 

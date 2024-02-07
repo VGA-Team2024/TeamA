@@ -337,7 +337,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 580d97e00690eb1439126562d30851eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cookiesGeneratePerSecond: -18.6
+  _rpcProvider:
+    rid: 7060663624202977281
+  references:
+    version: 2
+    RefIds:
+    - rid: 7060663624202977281
+      type: {class: TestIRPSProvider, ns: , asm: Assembly-CSharp}
+      data:
+        _testRPS: 5
 --- !u!114 &7614788490499698054
 MonoBehaviour:
   m_ObjectHideFlags: 0
