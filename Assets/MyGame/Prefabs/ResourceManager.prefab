@@ -541,7 +541,6 @@ GameObject:
   - component: {fileID: 2889521307884019458}
   - component: {fileID: 1570054075167076151}
   - component: {fileID: 7614788490499698054}
-  - component: {fileID: 8230939961467523310}
   m_Layer: 0
   m_Name: ResourceManager
   m_TagString: Untagged
@@ -577,7 +576,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 580d97e00690eb1439126562d30851eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _testPowerProvider: {fileID: 8230939961467523310}
+  _testPowerProvider:
+    rid: 7060663646619697152
+  references:
+    version: 2
+    RefIds:
+    - rid: 7060663646619697152
+      type: {class: TestPowerProvider, ns: , asm: Assembly-CSharp}
+      data:
+        _testFacilityPower: 0
+        _testClickPower: 0
 --- !u!114 &7614788490499698054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,20 +601,6 @@ MonoBehaviour:
   _resourceText: {fileID: 3128333899659414966}
   _facilityPowerText: {fileID: 3158392930624458345}
   _clickPowerText: {fileID: 6785557961792942250}
---- !u!114 &8230939961467523310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3735301586359584552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ba99dca88728fa45a4756ba03a6825d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _testFacilityPower: 0
-  _testClickPower: 0
 --- !u!1 &6497272109857094232
 GameObject:
   m_ObjectHideFlags: 0

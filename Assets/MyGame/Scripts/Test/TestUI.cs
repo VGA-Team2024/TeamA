@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+/// <summary>
+/// テスト用、本番はTextMeshProで実装したいです。
+/// </summary>
 public class TestUI : MonoBehaviour
 {
     [SerializeField] private Text _resourceText;

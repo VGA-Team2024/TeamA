@@ -1,7 +1,12 @@
 using System;
 using UniRx;
 using UnityEngine;
-
+/// <summary>
+/// 
+/// </summary>
+public interface IPowerProvider : IFacilityPowerProvider , IClickPowerProvider
+{
+}
 /// <summary>
 ///     現在のリソースの秒間生産力を提供してほしい
 /// </summary>
@@ -21,14 +26,18 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
     /// <summary>
     /// ここでIFacilityPowerProvider、IClickPowerProvider型でコンポーネントを受け取りたい。
     /// </summary>
-    [SerializeField] private TestPowerProvider _testPowerProvider;
-
+    [SerializeField, SerializeReference, SubclassSelector]
+    private IPowerProvider _powerProvider ;
+    // [SerializeField, SerializeReference, SubclassSelector]
+    // private IFacilityPowerProvider _facilityPowerProvider ;
+    // [SerializeField, SerializeReference, SubclassSelector]
+    // private IClickPowerProvider _clickPowerProvider ;
     private decimal _currentResources;
     private float _currentFacilityPower;
     private float _currentClickPower;
 
-    private IFacilityPowerProvider _facilityPowerProvider;
-    private IClickPowerProvider _clickPowerProvider;
+    //private IFacilityPowerProvider _facilityPowerProvider;
+    //private IClickPowerProvider _clickPowerProvider;
 
     /// <summary>
     ///     現在のリソース値が変更された場合に呼ばれる
@@ -93,10 +102,10 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
 
     protected override void OnAwake()
     {
-        _facilityPowerProvider = _testPowerProvider as IFacilityPowerProvider;
-        _clickPowerProvider = _testPowerProvider as IClickPowerProvider;
-        _facilityPowerProvider.CurrentFacilityPower.Subscribe(x => CurrentFacilityPower = x).AddTo(this);
-        _clickPowerProvider.CurrentClickPower.Subscribe(x => CurrentClickPower = x).AddTo(this);
+        //_facilityPowerProvider = _testPowerProvider as IFacilityPowerProvider;
+        //_clickPowerProvider = _testPowerProvider as IClickPowerProvider;
+        _powerProvider.CurrentFacilityPower.Subscribe(x => CurrentFacilityPower = x).AddTo(this);
+        _powerProvider.CurrentClickPower.Subscribe(x => CurrentClickPower = x).AddTo(this);
     }
 
     /// <summary>
