@@ -1,6 +1,7 @@
 using System;
 using UniRx;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 /// <summary>
 ///     現在のリソースの秒間生産力を提供してほしい
@@ -21,14 +22,16 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
     /// <summary>
     /// ここでIFacilityPowerProvider、IClickPowerProvider型でコンポーネントを受け取りたい。
     /// </summary>
-    [SerializeField] private TestPowerProvider _testPowerProvider;
-
+    [SerializeField , Header("生産力を実装するクラス")] private Object _testPowerProvider;
+    private IFacilityPowerProvider _facilityPowerProvider => _testPowerProvider as IFacilityPowerProvider;
+    private IClickPowerProvider _clickPowerProvider=> _testPowerProvider as IClickPowerProvider;
+    
+    
     private decimal _currentResources;
     private float _currentFacilityPower;
     private float _currentClickPower;
 
-    private IFacilityPowerProvider _facilityPowerProvider;
-    private IClickPowerProvider _clickPowerProvider;
+
 
     /// <summary>
     ///     現在のリソース値が変更された場合に呼ばれる
@@ -93,8 +96,6 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
 
     protected override void OnAwake()
     {
-        _facilityPowerProvider = _testPowerProvider as IFacilityPowerProvider;
-        _clickPowerProvider = _testPowerProvider as IClickPowerProvider;
         _facilityPowerProvider.CurrentFacilityPower.Subscribe(x => CurrentFacilityPower = x).AddTo(this);
         _clickPowerProvider.CurrentClickPower.Subscribe(x => CurrentClickPower = x).AddTo(this);
     }
