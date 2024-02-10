@@ -385,6 +385,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1570054075167076151, guid: cfb13072a4098b446a80042e5bd723cd, type: 3}
+      propertyPath: _powerProvider
+      value: 
+      objectReference: {fileID: 1904376821247335350}
+    - target: {fileID: 1570054075167076151, guid: cfb13072a4098b446a80042e5bd723cd, type: 3}
+      propertyPath: _testPowerProvider
+      value: 
+      objectReference: {fileID: 1904376821247335350}
     - target: {fileID: 2889521307884019458, guid: cfb13072a4098b446a80042e5bd723cd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -434,6 +442,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfb13072a4098b446a80042e5bd723cd, type: 3}
+--- !u!114 &1904376821247335350 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8230939961467523310, guid: cfb13072a4098b446a80042e5bd723cd, type: 3}
+  m_PrefabInstance: {fileID: 1904376821247335349}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ba99dca88728fa45a4756ba03a6825d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
