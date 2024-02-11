@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// 作成 : 五島
 /// <summary>施設の基本データの設定をします</summary>
 [System.Serializable]
 [CreateAssetMenu(fileName = "FacilityData", menuName = "CreateFacilityData")]

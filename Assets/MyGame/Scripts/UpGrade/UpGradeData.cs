@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
+// 作成 : 五島
 /// <summary>アップグレードの基本データの設定をします</summary>
 [System.Serializable]
 [CreateAssetMenu(fileName = "UpGradeData", menuName = "CreateUpGradeData")]
