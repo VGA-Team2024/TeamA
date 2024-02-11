@@ -10,7 +10,10 @@ public class ClickEvent : MonoBehaviour, IPointerClickHandler
     {
         if (ResourceManager.Instance != null)
         {
-            ResourceManager.Instance.OnClick();
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                ResourceManager.Instance.OnClick();
+            }
         }
         else
         {
