@@ -8,7 +8,7 @@ public class UpGradeData : ScriptableObject
 {
     [SerializeField, Header("アップグレードの種類")]　private UpGrade _upGradeType = 0;
     [SerializeField, Header("アップグレードの名前")] private string _name = "";
-    [SerializeField, Header("アップグレードの値段")] private long _basePrice = 10;  // コンパイル時に毎回リセットされる？
+    [SerializeField, Header("アップグレードの値段")] private long _basePrice = 10;
     [SerializeField, Header("アップグレードの倍率")] private float _magnificationRate = 1f;
     
     /// <summary>アップグレードの種類</summary>

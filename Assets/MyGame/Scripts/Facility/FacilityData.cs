@@ -8,7 +8,7 @@ public class FacilityData : ScriptableObject
 {
     [SerializeField, Header("施設の種類")]　private Facility _facilityType = 0;
     [SerializeField, Header("施設の名前")] private string _name = "";
-    [SerializeField, Header("施設の値段")] private long _basePrice = 10;  // コンパイル時に毎回リセットされる？
+    [SerializeField, Header("施設の値段")] private long _basePrice = 10;
     [SerializeField, Header("施設の生産量")] private float _baseProducePower = 1f;
 
     /// <summary>施設の種類</summary>
