@@ -1,96 +1,136 @@
 using System;
-using UnityEngine;
 using UniRx;
-
-
+using UnityEngine;
 /// <summary>
-/// 現在のリソースの秒間生産量を提供してほしい
+/// 
 /// </summary>
-public interface IRpsProvider
+public interface IPowerProvider : IFacilityPowerProvider , IClickPowerProvider
 {
-    ReactiveProperty<float> CurrentRPS { get; set; }
+}
+/// <summary>
+///     現在のリソースの秒間生産力を提供してほしい
+/// </summary>
+public interface IFacilityPowerProvider
+{
+    ReactiveProperty<float> CurrentFacilityPower { get;}
+}
+/// <summary>
+/// 現在の1クリック生産力を提供してほしい
+/// </summary>
+public interface IClickPowerProvider
+{
+    ReactiveProperty<float> CurrentClickPower { get; }
 }
 public class ResourceManager : SingletonMonoBehavior<ResourceManager>
 {
     /// <summary>
-    /// ここでIRpsProviderを継承したコンポーネントを受け取りたい。
+    /// ここでIFacilityPowerProvider、IClickPowerProvider型でコンポーネントを受け取りたい。
     /// </summary>
-    [SerializeField] 
-    private IRpsProvider _rpsProvider;
-    private void Awake()
-    {
-        _rpsProvider.CurrentRPS.Subscribe(x => _resourceGeneratePerSecond = x);
-    }
-    
-    private float _resourceGeneratePerSecond;
-    private decimal _currentResources = 0;
-    
-    /// <summary>
-    /// 現在のリソース値が変更された場合に呼ばれる
-    /// </summary>
-    public Action<decimal> OnResourceChanged;
-    /// <summary>
-    /// 現在のリソース生成量が変更された場合に呼ばれる
-    /// </summary>
-    public Action<float> OnResourceGenerateChanged;
+    [SerializeField, SerializeReference, SubclassSelector]
+    private IPowerProvider _powerProvider ;
+    // [SerializeField, SerializeReference, SubclassSelector]
+    // private IFacilityPowerProvider _facilityPowerProvider ;
+    // [SerializeField, SerializeReference, SubclassSelector]
+    // private IClickPowerProvider _clickPowerProvider ;
+    private decimal _currentResources;
+    private float _currentFacilityPower;
+    private float _currentClickPower;
+
+    //private IFacilityPowerProvider _facilityPowerProvider;
+    //private IClickPowerProvider _clickPowerProvider;
 
     /// <summary>
-    /// 現在のクッキー量のプロパティ
+    ///     現在のリソース値が変更された場合に呼ばれる
+    /// </summary>
+    public static Action<decimal> OnResourceChanged;
+
+    /// <summary>
+    ///     現在のリソース生成量が変更された場合に呼ばれる
+    /// </summary>
+    public static Action<float> OnFacilityPowerChanged;
+
+    /// <summary>
+    ///     現在のリソース生成量が変更された場合に呼ばれる
+    /// </summary>
+    public static Action<float> OnClickPowerChanged;
+    
+    /// <summary>
+    ///     現在リソース量プロパティ
     /// </summary>
     public decimal CurrentResources
     {
-        get
-        {
-            return _currentResources;
-        }
+        get => _currentResources;
         private set
         {
-            OnResourceChanged.Invoke(value);
+            OnResourceChanged?.Invoke(value);
             _currentResources = value;
         }
     }
+
     /// <summary>
-    /// 現在のCPSのプロパティ
+    /// 現在の生産力のプロパティ
     /// </summary>
-    public float ResourceGeneratePerSecond
+    public float CurrentFacilityPower
     {
-        get
+        get => _currentFacilityPower;
+        private set
         {
-            return _resourceGeneratePerSecond;
+            OnFacilityPowerChanged?.Invoke(value);
+            _currentFacilityPower = value;
         }
-        set
+    }
+    
+    /// <summary>
+    ///     現在の１クリック生産力のプロパティ
+    /// </summary>
+    public float CurrentClickPower
+    {
+        get => _currentClickPower;
+        private set
         {
-            OnResourceGenerateChanged.Invoke(value);
-            _resourceGeneratePerSecond = value;
+            OnClickPowerChanged?.Invoke(value);
+            _currentClickPower = value;
         }
+    }
+    /// <summary>
+    /// 自動生産
+    /// </summary>
+    private void FixedUpdate()
+    {
+        CurrentResources += (decimal)(_currentFacilityPower * Time.fixedDeltaTime);
+    }
+
+    protected override void OnAwake()
+    {
+        //_facilityPowerProvider = _testPowerProvider as IFacilityPowerProvider;
+        //_clickPowerProvider = _testPowerProvider as IClickPowerProvider;
+        _powerProvider.CurrentFacilityPower.Subscribe(x => CurrentFacilityPower = x).AddTo(this);
+        _powerProvider.CurrentClickPower.Subscribe(x => CurrentClickPower = x).AddTo(this);
     }
 
     /// <summary>
-    /// クッキーを使う
+    /// クッキーを消費する。
     /// </summary>
     /// <param name="resources"></param>
-    public void UseResources(decimal resources)
+    public bool TryUseResources(decimal resources)
     {
-        if(_currentResources >= resources)
-            _currentResources -= resources;
+        if (CurrentResources >= resources)
+        {
+            CurrentResources -= resources;
+            return true;
+        }
         else
         {
             Debug.LogWarning("クッキーが足りないので買えませんでした");
+            return false;
         }
     }
     
-    
-
-
-    private void FixedUpdate()
-    {
-        CurrentResources += (decimal)(_resourceGeneratePerSecond * Time.fixedDeltaTime);
-    }
-
+    /// <summary>
+    /// クリックするときに呼ばれる
+    /// </summary>
     public void OnClick()
     {
-        //_currentTestRPS += 0.1f;
+        CurrentResources += (decimal)CurrentClickPower;
     }
-
-
 }
