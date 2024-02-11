@@ -23,7 +23,11 @@ public class FacilityData : ScriptableObject
     /// <summary>施設の生産量</summary>
     public float BaseProducePower => _baseProducePower;
 
-    /// <summary>施設の種類</summary>
+    /// <summary>
+    /// 施設の種類
+    /// UpGradeData.TargetFacilityと数字を同じにしてください
+    /// 32は使用しないでください
+    /// </summary>
     public enum Facility
     {
         Cursor = 0,

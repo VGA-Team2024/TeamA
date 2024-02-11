@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: TestUpGradeData
   m_EditorClassIdentifier: 
   _upGradeType: 0
+  _targetFacility: 0
   _name: DoubleTheEarnings
-  _magnificationRate: 1
+  _basePrice: 10
+  _magnificationRate: 3
