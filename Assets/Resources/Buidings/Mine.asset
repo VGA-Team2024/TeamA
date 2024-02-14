@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de4197db6bbad4d4b914d38fcbe608dd, type: 3}
-  m_Name: BuildingData 4
+  m_Name: Mine
   m_EditorClassIdentifier: 
   _buildingType: 3
   _name: "\u9271\u5C71"
   _price: 1000
   _maxAmount: 5
-  _buildTime: 60
+  _buildTime: 5

@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -687, y: -457.99997}
+  m_AnchoredPosition: {x: -444, y: 131}
   m_SizeDelta: {x: 200, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2226764567835901300
@@ -121,8 +121,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1570054075167076151}
-        m_TargetAssemblyTypeName: ResourceManager, Assembly-CSharp
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Mine, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
@@ -150,7 +150,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2374438320678682198
 RectTransform:
   m_ObjectHideFlags: 0
@@ -381,7 +381,6 @@ GameObject:
   - component: {fileID: 2889521307884019458}
   - component: {fileID: 1570054075167076151}
   - component: {fileID: 7614788490499698054}
-  - component: {fileID: 8230939961467523310}
   m_Layer: 0
   m_Name: ResourceManager
   m_TagString: Untagged
@@ -430,20 +429,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resourceText: {fileID: 5739486920590186939}
---- !u!114 &8230939961467523310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3735301586359584552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ba99dca88728fa45a4756ba03a6825d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _testFacilityPower: 0
-  _testClickPower: 0
 --- !u!1 &4316084781873436498
 GameObject:
   m_ObjectHideFlags: 0
