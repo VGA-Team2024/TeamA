@@ -8,6 +8,6 @@ using UnityEngine;
 /// </summary>
 public abstract class PowerProviderBase : MonoBehaviour , IFacilityPowerProvider , IClickPowerProvider
 {
-    public abstract ReactiveProperty<float> CurrentFacilityPower { get; }
-    public abstract ReactiveProperty<float> CurrentClickPower { get; }
+    public abstract ReactiveProperty<decimal> CurrentFacilityPower { get; }
+    public abstract ReactiveProperty<decimal> CurrentClickPower { get; }
 }

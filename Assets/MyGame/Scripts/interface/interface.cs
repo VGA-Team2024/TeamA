@@ -9,12 +9,12 @@ using UnityEngine;
 /// </summary>
 public interface IFacilityPowerProvider
 {
-    ReactiveProperty<float> CurrentFacilityPower { get;}
+    ReactiveProperty<decimal> CurrentFacilityPower { get;}
 }
 /// <summary>
 /// 現在の1クリック生産力を提供してほしい
 /// </summary>
 public interface IClickPowerProvider
 {
-    ReactiveProperty<float> CurrentClickPower { get; }
+    ReactiveProperty<decimal> CurrentClickPower { get; }
 }
