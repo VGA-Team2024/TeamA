@@ -8,12 +8,17 @@ using UnityEngine.UI;
 
 public abstract class BuildingBase : MonoBehaviour
 {
+    [SerializeField, Header("建物の当たり判定")] private SphereCollider _buildingCollider;
     [SerializeField , Header("建物データ")] private BuildingData _buildingData;
-    [SerializeField, Header("大工の設置判定をとる")] private Collider _buildingTrigger;
     [SerializeField, Header("TestUI / 建築時間の表示")] private Text _buildingTimeText;
 
     #region 公開箇所
 
+    /// <summary>
+    /// 建物のサイズ/半径
+    /// </summary>
+    public float BuildingRadius => _buildingCollider.radius;
+    
     /// <summary>
     /// 建物のデータ
     /// </summary>
@@ -62,12 +67,6 @@ public abstract class BuildingBase : MonoBehaviour
 
     private void Start()
     {
-        //Triggerバインド
-        _buildingTrigger.OnTriggerEnterAsObservable().Where(x => x.CompareTag("Builder"))
-            .Subscribe(_ => StartBuilding()).AddTo(this);
-        _buildingTrigger.OnTriggerExitAsObservable().Where(x => x.CompareTag("Builder"))
-            .Subscribe(_ => EndBuilding()).AddTo(this);
-        
         OnStart();
     }
 
