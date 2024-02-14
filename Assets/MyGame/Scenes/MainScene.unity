@@ -385,6 +385,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1217138273019961903, guid: cfb13072a4098b446a80042e5bd723cd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -391
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217138273019961903, guid: cfb13072a4098b446a80042e5bd723cd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 247.4
+      objectReference: {fileID: 0}
     - target: {fileID: 1570054075167076151, guid: cfb13072a4098b446a80042e5bd723cd, type: 3}
       propertyPath: _powerProvider
       value: 
@@ -433,9 +441,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3018994787945267494, guid: cfb13072a4098b446a80042e5bd723cd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -391
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018994787945267494, guid: cfb13072a4098b446a80042e5bd723cd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 277
+      objectReference: {fileID: 0}
     - target: {fileID: 3735301586359584552, guid: cfb13072a4098b446a80042e5bd723cd, type: 3}
       propertyPath: m_Name
       value: ResourceManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5327813963949067383, guid: cfb13072a4098b446a80042e5bd723cd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -444
+      objectReference: {fileID: 0}
+    - target: {fileID: 5327813963949067383, guid: cfb13072a4098b446a80042e5bd723cd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 131
+      objectReference: {fileID: 0}
+    - target: {fileID: 6031090162386896353, guid: cfb13072a4098b446a80042e5bd723cd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -391
+      objectReference: {fileID: 0}
+    - target: {fileID: 6031090162386896353, guid: cfb13072a4098b446a80042e5bd723cd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 220
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
