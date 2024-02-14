@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class BuildingBase : MonoBehaviour
 {
     [SerializeField , Header("建物データ")] private BuildingData _buildingData;
     [SerializeField, Header("大工の設置判定をとる")] private Collider _buildingTrigger;
+    [SerializeField, Header("TestUI / 建築時間の表示")] private Text _buildingTimeText;
 
     #region 公開箇所
 
@@ -45,11 +47,12 @@ public abstract class BuildingBase : MonoBehaviour
     private bool _isBuilding;
     private bool _isActivate;
     private float _currentBuildTime;
-    protected abstract void OnAwake();
+    protected abstract void OnStart();
     protected abstract void OnFixedUpdate();
     
     public void StartBuilding()
     {
+        print("作業開始");
         _isBuilding = true;
     }
     public void EndBuilding()
@@ -57,7 +60,7 @@ public abstract class BuildingBase : MonoBehaviour
         _isBuilding = false;
     }
 
-    private void Awake()
+    private void Start()
     {
         //Triggerバインド
         _buildingTrigger.OnTriggerEnterAsObservable().Where(x => x.CompareTag("Builder"))
@@ -65,7 +68,7 @@ public abstract class BuildingBase : MonoBehaviour
         _buildingTrigger.OnTriggerExitAsObservable().Where(x => x.CompareTag("Builder"))
             .Subscribe(_ => EndBuilding()).AddTo(this);
         
-        OnAwake();
+        OnStart();
     }
 
     private void FixedUpdate()
@@ -81,6 +84,7 @@ public abstract class BuildingBase : MonoBehaviour
             {
                 //建設する
                 _currentBuildTime += Time.fixedDeltaTime;
+                _buildingTimeText.text = (_buildingData.BuildTime - _currentBuildTime).ToString("0");
                 if (_currentBuildTime > _buildingData.BuildTime)
                 {
                     Debug.Log("建設終了");
