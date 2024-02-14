@@ -1,14 +1,15 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 // 作成 : 五島
 /// <summary>
 /// アップグレードの種類とフラグ、倍率を管理する機能を提供します
 /// アタッチする必要はありません
 /// </summary>
-public class UpGradeManager
+public class UpGradeManager : MonoBehaviour
 {
     /// <summary>FacilityManagerのインスタンス</summary>
-    public static readonly UpGradeManager Instance = new();
+    //public static readonly UpGradeManager Instance = new();
 
     /// <summary>
     /// int : アップグレードの効果対象の施設
@@ -28,6 +29,7 @@ public class UpGradeManager
     public void AddUpGradeDictionary(UpGradeData data, bool flag)
     {
         var upGradeCurrentData = new UpGradeCurrentData();
+        upGradeCurrentData.baseData = data;
         upGradeCurrentData.targetFacilityType = data.TargetFacilityType;
         upGradeCurrentData.isUsed = flag;
         upGradeCurrentData.magnificationRate = data.MagnificationRate;
@@ -73,6 +75,9 @@ public class UpGradeManager
 [System.Serializable]
 public class UpGradeCurrentData
 {
+    /// <summary>アップグレードの基本データ</summary>
+    public UpGradeData baseData;
+
     /// <summary>アップグレードの効果対象の施設</summary>
     public UpGradeData.TargetFacility targetFacilityType;
 
