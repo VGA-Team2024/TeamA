@@ -31,4 +31,5 @@ public enum BuildingType
     ArmyCamp = 1,
     Barrack = 2,
     Mine = 3,
+    Test = 4,
 }
