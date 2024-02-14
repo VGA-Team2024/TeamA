@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TextManager : MonoBehaviour
+public class TestUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text _resourceText;
     [SerializeField] private TMP_Text _facilityPowerText;
