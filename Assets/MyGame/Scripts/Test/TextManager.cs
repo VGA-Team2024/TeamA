@@ -1,11 +1,12 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TestUI : MonoBehaviour
+public class TextManager : MonoBehaviour
 {
-    [SerializeField] private Text _resourceText;
-    [SerializeField] private Text _facilityPowerText;
-    [SerializeField] private Text _clickPowerText;
+    [SerializeField] private TMP_Text _resourceText;
+    [SerializeField] private TMP_Text _facilityPowerText;
+    [SerializeField] private TMP_Text _clickPowerText;
 
     // Start is called before the first frame update
     private void Start()
