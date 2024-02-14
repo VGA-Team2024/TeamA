@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// カメラを制御するクラス
+/// </summary>
 public class CameraManager : MonoBehaviour
 {
     [SerializeField] private Camera _mainCamera;
@@ -19,7 +22,7 @@ public class CameraManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if (Input.GetKey(KeyCode.W))
         {
