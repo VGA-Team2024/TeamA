@@ -6,15 +6,13 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class ClickEvent : MonoBehaviour, IPointerClickHandler
 {
-    Canvas _canvas = null;
-    RectTransform _rectTransform = null;
+    [SerializeField] Canvas _canvas;
+    [SerializeField] RectTransform _rectTransform;
     float _clickDistance = 0;
     float _radius = 0;
 
     void Start()
     {
-        _canvas = transform.parent.GetComponent<Canvas>();
-        _rectTransform = GetComponent<RectTransform>();
         _radius = _rectTransform.sizeDelta.x / 2 * _canvas.scaleFactor;
     }
 
