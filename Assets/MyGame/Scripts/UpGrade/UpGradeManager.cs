@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // 作成 : 五島
@@ -61,7 +62,7 @@ public class UpGradeManager : MonoBehaviour
 
         foreach (var value in _upGradeDictionary.Values)
         {
-            if (value.IsUsed)
+            if (value.IsUsed && type == (int)value.TargetFacilityType)
             {
                 mul *= value.MagnificationRate;
             }
