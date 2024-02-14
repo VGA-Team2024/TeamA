@@ -507,6 +507,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1063252266}
+  - component: {fileID: 1063252267}
   m_Layer: 0
   m_Name: GridSetManager
   m_TagString: Untagged
@@ -529,6 +530,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1063252267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1063252265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 416593faace79424f806e60126917830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gridSize: {x: 10, y: 10}
+  _cursorObj: {fileID: 0}
+  _testObj: {fileID: 5758974755969918121, guid: 0d89c1f309b34214f82b1d978f042706, type: 3}
 --- !u!1001 &1904376821247335349
 PrefabInstance:
   m_ObjectHideFlags: 0
