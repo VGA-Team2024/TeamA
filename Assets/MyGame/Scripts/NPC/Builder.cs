@@ -22,11 +22,6 @@ public class Builder : MonoBehaviour
         Building,
     }
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        _agent = GetComponent<NavMeshAgent>();
-    }
     // Update is called once per frame
     void Update()
     {
