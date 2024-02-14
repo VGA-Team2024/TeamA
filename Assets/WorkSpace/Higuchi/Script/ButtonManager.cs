@@ -7,7 +7,7 @@ public class ButtonManager : MonoBehaviour
 {
     public float required_count = 0;
     Button _button;
-    float _currentcookie = 0; //現在のクッキー数
+    float _currentcookie = 0; //迴ｾ蝨ｨ縺ｮ繧ｯ繝�繧ｭ繝ｼ謨ｰ
     void Start()
     {
         _button = GetComponent<Button>();
@@ -18,7 +18,7 @@ public class ButtonManager : MonoBehaviour
     void Update()
     {
         _currentcookie += Time.deltaTime;
-        Debug.Log("現在のクッキー: " + _currentcookie);
+        Debug.Log("迴ｾ蝨ｨ縺ｮ繧ｯ繝�繧ｭ繝ｼ: " + _currentcookie);
         _button.interactable = (_currentcookie >= required_count);
     }
     void Consumed_cookie()

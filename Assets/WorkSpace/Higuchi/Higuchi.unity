@@ -539,7 +539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d41833c4eadf6418432bb45627e162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  required_count: 30
+  required_count: 0
 --- !u!1 &343590137
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,7 +851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d41833c4eadf6418432bb45627e162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  required_count: 20
+  required_count: 0
 --- !u!1 &536167468
 GameObject:
   m_ObjectHideFlags: 0
@@ -1080,7 +1080,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d41833c4eadf6418432bb45627e162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  required_count: 50
+  required_count: 0
 --- !u!1 &908386470
 GameObject:
   m_ObjectHideFlags: 0
@@ -1373,7 +1373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d41833c4eadf6418432bb45627e162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  required_count: 80
+  required_count: 0
 --- !u!1 &1090135726
 GameObject:
   m_ObjectHideFlags: 0
@@ -1598,7 +1598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d41833c4eadf6418432bb45627e162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  required_count: 40
+  required_count: 0
 --- !u!1 &1131616867
 GameObject:
   m_ObjectHideFlags: 0
@@ -1974,7 +1974,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d41833c4eadf6418432bb45627e162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  required_count: 70
+  required_count: 0
 --- !u!1 &1374880394
 GameObject:
   m_ObjectHideFlags: 0
@@ -2427,7 +2427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d41833c4eadf6418432bb45627e162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  required_count: 10
+  required_count: 0
 --- !u!1 &1717257043
 GameObject:
   m_ObjectHideFlags: 0
@@ -2767,7 +2767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d41833c4eadf6418432bb45627e162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  required_count: 60
+  required_count: 0
 --- !u!1 &1943456291
 GameObject:
   m_ObjectHideFlags: 0
