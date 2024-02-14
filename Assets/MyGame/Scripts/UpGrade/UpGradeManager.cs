@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 // 作成 : 五島
@@ -9,6 +8,8 @@ using UnityEngine;
 /// </summary>
 public class UpGradeManager : MonoBehaviour
 {
+    [SerializeField] private FacilityManager _facilityManager;
+    
     /// <summary>FacilityManagerのインスタンス</summary>
     //public static readonly UpGradeManager Instance = new();
 
@@ -62,7 +63,7 @@ public class UpGradeManager : MonoBehaviour
 
         foreach (var value in _upGradeDictionary.Values)
         {
-            if (value.IsUsed && type == (int)value.TargetFacilityType)
+            if (value.IsUsed && type == (int)value.TargetFacilityType && _facilityManager.FacilityDictionary.ContainsKey(type))
             {
                 mul *= value.MagnificationRate;
             }
