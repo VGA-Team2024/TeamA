@@ -4,34 +4,63 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
+/// グリッドを管理するクラス
+///
+/// 
 /// 建物をグリッド上に配置するクラス
+/// UIから設定状態をオフにできるように
+/// オフの時に選択したら選択した建物のイベントを発火
 /// </summary>
-public class GridSetManager : MonoBehaviour
+public class GridSerectManager : MonoBehaviour
 {
     [SerializeField,Header("グリッドのサイズ")] Vector2Int _gridSize;
     private List<Vector3> _gridList = new List<Vector3>();
     [SerializeField, Header("カーソル用のオブジェクト")] private GameObject _cursorObj;
     [SerializeField] private GameObject _testObj;
-    // Start is called before the first frame update
+    private SelectType _selectType;
+    
+    public enum  SelectType
+    {
+        SelectBuildingMode,
+        SetBuildingMode,
+    }
 
     private void Start()
     {
         _cursorObj = Instantiate(_cursorObj);
     }
+    
+    /// <summary>
+    /// 選択モードを変更する
+    /// </summary>
+    /// <param name="selectType"></param>
+    public void ChangeSelectType(SelectType selectType)
+    {
+        _selectType = selectType;
+    }
 
     private void Update()
     {
-        SetCursor();
+        MoveCursor();
+        
         if (Input.GetMouseButtonDown(0))
         {
-           SetBuilding(BuildingType.Test);
+            if (_selectType == SelectType.SetBuildingMode)
+            {
+                SetBuilding(BuildingType.Test);
+                
+            }
+            else if (_selectType == SelectType.SelectBuildingMode)
+            {
+                 
+            }
         }
     }
     
     /// <summary>
-    /// カーソルを配置する
+    /// カーソルを動かす
     /// </summary>
-    private void SetCursor()
+    private void MoveCursor()
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out var hit))
@@ -62,7 +91,7 @@ public class GridSetManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 指定した
+    /// 指定した種類のプレハブを取得する
     /// </summary>
     /// <param name="buildingType"></param>
     /// <returns></returns>
