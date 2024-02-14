@@ -24,7 +24,7 @@ public class GridSetManager : MonoBehaviour
         SetCursor();
         if (Input.GetMouseButtonDown(0))
         {
-           SetBuilding(_testObj);
+           SetBuilding(BuildingType.Test);
         }
     }
     
@@ -40,14 +40,14 @@ public class GridSetManager : MonoBehaviour
             _cursorObj.transform.position = gridPos;
         }
     }
-
+ 
     /// <summary>
     /// 引き数のオブジェクトを配置する
     /// </summary>
     /// <param name="building"></param>
-    public void SetBuilding(GameObject building)
+    public void SetBuilding(BuildingType buildingType)
     {
-        var obj = Instantiate(building);
+        var obj = Instantiate(GetBuildingPrefab(buildingType));
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out var hit))
         {
@@ -58,6 +58,23 @@ public class GridSetManager : MonoBehaviour
             }
             obj.transform.position = gridPos;
             _gridList.Add(gridPos);
+        }
+    }
+
+    /// <summary>
+    /// 指定した
+    /// </summary>
+    /// <param name="buildingType"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    private GameObject GetBuildingPrefab(BuildingType buildingType)
+    {
+        switch (buildingType)
+        {
+            case BuildingType.Test:
+                return _testObj;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(buildingType), buildingType, null);
         }
     }
 }
