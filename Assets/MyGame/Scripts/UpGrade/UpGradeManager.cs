@@ -29,10 +29,10 @@ public class UpGradeManager : MonoBehaviour
     public void AddUpGradeDictionary(UpGradeData data, bool flag)
     {
         var upGradeCurrentData = new UpGradeCurrentData();
-        upGradeCurrentData.baseData = data;
-        upGradeCurrentData.targetFacilityType = data.TargetFacilityType;
-        upGradeCurrentData.isUsed = flag;
-        upGradeCurrentData.magnificationRate = data.MagnificationRate;
+        upGradeCurrentData.BaseData = data;
+        upGradeCurrentData.TargetFacilityType = data.TargetFacilityType;
+        upGradeCurrentData.IsUsed = flag;
+        upGradeCurrentData.MagnificationRate = data.MagnificationRate;
         _upGradeDictionary.Add((int)data.TargetFacilityType, upGradeCurrentData);
     }
 
@@ -50,7 +50,7 @@ public class UpGradeManager : MonoBehaviour
         }
 
         var upGradeCurrentData = _upGradeDictionary[(int)type];
-        upGradeCurrentData.isUsed = flag;
+        upGradeCurrentData.IsUsed = flag;
     }
 
     /// <summary>現在のアップグレードの合計倍率を算出します</summary>
@@ -61,9 +61,9 @@ public class UpGradeManager : MonoBehaviour
 
         foreach (var value in _upGradeDictionary.Values)
         {
-            if (value.isUsed)
+            if (value.IsUsed)
             {
-                mul *= value.magnificationRate;
+                mul *= value.MagnificationRate;
             }
         }
 
@@ -76,14 +76,14 @@ public class UpGradeManager : MonoBehaviour
 public class UpGradeCurrentData
 {
     /// <summary>アップグレードの基本データ</summary>
-    public UpGradeData baseData;
+    public UpGradeData BaseData;
 
     /// <summary>アップグレードの効果対象の施設</summary>
-    public UpGradeData.TargetFacility targetFacilityType;
+    public UpGradeData.TargetFacility TargetFacilityType;
 
     /// <summary>アップグレードの現在のフラグ</summary>
-    public bool isUsed;
+    public bool IsUsed;
 
     /// <summary>アップグレードの現在の倍率</summary>
-    public float magnificationRate;
+    public float MagnificationRate;
 }

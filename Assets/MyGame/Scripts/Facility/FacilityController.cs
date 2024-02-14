@@ -21,15 +21,15 @@ public class FacilityController : MonoBehaviour
 
 #if UNITY_EDITOR
             Debug.Log($"施設の種類 : {data.FacilityType}\n" +
-                      $"施設の数 : {_facilityManager.FacilityDictionary[(int)data.FacilityType].count}\n" +
-                      $"施設の生産量 : {_facilityManager.FacilityDictionary[(int)data.FacilityType].producePower}\n" +
+                      $"施設の数 : {_facilityManager.FacilityDictionary[(int)data.FacilityType].Count}\n" +
+                      $"施設の生産量 : {_facilityManager.FacilityDictionary[(int)data.FacilityType].ProducePower}\n" +
                       $"施設の合計生産量 : {_facilityManager.SumTotalProducePower()}");
 #endif
         }
         else
         {
             // 有れば
-            int count = _facilityManager.FacilityDictionary[(int)data.FacilityType].count;
+            int count = _facilityManager.FacilityDictionary[(int)data.FacilityType].Count;
             count += 1;
             _facilityManager.SetFacilityDictionaryCount(data.FacilityType, count);
             _facilityManager.SetFacilityDictionaryProducePower(data.FacilityType,
@@ -38,8 +38,8 @@ public class FacilityController : MonoBehaviour
 
 #if UNITY_EDITOR
             Debug.Log($"施設の種類 : {data.FacilityType}\n" +
-                      $"施設の数 : {_facilityManager.FacilityDictionary[(int)data.FacilityType].count}\n" +
-                      $"施設の生産量 : {_facilityManager.FacilityDictionary[(int)data.FacilityType].producePower}\n" +
+                      $"施設の数 : {_facilityManager.FacilityDictionary[(int)data.FacilityType].Count}\n" +
+                      $"施設の生産量 : {_facilityManager.FacilityDictionary[(int)data.FacilityType].ProducePower}\n" +
                       $"施設の合計生産量 : {_facilityManager.SumTotalProducePower()}");
 #endif
         }

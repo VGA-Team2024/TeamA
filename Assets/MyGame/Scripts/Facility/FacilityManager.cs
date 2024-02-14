@@ -46,9 +46,9 @@ public class FacilityManager : PowerProviderBase
     public void AddFacilityDictionary(FacilityData data, int count)
     {
         var facilityCurrentData = new FacilityCurrentData();
-        facilityCurrentData.baseData = data;
-        facilityCurrentData.count = count;
-        facilityCurrentData.producePower = (decimal)data.BaseProducePower * count;
+        facilityCurrentData.BaseData = data;
+        facilityCurrentData.Count = count;
+        facilityCurrentData.ProducePower = (decimal)data.BaseProducePower * count;
         FacilityDictionary.Add((int)data.FacilityType, facilityCurrentData);
     }
 
@@ -66,7 +66,7 @@ public class FacilityManager : PowerProviderBase
         }
 
         var facilityCurrentData = _facilityDictionary[(int)type];
-        facilityCurrentData.count = count;
+        facilityCurrentData.Count = count;
     }
 
     /// <summary>引数の施設の種類の現在の生産量を変更できます</summary>
@@ -83,7 +83,7 @@ public class FacilityManager : PowerProviderBase
         }
 
         var facilityCurrentData = _facilityDictionary[(int)type];
-        facilityCurrentData.producePower = producePower;
+        facilityCurrentData.ProducePower = producePower;
     }
 
     public void SetFacilityDictionaryProducePower(int type, decimal producePower)
@@ -97,7 +97,7 @@ public class FacilityManager : PowerProviderBase
         }
 
         var facilityCurrentData = _facilityDictionary[type];
-        facilityCurrentData.producePower = producePower;
+        facilityCurrentData.ProducePower = producePower;
     }
 
     /// <summary>引数の施設の現在の生産量を算出します</summary>
@@ -109,7 +109,7 @@ public class FacilityManager : PowerProviderBase
 
         if (_facilityDictionary.ContainsKey((int)data.FacilityType))
         {
-            mul *= _facilityDictionary[(int)data.FacilityType].count;
+            mul *= _facilityDictionary[(int)data.FacilityType].Count;
         }
 
         if (_upGradeManager.UpGradeDictionary.ContainsKey((int)data.FacilityType))
@@ -120,7 +120,7 @@ public class FacilityManager : PowerProviderBase
         // 32 : All
         if (_upGradeManager.UpGradeDictionary.TryGetValue(32, out var value))
         {
-            mul *= (decimal)value.magnificationRate;
+            mul *= (decimal)value.MagnificationRate;
         }
 
         return mul;
@@ -128,11 +128,11 @@ public class FacilityManager : PowerProviderBase
 
     public decimal CalculateProducePower(int type)
     {
-        var mul = (decimal)_facilityDictionary[type].baseData.BaseProducePower;
+        var mul = (decimal)_facilityDictionary[type].BaseData.BaseProducePower;
 
         if (_facilityDictionary.ContainsKey(type))
         {
-            mul *= _facilityDictionary[type].count;
+            mul *= _facilityDictionary[type].Count;
         }
 
         if (_upGradeManager.UpGradeDictionary.ContainsKey(type))
@@ -143,7 +143,7 @@ public class FacilityManager : PowerProviderBase
         // 32 : All
         if (_upGradeManager.UpGradeDictionary.TryGetValue(32, out var value))
         {
-            mul *= (decimal)value.magnificationRate;
+            mul *= (decimal)value.MagnificationRate;
         }
 
         return mul;
@@ -157,7 +157,7 @@ public class FacilityManager : PowerProviderBase
 
         foreach (var value in _facilityDictionary.Values)
         {
-            _currentTotalProducePower.Value += value.producePower;
+            _currentTotalProducePower.Value += value.ProducePower;
         }
 
         return _currentTotalProducePower.Value;
@@ -169,11 +169,11 @@ public class FacilityManager : PowerProviderBase
 public class FacilityCurrentData
 {
     /// <summary>施設の基本データ</summary>
-    public FacilityData baseData;
+    public FacilityData BaseData;
 
     /// <summary>施設の現在の数</summary>
-    public int count;
+    public int Count;
 
     /// <summary>施設の現在の生産量</summary>
-    public decimal producePower;
+    public decimal ProducePower;
 }

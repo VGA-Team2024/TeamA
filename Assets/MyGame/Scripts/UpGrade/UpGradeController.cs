@@ -24,8 +24,8 @@ public class UpGradeController : MonoBehaviour
 #if UNITY_EDITOR
             // なんか計算順序が違う？
             Debug.Log($"アップグレードの種類 : {data.UpGradeType}\n" +
-                      $"アップグレードの数 : {_upGradeManager.UpGradeDictionary[(int)data.TargetFacilityType].isUsed}\n" +
-                      $"アップグレードの生産量 : {_upGradeManager.UpGradeDictionary[(int)data.TargetFacilityType].magnificationRate}\n" +
+                      $"アップグレードの数 : {_upGradeManager.UpGradeDictionary[(int)data.TargetFacilityType].IsUsed}\n" +
+                      $"アップグレードの生産量 : {_upGradeManager.UpGradeDictionary[(int)data.TargetFacilityType].MagnificationRate}\n" +
                       $"施設の合計生産量 : {_facilityManager.SumTotalProducePower()}");
 #endif
         }
@@ -40,8 +40,8 @@ public class UpGradeController : MonoBehaviour
 
 #if UNITY_EDITOR
             Debug.Log($"アップグレードの種類 : {data.UpGradeType}\n" +
-                      $"アップグレードのフラグ : {_upGradeManager.UpGradeDictionary[(int)data.TargetFacilityType].isUsed}\n" +
-                      $"アップグレードの倍率 : {_upGradeManager.UpGradeDictionary[(int)data.TargetFacilityType].magnificationRate}\n" +
+                      $"アップグレードのフラグ : {_upGradeManager.UpGradeDictionary[(int)data.TargetFacilityType].IsUsed}\n" +
+                      $"アップグレードの倍率 : {_upGradeManager.UpGradeDictionary[(int)data.TargetFacilityType].MagnificationRate}\n" +
                       $"施設の合計生産量 : {_facilityManager.SumTotalProducePower()}");
 #endif
         }
