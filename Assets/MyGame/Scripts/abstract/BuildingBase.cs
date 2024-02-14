@@ -9,15 +9,24 @@ public abstract class BuildingBase : MonoBehaviour
 {
     [SerializeField , Header("建物データ")] private BuildingData _buildingData;
     [SerializeField, Header("大工の設置判定をとる")] private Collider _buildingTrigger;
-    
+
+    #region 公開箇所
+
     /// <summary>
     /// 建物のデータ
     /// </summary>
     public BuildingData BuildingData => _buildingData;
+    
     /// <summary>
     /// 建設が完了した際に呼び出される
     /// </summary>
     public event Action OnBuildingComplete ;
+    
+    /// <summary>
+    /// クリックイベント
+    /// </summary>
+    public abstract void OnClick();
+    
     /// <summary>
     /// 初期化
     /// </summary>
@@ -28,8 +37,10 @@ public abstract class BuildingBase : MonoBehaviour
         _currentBuildTime = 0;
     }
 
-    
-    public abstract void OnClick();
+    #endregion
+
+
+    #region 施設実装部分
     
     private bool _isBuilding;
     private bool _isActivate;
@@ -94,4 +105,5 @@ public abstract class BuildingBase : MonoBehaviour
         // _isActivate = false;
         // _currentBuildTime = 0;
     }
+    #endregion
 }
