@@ -27,11 +27,11 @@ public class TestUI : MonoBehaviour
         _resourceText.text = currentResource.ToString(".00");
     }
 
-    private void ExpressFacilityPower(float currentFacilityPower)
+    private void ExpressFacilityPower(decimal currentFacilityPower)
     {
         _facilityPowerText.text = currentFacilityPower.ToString(".00");
     }
-    private void ExpressClickPower(float currentClickPower)
+    private void ExpressClickPower(decimal currentClickPower)
     {
         _clickPowerText.text = currentClickPower.ToString(".00");
     }
