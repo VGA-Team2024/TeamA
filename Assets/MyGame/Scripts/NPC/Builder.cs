@@ -13,6 +13,7 @@ public class Builder : MonoBehaviour
     [SerializeField] Transform _target; 
     [SerializeField] NavMeshAgent _agent;
     private BuilderState _state = BuilderState.Idle;
+    private Queue<Transform> _targets = new Queue<Transform>();
     
     public enum BuilderState
     {
@@ -29,13 +30,17 @@ public class Builder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_state == BuilderState.Building || _state == BuilderState.Idle) return;
+        if (_targets.Count > 0 && _state == BuilderState.Idle)
+        {
+            _target = _targets.Dequeue();
+            _state = BuilderState.Moving;
+        }
         _agent.SetDestination(_target.position);
     }
     
-    public void SetTarget(Transform target)
+    public void AddTarget(Transform target)
     {
-        _target = target;
+        _targets.Enqueue(target);
     }
 
     private void OnCollisionEnter(Collision other)

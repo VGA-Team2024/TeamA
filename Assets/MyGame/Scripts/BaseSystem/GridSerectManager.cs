@@ -96,7 +96,7 @@ public class GridSerectManager : MonoBehaviour
         obj.transform.position = _currentCursorPos;
         _gridList.Add(_currentCursorPos);
         
-        FindObjectOfType<Builder>().SetTarget(obj.transform);
+        FindObjectOfType<Builder>().AddTarget(obj.transform);
     }
 
     /// <summary>
