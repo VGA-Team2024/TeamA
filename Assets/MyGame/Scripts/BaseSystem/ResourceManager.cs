@@ -9,8 +9,8 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
     [SerializeField , Header("生産力を実装するクラス")] private PowerProviderBase _powerProvider　;
     
     private decimal _currentResources;
-    private float _currentFacilityPower;
-    private float _currentClickPower;
+    private decimal _currentFacilityPower;
+    private decimal _currentClickPower;
 
     /// <summary>
     ///     現在のリソース値が変更された場合に呼ばれる
@@ -20,12 +20,12 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
     /// <summary>
     ///     現在のリソース生成量が変更された場合に呼ばれる
     /// </summary>
-    public static Action<float> OnFacilityPowerChanged;
+    public static Action<decimal> OnFacilityPowerChanged;
 
     /// <summary>
     ///     現在のリソース生成量が変更された場合に呼ばれる
     /// </summary>
-    public static Action<float> OnClickPowerChanged;
+    public static Action<decimal> OnClickPowerChanged;
     
     /// <summary>
     ///     現在リソース量プロパティ
@@ -43,7 +43,7 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
     /// <summary>
     /// 現在の生産力のプロパティ
     /// </summary>
-    public float CurrentFacilityPower
+    public decimal CurrentFacilityPower
     {
         get => _currentFacilityPower;
         private set
@@ -56,7 +56,7 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
     /// <summary>
     ///     現在の１クリック生産力のプロパティ
     /// </summary>
-    public float CurrentClickPower
+    public decimal CurrentClickPower
     {
         get => _currentClickPower;
         private set
@@ -70,7 +70,7 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
     /// </summary>
     private void FixedUpdate()
     {
-        CurrentResources += (decimal)(_currentFacilityPower * Time.fixedDeltaTime);
+        CurrentResources += _currentFacilityPower * (decimal)Time.fixedDeltaTime;
     }
 
     protected override void OnAwake()
