@@ -14,10 +14,10 @@ using UnityEngine;
 public class GridSerectManager : MonoBehaviour
 {
     [SerializeField,Header("グリッドのサイズ")] Vector2Int _gridSize;
-    private List<Vector3> _gridList = new List<Vector3>();
     [SerializeField, Header("カーソル用のオブジェクト")] private GameObject _cursorObj;
     [SerializeField] private GameObject _testObj;
     [SerializeField] private SelectType _selectType = SelectType.SetBuildingMode;
+    private List<Vector3> _gridList = new List<Vector3>();
     private Vector3 _currentCursorPos;
     
     public enum  SelectType
