@@ -17,7 +17,8 @@ public class GridSerectManager : MonoBehaviour
     private List<Vector3> _gridList = new List<Vector3>();
     [SerializeField, Header("カーソル用のオブジェクト")] private GameObject _cursorObj;
     [SerializeField] private GameObject _testObj;
-    private SelectType _selectType;
+    private SelectType _selectType = SelectType.SetBuildingMode;
+    private Vector3 _currentCursorPos;
     
     public enum  SelectType
     {
@@ -42,17 +43,16 @@ public class GridSerectManager : MonoBehaviour
     private void Update()
     {
         MoveCursor();
-        
+
         if (Input.GetMouseButtonDown(0))
         {
             if (_selectType == SelectType.SetBuildingMode)
             {
                 SetBuilding(BuildingType.Test);
-                
             }
             else if (_selectType == SelectType.SelectBuildingMode)
             {
-                 
+                SelectBuilding();
             }
         }
     }
@@ -66,7 +66,17 @@ public class GridSerectManager : MonoBehaviour
         if (Physics.Raycast(ray, out var hit))
         {
             var gridPos = new Vector3(Mathf.Floor(hit.point.x), 0, Mathf.Floor(hit.point.z));
+            _currentCursorPos = gridPos;
             _cursorObj.transform.position = gridPos;
+        }
+    }
+    
+    private void SelectBuilding()
+    {
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out var hit))
+        {
+            hit.collider.gameObject.GetComponent<BuildingBase>()?.OnClick();
         }
     }
  
@@ -77,17 +87,14 @@ public class GridSerectManager : MonoBehaviour
     public void SetBuilding(BuildingType buildingType)
     {
         var obj = Instantiate(GetBuildingPrefab(buildingType));
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out var hit))
+        if (_gridList.Contains(_currentCursorPos))
         {
-            var gridPos = new Vector3(Mathf.Floor(hit.point.x), 0, Mathf.Floor(hit.point.z));
-            if (_gridList.Contains(gridPos))
-            {
-                Debug.LogWarning("すでに建物があります。");
-            }
-            obj.transform.position = gridPos;
-            _gridList.Add(gridPos);
+            Debug.LogWarning("すでに建物があります。");
+            return;
         }
+
+        obj.transform.position = _currentCursorPos;
+        _gridList.Add(_currentCursorPos);
     }
 
     /// <summary>
@@ -103,7 +110,7 @@ public class GridSerectManager : MonoBehaviour
             case BuildingType.Test:
                 return _testObj;
             default:
-                throw new ArgumentOutOfRangeException(nameof(buildingType), buildingType, null);
+                return _testObj;
         }
     }
 }
