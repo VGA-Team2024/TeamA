@@ -17,7 +17,7 @@ public class GridSerectManager : MonoBehaviour
     private List<Vector3> _gridList = new List<Vector3>();
     [SerializeField, Header("カーソル用のオブジェクト")] private GameObject _cursorObj;
     [SerializeField] private GameObject _testObj;
-    private SelectType _selectType = SelectType.SetBuildingMode;
+    [SerializeField] private SelectType _selectType = SelectType.SetBuildingMode;
     private Vector3 _currentCursorPos;
     
     public enum  SelectType
@@ -95,6 +95,8 @@ public class GridSerectManager : MonoBehaviour
 
         obj.transform.position = _currentCursorPos;
         _gridList.Add(_currentCursorPos);
+        
+        FindObjectOfType<Builder>().SetTarget(obj.transform);
     }
 
     /// <summary>
