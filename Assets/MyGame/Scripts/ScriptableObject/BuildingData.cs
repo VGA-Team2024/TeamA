@@ -1,8 +1,10 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-// 作成 : 五島
+
 /// <summary>施設の基本データの設定をします</summary>
-[System.Serializable]
+[System.Serializable , CustomData]
 [CreateAssetMenu(fileName = "BuildingData", menuName = "CreateBuildingData")]
 public class BuildingData : ScriptableObject
 {
@@ -24,7 +26,9 @@ public class BuildingData : ScriptableObject
 
     public float BuildTime => _buildTime;
 }
+
 /// <summary>施設の種類</summary>
+[MyEnumCustom]
 public enum BuildingType
 {
     BaseCamp = 0,
@@ -32,4 +36,10 @@ public enum BuildingType
     Barrack = 2,
     Mine = 3,
     Test = 4,
+}
+
+[MyEnumCustom]
+public enum TesTes
+{
+    aaaaa = 0,
 }
