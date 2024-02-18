@@ -68,7 +68,7 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
     }
     
     /// <summary>
-    /// 建築する。
+    /// 建築が終了した際に呼び出される　。
     /// </summary>
     public void RegisterBuilding(BuildingBase building)
     {
@@ -80,8 +80,6 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
         UpdateBuildings();
     }
     
-
-
     /// <summary>
     /// 建築物リストに変更があった際に呼び出す。
     /// </summary>
