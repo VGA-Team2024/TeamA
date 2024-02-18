@@ -6,9 +6,6 @@ public class BuildlingManager : SingletonMonoBehavior<BuildlingManager>
 {
     [SerializeField] private ResourceManager _resourceManager;
     [SerializeField] private BuildingDataSet _buildingDataSet;
-    /// <summary>
-    /// TODO インスタンス化されてないからどうする
-    /// </summary>
     private readonly List<BuildingBase> _buildingList = new ();
     /// <summary>
     /// アクセス用
@@ -42,7 +39,10 @@ public class BuildlingManager : SingletonMonoBehavior<BuildlingManager>
         _buildingList.Add(building);
         return building;
     }
-    
+    /// <summary>
+    /// 建築する。
+    /// </summary>
+    /// <param name="building"></param>
     public void Build(BuildingBase building)
     {
         _resourceManager.TryUseResources(_buildingPrices[building.BuildingType]);
