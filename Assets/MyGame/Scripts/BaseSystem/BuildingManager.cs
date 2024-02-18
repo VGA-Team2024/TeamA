@@ -62,21 +62,21 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
     /// </summary>
     public BuildingBase InstantiateBuilding(BuildingType buildingType , Transform parentTransform)
     {
-        var building = Instantiate(_buildingDataSet.Buildings[(int)buildingType].Building , parentTransform);
-        return building;
+        //先にリソースを消費する
+        _resourceManager.UseResources(_buildingPrices[buildingType]);
+        return Instantiate(_buildingDataSet.Buildings[(int)buildingType].BuildingBase , parentTransform);
     }
     
     /// <summary>
     /// 建築する。
     /// </summary>
-    public void Build(BuildingBase building)
+    public void RegisterBuilding(BuildingBase building)
     {
         if (_buildingList[building.BuildingType] == null)
         {
             _buildingList[building.BuildingType] = new List<BuildingBase>();
         }
         _buildingList[building.BuildingType].Add(building);
-        _resourceManager.TryUseResources(_buildingPrices[building.BuildingType]);
         UpdateBuildings();
     }
     

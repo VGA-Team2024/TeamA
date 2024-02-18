@@ -94,7 +94,7 @@ public abstract class BuildingBase : MonoBehaviour
                 {
                     Debug.Log("建設終了");
                     OnBuildingComplete?.Invoke();
-                    BuildingManager.Instance.Build(this);
+                    BuildingManager.Instance.RegisterBuilding(this);
                     _isActivate = true;
                 }
             }

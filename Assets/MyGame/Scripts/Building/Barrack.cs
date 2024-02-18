@@ -20,8 +20,9 @@ public class Barrack : BuildingBase
             Debug.Log("もう作成できません");
             return;
         }
-        if (_resourceManager.TryUseResources(_cost))
+        if (_resourceManager.IsUseResources(_cost))
         {
+            _resourceManager.UseResources(_cost);
             //兵士の生成
             var soldier = Instantiate(_soldier , transform.position + transform.forward , Quaternion.identity  , transform);
             //TODO 兵士プレハブの目的地を設定したい。

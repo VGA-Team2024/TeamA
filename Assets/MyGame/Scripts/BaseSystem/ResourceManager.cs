@@ -76,21 +76,24 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
     }
     
     /// <summary>
+    /// 購入できるかの確認。
+    /// </summary>
+    public bool IsUseResources(float gold)
+    {
+        return CurrentResources >= gold;
+    }
+    
+    /// <summary>
     /// リソースを消費する。
     /// </summary>
-    /// <param name="gold"></param>
-    public bool TryUseResources(float gold)
+    public void UseResources(float gold)
     {
-        if (CurrentResources >= gold)
+        if (CurrentResources < gold)
         {
-            CurrentResources -= gold;
-            return true;
+            Debug.LogWarning("gold不足です");
+            return;
         }
-        else
-        {
-            Debug.Log("gold不足で買えませんでした");
-            return false;
-        }
+        CurrentResources -= gold;
     }
 
     private void Start()
