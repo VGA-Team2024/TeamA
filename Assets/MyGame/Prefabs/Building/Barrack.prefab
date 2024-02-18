@@ -303,3 +303,5 @@ MonoBehaviour:
   _buildingCollider: {fileID: 2612878911859580253}
   _buildingData: {fileID: 11400000, guid: 0b3bf60e0de233c44bbe3ec84f558d87, type: 2}
   _buildingTimeText: {fileID: 7415861450730561492}
+  _soldier: {fileID: 298937304039318979, guid: 42de8619afb4d7648bbe42d23b6ba89e, type: 3}
+  _cost: 100
