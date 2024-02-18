@@ -20,6 +20,12 @@ public abstract class BuildingBase : MonoBehaviour
     public float BuildingRadius => _buildingCollider.radius;
     
     /// <summary>
+    /// 建物の位置
+    /// </summary>
+    public Vector3 Position => transform.position;
+    
+    
+    /// <summary>
     /// 建物のタイプ
     /// </summary>
     public BuildingType BuildingType => _buildingData.BuildingType;
