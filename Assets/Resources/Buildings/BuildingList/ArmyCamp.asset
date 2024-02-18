@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: ArmyCamp
   m_EditorClassIdentifier: 
   _buildingType: 1
-  _building: {fileID: 4731060776003448096, guid: 7c90f2ae7f959b240b84ad89c53d937f, type: 3}
+  _building: {fileID: 4240995174487479664, guid: 5a4a55c49a39ef145ba5fc3117c526b0, type: 3}
   _name: "\u30A2\u30FC\u30DF\u30FC\u30AD\u30E3\u30F3\u30D7"
   _price: 1000
   _maxAmount: 5
-  _buildTime: 60
+  _buildTime: 5

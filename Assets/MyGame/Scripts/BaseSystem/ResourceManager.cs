@@ -6,17 +6,26 @@ using Object = UnityEngine.Object;
 
 public class ResourceManager : SingletonMonoBehavior<ResourceManager>
 {
+    [SerializeField] private float _defaultResources;
     private float _currentResources;
     private int _currentUnitsCount;
+    private int _maxUnitCount;
 
     /// <summary>
     ///     現在のリソース値が変更された場合に呼ばれる
     /// </summary>
     public static Action<float> OnResourceChanged;
+    
     /// <summary>
     ///     現在のユニット(兵士数)が変更された場合に呼ばれる
     /// </summary>
     public static Action<int> OnUnitChanged;
+    
+    /// <summary>
+    ///     現在のユニット(兵士数)の最大数が変更された場合に呼ばれる
+    /// </summary>
+    public static Action<int> OnMaxUnitChanged;
+    
     
     /// <summary>
     ///     現在リソース量プロパティ
@@ -45,6 +54,19 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
     }
     
     /// <summary>
+    ///     現在ユニット数プロパティ
+    /// </summary>
+    public int MaxUnitCount
+    {
+        get => _maxUnitCount;
+        private set
+        {
+            OnMaxUnitChanged?.Invoke(value);
+            _maxUnitCount = value;
+        }
+    }
+    
+    /// <summary>
     /// リソースを追加する
     /// </summary>
     /// <param name="gold"></param>
@@ -66,11 +88,17 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
         }
         else
         {
-            Debug.LogWarning("gold不足で買えませんでした");
+            Debug.Log("gold不足で買えませんでした");
             return false;
         }
     }
-    
+
+    private void Start()
+    {
+        BuildingManager.Instance.MaxUnit.Subscribe(x => MaxUnitCount = x).AddTo(this); 
+        CurrentResources = _defaultResources;
+    }
+
     /// <summary>
     /// ユニットを追加する
     /// </summary>

@@ -303,3 +303,4 @@ MonoBehaviour:
   _buildingCollider: {fileID: 2612878911859580253}
   _buildingData: {fileID: 11400000, guid: 089bcf7af5c4e2740b30f09f31e41f73, type: 2}
   _buildingTimeText: {fileID: 7415861450730561492}
+  _maxUnit: 50
