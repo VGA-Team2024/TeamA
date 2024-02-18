@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de4197db6bbad4d4b914d38fcbe608dd, type: 3}
-  m_Name: BuildingData 2
+  m_Name: ArmyCamp
   m_EditorClassIdentifier: 
-  _buildingType: 2
-  _name: "\u5175\u820E"
+  _buildingType: 1
+  _building: {fileID: 4731060776003448096, guid: 7c90f2ae7f959b240b84ad89c53d937f, type: 3}
+  _name: "\u30A2\u30FC\u30DF\u30FC\u30AD\u30E3\u30F3\u30D7"
   _price: 1000
-  _maxAmount: 1
-  _buildTime: 300
+  _maxAmount: 5
+  _buildTime: 60

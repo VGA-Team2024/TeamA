@@ -9,7 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb778e51bfcb19d4b8bb7f1e43a7d4dd, type: 3}
-  m_Name: builds
+  m_Script: {fileID: 11500000, guid: de4197db6bbad4d4b914d38fcbe608dd, type: 3}
+  m_Name: Barrack
   m_EditorClassIdentifier: 
-  Buildings: []
+  _buildingType: 2
+  _building: {fileID: 4731060776003448096, guid: 7c90f2ae7f959b240b84ad89c53d937f, type: 3}
+  _name: "\u5175\u820E"
+  _price: 1000
+  _maxAmount: 1
+  _buildTime: 300

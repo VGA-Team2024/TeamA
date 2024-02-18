@@ -5,14 +5,20 @@ using UnityEngine;
 public class BuildlingManager : SingletonMonoBehavior<BuildlingManager>
 {
     [SerializeField] private ResourceManager _resourceManager;
+    [SerializeField] private BuildingDataSet _buildingDataSet;
     /// <summary>
     /// TODO インスタンス化されてないからどうする
     /// </summary>
-    [SerializeField] private List<BuildingBase> _buildingList;
-    private readonly Dictionary<BuildingType, float> _buildingPrices = new();
+    private readonly List<BuildingBase> _buildingList = new ();
+    /// <summary>
+    /// アクセス用
+    /// </summary>
+    private static readonly Dictionary<BuildingType, float> _buildingPrices = new();
+    private static readonly Dictionary<BuildingType, int> _maxBuildingStocks = new();
+    /// <summary>
+    /// 現在の施設保持数
+    /// </summary>
     private readonly Dictionary<BuildingType, int> _currentBuildingStocks = new();
-    private readonly Dictionary<BuildingType, int> _maxBuildingStocks = new();
-
     protected override void OnAwake()
     {
         InitializeDictionary();
@@ -27,11 +33,20 @@ public class BuildlingManager : SingletonMonoBehavior<BuildlingManager>
                _currentBuildingStocks[buildingType] < _maxBuildingStocks[buildingType];
     }
 
-    public void Build(BuildingType buildingType)
+    /// <summary>
+    /// 建物を呼び出す。
+    /// </summary>
+    public BuildingBase InstantiateBuilding(BuildingType buildingType , Transform parentTransform)
     {
-        _resourceManager.TryUseResources(_buildingPrices[buildingType]);
-        _currentBuildingStocks[buildingType]++;
-        
+        var building = Instantiate(_buildingDataSet.Buildings[(int)buildingType].Building , parentTransform);
+        _buildingList.Add(building);
+        return building;
+    }
+    
+    public void Build(BuildingBase building)
+    {
+        _resourceManager.TryUseResources(_buildingPrices[building.BuildingType]);
+        _currentBuildingStocks[building.BuildingType]++;
     }
 
     /// <summary>
@@ -39,12 +54,11 @@ public class BuildlingManager : SingletonMonoBehavior<BuildlingManager>
     /// </summary>
     private void InitializeDictionary()
     {
-        foreach (var building in _buildingList)
+        foreach (var buildingData in _buildingDataSet.Buildings)
         {
-            var data = building.BuildingData;
-            _currentBuildingStocks.Add(data.BuildingType, 0);
-            _maxBuildingStocks.Add(data.BuildingType, data.MaxAmount);
-            _buildingPrices.Add(data.BuildingType, data.Price);
+            _currentBuildingStocks.Add(buildingData.BuildingType, 0);
+            _maxBuildingStocks.Add(buildingData.BuildingType, buildingData.MaxAmount);
+            _buildingPrices.Add(buildingData.BuildingType, buildingData.Price);
         }
         //ベースキャンプを追加
         _currentBuildingStocks[BuildingType.BaseCamp]++;

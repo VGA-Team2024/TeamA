@@ -9,12 +9,15 @@ using UnityEngine;
 public class BuildingData : ScriptableObject
 {
     [SerializeField, Header("種類")]　private BuildingType _buildingType = 0;
+    [SerializeField, Header("設置するプレハブ")] private BuildingBase _building;
     [SerializeField, Header("名前")] private string _name = "";
     [SerializeField, Header("値段")] private int _price = 10;
     [SerializeField, Header("設置上限")] private int _maxAmount;
     [SerializeField, Header("建設時間")] private float _buildTime;
     /// <summary>種類</summary>
     public BuildingType BuildingType => _buildingType;
+    /// <summary>設置するプレハブ</summary>
+    public BuildingBase Building => _building;
     /// <summary>名前</summary>
     public string Name => _name;
 
