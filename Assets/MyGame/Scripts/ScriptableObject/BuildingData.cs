@@ -1,18 +1,23 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-// 作成 : 五島
+
 /// <summary>施設の基本データの設定をします</summary>
-[System.Serializable]
+[System.Serializable , CustomData]
 [CreateAssetMenu(fileName = "BuildingData", menuName = "CreateBuildingData")]
 public class BuildingData : ScriptableObject
 {
     [SerializeField, Header("種類")]　private BuildingType _buildingType = 0;
+    [SerializeField, Header("設置するプレハブ")] private BuildingBase _building;
     [SerializeField, Header("名前")] private string _name = "";
     [SerializeField, Header("値段")] private int _price = 10;
     [SerializeField, Header("設置上限")] private int _maxAmount;
     [SerializeField, Header("建設時間")] private float _buildTime;
     /// <summary>種類</summary>
     public BuildingType BuildingType => _buildingType;
+    /// <summary>設置するプレハブ</summary>
+    public BuildingBase Building => _building;
     /// <summary>名前</summary>
     public string Name => _name;
 
@@ -24,7 +29,9 @@ public class BuildingData : ScriptableObject
 
     public float BuildTime => _buildTime;
 }
+
 /// <summary>施設の種類</summary>
+[MyEnumCustom]
 public enum BuildingType
 {
     BaseCamp = 0,
@@ -32,4 +39,10 @@ public enum BuildingType
     Barrack = 2,
     Mine = 3,
     Test = 4,
+}
+
+[MyEnumCustom]
+public enum TesTes
+{
+    aaaaa = 0,
 }

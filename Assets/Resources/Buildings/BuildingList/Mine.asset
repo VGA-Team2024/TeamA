@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de4197db6bbad4d4b914d38fcbe608dd, type: 3}
+  m_Name: Mine
+  m_EditorClassIdentifier: 
+  _buildingType: 3
+  _building: {fileID: 4731060776003448096, guid: 7c90f2ae7f959b240b84ad89c53d937f, type: 3}
+  _name: "\u9271\u5C71"
+  _price: 1000
+  _maxAmount: 10
+  _buildTime: 5

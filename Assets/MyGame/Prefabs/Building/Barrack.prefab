@@ -1,84 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &435421163654028591
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5345989043569552280}
-  - component: {fileID: 425342695733888840}
-  - component: {fileID: 1646565925478819878}
-  m_Layer: 5
-  m_Name: CurrentGold
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &5345989043569552280
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 435421163654028591}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 3595525385381796452}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1}
-  m_SizeDelta: {x: 1, y: 1}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &425342695733888840
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 435421163654028591}
-  m_CullTransparentMesh: 1
---- !u!114 &1646565925478819878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 435421163654028591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.61259353, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 8
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 0
-    m_MaxSize: 231
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 1
-    m_VerticalOverflow: 1
-    m_LineSpacing: 1
-  m_Text: New Text
 --- !u!1 &755535335230315842
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +121,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4731060776003448096}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Mine, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -402,7 +323,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8788478706544556795}
-  - {fileID: 5345989043569552280}
   - {fileID: 5607040358416076892}
   m_Father: {fileID: 5708455064134684634}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -485,10 +405,10 @@ GameObject:
   - component: {fileID: 5708455064134684634}
   - component: {fileID: 5915648819405068593}
   - component: {fileID: 4249316494228999032}
-  - component: {fileID: 4731060776003448096}
   - component: {fileID: 2612878911859580253}
+  - component: {fileID: 5877666844082127281}
   m_Layer: 0
-  m_Name: MineBuilding
+  m_Name: Barrack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -538,7 +458,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 694800c87b3138849a9bc5a9d01ad3b9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -560,24 +480,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4731060776003448096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8726305659694749658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cb7d2b89e6bc8f4091b242e6ef87ba9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _buildingCollider: {fileID: 2612878911859580253}
-  _buildingData: {fileID: 11400000, guid: 42e30f9c0f6397e4c8f8510a7110102d, type: 2}
-  _buildingTimeText: {fileID: 7415861450730561492}
-  _goldText: {fileID: 1646565925478819878}
-  _generateGold: 500
-  _maxStorage: 1000
 --- !u!135 &2612878911859580253
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -599,3 +501,18 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5877666844082127281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8726305659694749658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf2e16153d2215b40a63a39b125cfb35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buildingCollider: {fileID: 2612878911859580253}
+  _buildingData: {fileID: 11400000, guid: 0b3bf60e0de233c44bbe3ec84f558d87, type: 2}
+  _buildingTimeText: {fileID: 7415861450730561492}

@@ -20,9 +20,9 @@ public abstract class BuildingBase : MonoBehaviour
     public float BuildingRadius => _buildingCollider.radius;
     
     /// <summary>
-    /// 建物のデータ
+    /// 建物のタイプ
     /// </summary>
-    public BuildingData BuildingData => _buildingData;
+    public BuildingType BuildingType => _buildingData.BuildingType;
     
     /// <summary>
     /// 建設が完了した際に呼び出される
