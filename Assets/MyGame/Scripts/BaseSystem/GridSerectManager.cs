@@ -16,6 +16,7 @@ public class GridSerectManager : MonoBehaviour
     [SerializeField,Header("グリッドのサイズ")] Vector2Int _gridSize;
     [SerializeField, Header("カーソル用のオブジェクト")] private GameObject _cursorObj;
     [SerializeField] private GameObject _testObj;
+    [SerializeField] private BuildingType _buildingType;
     [SerializeField] private SelectType _selectType = SelectType.SetBuildingMode;
     private List<Vector3> _gridList = new List<Vector3>();
     private Vector3 _currentCursorPos;
@@ -48,7 +49,7 @@ public class GridSerectManager : MonoBehaviour
         {
             if (_selectType == SelectType.SetBuildingMode)
             {
-                SetBuilding(BuildingType.Test);
+                SetBuilding(_buildingType);
             }
             else if (_selectType == SelectType.SelectBuildingMode)
             {
@@ -86,7 +87,7 @@ public class GridSerectManager : MonoBehaviour
     /// <param name="building"></param>
     public void SetBuilding(BuildingType buildingType)
     {
-        var obj = Instantiate(GetBuildingPrefab(buildingType));
+        var obj = Instantiate(BuildingManager.Instance.InstantiateBuilding(buildingType , transform ));
         if (_gridList.Contains(_currentCursorPos))
         {
             Debug.LogWarning("すでに建物があります。");

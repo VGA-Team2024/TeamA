@@ -24,6 +24,10 @@ public abstract class BuildingBase : MonoBehaviour
     /// </summary>
     public Vector3 Position => transform.position;
     
+    /// <summary>
+    /// 現在の建築状況
+    /// </summary>
+    public BuildingCondition CurrentCondition => _currentCondition;
     
     /// <summary>
     /// 建物のタイプ
@@ -40,35 +44,25 @@ public abstract class BuildingBase : MonoBehaviour
     /// </summary>
     public abstract void OnClick();
     
-    /// <summary>
-    /// 初期化
-    /// </summary>
-    public void Initialize()
-    {
-        _isBuilding = false;
-        _isActivate = false;
-        _currentBuildTime = 0;
-    }
 
     #endregion
 
 
     #region 施設実装部分
+
+    private BuildingCondition _currentCondition = new BuildingCondition();
     
-    private bool _isBuilding;
-    private bool _isActivate;
-    private float _currentBuildTime;
     protected abstract void OnStart();
     protected abstract void OnFixedUpdate();
     
     public void StartBuilding()
     {
         print("作業開始");
-        _isBuilding = true;
+        _currentCondition.IsBuilding = true;
     }
     public void EndBuilding()
     {
-        _isBuilding = false;
+        _currentCondition.IsBuilding = false;
     }
 
     private void Start()
@@ -79,23 +73,23 @@ public abstract class BuildingBase : MonoBehaviour
     private void FixedUpdate()
     {
         
-        if (_isActivate)
+        if (_currentCondition.IsActivate)
         {
             OnFixedUpdate();
         }
         else
         {
-            if (_isBuilding)
+            if (_currentCondition.IsBuilding)
             {
                 //建設する
-                _currentBuildTime += Time.fixedDeltaTime;
-                _buildingTimeText.text = (_buildingData.BuildTime - _currentBuildTime).ToString("0");
-                if (_currentBuildTime > _buildingData.BuildTime)
+                _currentCondition.CurrentBuildTime += Time.fixedDeltaTime;
+                _buildingTimeText.text = (_buildingData.BuildTime - _currentCondition.CurrentBuildTime).ToString("0");
+                if (_currentCondition.CurrentBuildTime > _buildingData.BuildTime)
                 {
                     Debug.Log("建設終了");
                     OnBuildingComplete?.Invoke();
                     BuildingManager.Instance.RegisterBuilding(this);
-                    _isActivate = true;
+                    _currentCondition.IsActivate = true;
                 }
             }
         }
@@ -103,17 +97,29 @@ public abstract class BuildingBase : MonoBehaviour
 
     private void OnSave()
     {
+        
         //下の状態を保存する
-        // _isBuilding = false;
-        // _isActivate = false;
-        // _currentBuildTime = 0;
+        // _currentCondition.IsBuilding = false;
+        // _currentCondition.IsActivate = false;
+        // _currentCondition.CurrentBuildTime = 0;
     }
     private void OnLoad()
     {
         //下の状態をロードする
-        // _isBuilding = false;
-        // _isActivate = false;
-        // _currentBuildTime = 0;
+        // _currentCondition.IsBuilding = false;
+        // _currentCondition.IsActivate = false;
+        // _currentCondition.CurrentBuildTime = 0;
     }
     #endregion
+}
+
+/// <summary>
+/// 現在の建築状況
+/// </summary>
+[Serializable]
+public class BuildingCondition
+{
+    public bool IsBuilding;
+    public bool IsActivate;
+    public float CurrentBuildTime;
 }
