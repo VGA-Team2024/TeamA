@@ -5,6 +5,8 @@ using UnityEditor;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Object = UnityEngine.Object;
+using ScriptableObject = UnityEngine.ScriptableObject;
 
 
 public class MakeDataSet : EditorWindow
@@ -125,7 +127,6 @@ public class MakeDataSet : EditorWindow
         }
         return enumTypesWithAttributes.ToArray();
     }
-    
     void ConvertResourceToScriptableObject()
     {
         if(_importPath == ""  || _exportPath == "")
@@ -140,17 +141,18 @@ public class MakeDataSet : EditorWindow
             return;
         }
         
-        // dataSetFieldのnull確認
-        FieldInfo[] dataSetFieldInfos = _dataSetType.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-        FieldInfo[] dataFieldInfos = _dataType.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-        
 
-        
         // TODO 様々なデータセットに対応させたい、inspector上で設定できるようにしたい
-        
+
         _dataList = ScriptableObject.CreateInstance(_dataSetType);
-        var loadData =  Resources.LoadAll(_importPath , _dataType);
-        
+        var guids =  AssetDatabase.FindAssets("t:scriptableObject", new[] { _importPath });
+        var assetPaths = guids.Select(AssetDatabase.GUIDToAssetPath).ToArray();
+        var loadData = assetPaths.Select(AssetDatabase.LoadAssetAtPath<ScriptableObject> ).ToArray();
+
+        // dataSetFieldのnull確認
+        FieldInfo[] dataSetFieldInfos = _dataList.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+        FieldInfo[] dataFieldInfos = _dataType.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+
         foreach (FieldInfo dataFieldInfo in dataFieldInfos)
         {
             // メンバ変数の型が Enum であるかを確認
@@ -169,14 +171,25 @@ public class MakeDataSet : EditorWindow
                 {
                     if (dataSetFieldInfo.FieldType.IsArray && dataSetFieldInfo.FieldType.GetElementType() == _dataType)
                     {
+                        
                         Debug.Log($"Data {_dataType} is used in field {dataSetFieldInfo.Name}");
                         loadData = loadData.OrderBy(x => dataFieldInfo.GetValue(x)).ToArray();
                         //TODO Object型からダウンキャストの仕方が分からない。
                         //TODO dataSetFieldInfo.FieldTypeでとれている型にキャストしたい。
                         //TODO この手法でキャストしてSetValueしても_dataListの中に保存されていない。
-                        dataSetFieldInfo.SetValue(_dataList , loadData as BuildingData[] );
-                            
+                        //var objectValue = dataSetFieldInfo.GetValue(_dataList);
+                        // foreach(var obj in objectValue )
+                        // {
+                        //     objectValue = loadData;
+                        // }
+                        //dataSetFieldInfo.SetValue(_dataList , exportData.ToArray() );
                         AssetDatabase.CreateAsset(_dataList, _exportPath + _exportName + ".asset");
+                        foreach (var o in loadData)
+                        {
+                            
+                            AssetDatabase.AddObjectToAsset(o , _dataList);
+                        }
+                        
                         AssetDatabase.SaveAssets();
                         AssetDatabase.Refresh();
                         Debug.Log("Resource files converted to ScriptableObject list.");

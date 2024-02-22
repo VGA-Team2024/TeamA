@@ -8,13 +8,13 @@ using UnityEngine;
 public class BuildingDataSet : ScriptableObject
 {
     [SerializeField, Header("施設リスト")]　public BuildingData[] Buildings;
+    
+    //今は使用しない。
+#if UNITY_EDITOR
+    public void SetData(BuildingData[] data)
+    {
+        Buildings = data;
+    }
+#endif
 }
 
-[Serializable]
-public class BuildingDataPair
-{
-    [SerializeField] private GameObject _buildingPrefab;
-    [SerializeField] private BuildingData _buildingData;
-    public GameObject BuildingPrefab => _buildingPrefab;
-    public BuildingData BuildingData => _buildingData;
-}

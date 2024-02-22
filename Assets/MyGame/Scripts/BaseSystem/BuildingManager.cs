@@ -10,7 +10,7 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
     [SerializeField] private ResourceManager _resourceManager;
     [SerializeField] private BuildingDataSet _buildingDataSet;
     
-    private readonly Dictionary<BuildingType , List<BuildingBase>> _buildingList = new ();
+    private readonly SortedDictionary<BuildingType , List<BuildingBase>> _buildingList = new ();
     /// <summary>
     /// キャッシュ用
     /// </summary>
@@ -22,15 +22,25 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
     /// </summary>
     private readonly ReactiveProperty<int> _maxUnit = new(0);
     public IReadOnlyReactiveProperty<int> MaxUnit => _maxUnit;
-    
+
+    private BuildingsSaveData _buildingsSaveData;
     /// <summary>
     /// 初期化
     /// </summary>
     protected override void OnAwake()
     {
         InitializeDictionary();
+        SaveDataManagement.LoadJson<BuildingsSaveData>(out var data);
+        _buildingsSaveData = data;
+        Application.quitting += OnSave;
     }
-    
+
+    private void OnSave()
+    {
+        _buildingsSaveData.SaveBuildings(_buildingList);
+        SaveDataManagement.SaveJson(_buildingsSaveData);
+    }
+
     public bool IsUnitCreatable()
     {
         return _resourceManager.CurrentUnitsCount < _maxUnit.Value;
@@ -60,23 +70,22 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
     /// <summary>
     /// 建物を呼び出す。
     /// </summary>
-    public BuildingBase InstantiateBuilding(BuildingType buildingType , Transform parentTransform)
+    public BuildingBase InstantiateBuilding(BuildingType buildingType)
     {
         //先にリソースを消費する
         _resourceManager.UseResources(_buildingPrices[buildingType]);
-        return Instantiate(_buildingDataSet.Buildings[(int)buildingType].BuildingBase , parentTransform);
+        BuildingBase building = Instantiate(_buildingDataSet.Buildings[(int)buildingType].BuildingBase)
+            .GetComponent<BuildingBase>();
+        _buildingList[buildingType].Add(building);
+        
+        return building;
     }
     
     /// <summary>
-    /// 建築が終了した際に呼び出される　。
+    /// 建築が終了した際に呼び出される　。TODO 建築スタート時に呼ばれて欲しい。
     /// </summary>
     public void RegisterBuilding(BuildingBase building)
     {
-        if (_buildingList[building.BuildingType] == null)
-        {
-            _buildingList[building.BuildingType] = new List<BuildingBase>();
-        }
-        _buildingList[building.BuildingType].Add(building);
         UpdateBuildings();
     }
     
@@ -95,11 +104,31 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
     {
         foreach (var buildingData in _buildingDataSet.Buildings)
         {
-            _buildingList.Add(buildingData.BuildingType, new List<BuildingBase>());
-            _maxBuildingStocks.Add(buildingData.BuildingType, buildingData.MaxAmount);
-            _buildingPrices.Add(buildingData.BuildingType, buildingData.Price);
+            BuildingType buildingType = buildingData.BuildingType;
+            _buildingList.Add(buildingType, new List<BuildingBase>());
+            _maxBuildingStocks.Add(buildingType, buildingData.MaxAmount);
+            _buildingPrices.Add(buildingType, buildingData.Price);
         }
         //ベースキャンプを追加
         //_buildingList[BuildingType.BaseCamp].Add(_baseCamp);
+    }
+}
+
+[Serializable]
+public class BuildingsSaveData : SaveData
+{
+    [SerializeField] private BuildingSaveData[] _buildingsSaveData;
+
+    public void SaveBuildings(SortedDictionary<BuildingType , List<BuildingBase>> _buildingList)
+    {
+        List<BuildingSaveData>  saveData = new();
+        foreach (var kv in _buildingList)
+        {
+            foreach (var buildingBase in kv.Value)
+            {
+                saveData.Add(new BuildingSaveData(kv.Key ,buildingBase.transform.position , buildingBase.CurrentCondition));
+            }
+        }
+        _buildingsSaveData = saveData.ToArray();
     }
 }
