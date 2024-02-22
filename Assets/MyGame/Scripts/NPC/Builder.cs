@@ -41,8 +41,12 @@ public class Builder : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         //TODO：このままだと他のオブジェクトにも反応してしまうので修正する
-        other.gameObject.GetComponent<BuildingBase>().StartBuilding();
-        _state = BuilderState.Building;
-        other.gameObject.GetComponent<BuildingBase>().OnBuildingComplete += () => _state = BuilderState.Idle;
+        if (other.gameObject.TryGetComponent<BuildingBase>(out var buildingBase))
+        {
+            buildingBase.StartBuilding();
+            _state = BuilderState.Building;
+            buildingBase.OnBuildingComplete += () => _state = BuilderState.Idle;
+
+        }
     }
 }
