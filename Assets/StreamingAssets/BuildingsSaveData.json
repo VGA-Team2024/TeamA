@@ -1,42 +1,185 @@
 {
     "_buildingsSaveData": [
         {
-            "Type": 3,
+            "Type": 1,
             "CurrentCondition": {
                 "IsBuilding": false,
                 "IsActivate": false,
                 "CurrentBuildTime": 0.0
             },
             "Position": {
-                "x": 6.83978271484375,
-                "y": -2.046971559524536,
-                "z": 5.341862678527832
+                "x": -2.0,
+                "y": 0.0,
+                "z": 0.0
             }
         },
         {
-            "Type": 3,
+            "Type": 1,
             "CurrentCondition": {
-                "IsBuilding": false,
+                "IsBuilding": true,
                 "IsActivate": false,
-                "CurrentBuildTime": 0.0
+                "CurrentBuildTime": 1.6799989938735963
             },
             "Position": {
-                "x": 6.83978271484375,
-                "y": -2.046971559524536,
-                "z": 5.341862678527832
+                "x": -1.0,
+                "y": 0.0,
+                "z": -1.0
             }
         },
         {
-            "Type": 3,
+            "Type": 1,
+            "CurrentCondition": {
+                "IsBuilding": true,
+                "IsActivate": false,
+                "CurrentBuildTime": 3.179997682571411
+            },
+            "Position": {
+                "x": 0.0,
+                "y": 0.800000011920929,
+                "z": 0.0
+            }
+        },
+        {
+            "Type": 1,
+            "CurrentCondition": {
+                "IsBuilding": true,
+                "IsActivate": false,
+                "CurrentBuildTime": 2.7799980640411379
+            },
+            "Position": {
+                "x": 0.0,
+                "y": 0.800000011920929,
+                "z": 0.0
+            }
+        },
+        {
+            "Type": 1,
             "CurrentCondition": {
                 "IsBuilding": false,
                 "IsActivate": false,
                 "CurrentBuildTime": 0.0
             },
             "Position": {
-                "x": 6.83978271484375,
-                "y": -2.046971559524536,
-                "z": 5.341862678527832
+                "x": -2.0,
+                "y": 0.0,
+                "z": 1.0
+            }
+        },
+        {
+            "Type": 1,
+            "CurrentCondition": {
+                "IsBuilding": true,
+                "IsActivate": false,
+                "CurrentBuildTime": 2.1799986362457277
+            },
+            "Position": {
+                "x": 0.0,
+                "y": 0.800000011920929,
+                "z": 0.0
+            }
+        },
+        {
+            "Type": 1,
+            "CurrentCondition": {
+                "IsBuilding": false,
+                "IsActivate": false,
+                "CurrentBuildTime": 0.0
+            },
+            "Position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -1.0
+            }
+        },
+        {
+            "Type": 1,
+            "CurrentCondition": {
+                "IsBuilding": false,
+                "IsActivate": false,
+                "CurrentBuildTime": 0.0
+            },
+            "Position": {
+                "x": -1.0,
+                "y": 0.0,
+                "z": 2.0
+            }
+        },
+        {
+            "Type": 1,
+            "CurrentCondition": {
+                "IsBuilding": true,
+                "IsActivate": false,
+                "CurrentBuildTime": 1.6999989748001099
+            },
+            "Position": {
+                "x": -1.0,
+                "y": 0.0,
+                "z": 1.0
+            }
+        },
+        {
+            "Type": 1,
+            "CurrentCondition": {
+                "IsBuilding": false,
+                "IsActivate": false,
+                "CurrentBuildTime": 0.0
+            },
+            "Position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 1.0
+            }
+        },
+        {
+            "Type": 1,
+            "CurrentCondition": {
+                "IsBuilding": true,
+                "IsActivate": false,
+                "CurrentBuildTime": 1.3799992799758912
+            },
+            "Position": {
+                "x": 0.0,
+                "y": 0.800000011920929,
+                "z": 0.0
+            }
+        },
+        {
+            "Type": 1,
+            "CurrentCondition": {
+                "IsBuilding": false,
+                "IsActivate": false,
+                "CurrentBuildTime": 0.0
+            },
+            "Position": {
+                "x": -2.0,
+                "y": 0.0,
+                "z": -1.0
+            }
+        },
+        {
+            "Type": 1,
+            "CurrentCondition": {
+                "IsBuilding": false,
+                "IsActivate": false,
+                "CurrentBuildTime": 0.0
+            },
+            "Position": {
+                "x": -4.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "Type": 1,
+            "CurrentCondition": {
+                "IsBuilding": false,
+                "IsActivate": false,
+                "CurrentBuildTime": 0.0
+            },
+            "Position": {
+                "x": -2.0,
+                "y": 0.0,
+                "z": -2.0
             }
         }
     ]

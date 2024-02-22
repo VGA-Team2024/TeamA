@@ -32,9 +32,10 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
         InitializeDictionary();
         SaveDataManagement.LoadJson<BuildingsSaveData>(out var data);
         _buildingsSaveData = data;
+        Application.quitting += OnSave;
     }
 
-    private void OnDestroy()
+    private void OnSave()
     {
         _buildingsSaveData.SaveBuildings(_buildingList);
         SaveDataManagement.SaveJson(_buildingsSaveData);
@@ -69,11 +70,11 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
     /// <summary>
     /// 建物を呼び出す。
     /// </summary>
-    public BuildingBase InstantiateBuilding(BuildingType buildingType , Transform parentTransform)
+    public BuildingBase InstantiateBuilding(BuildingType buildingType)
     {
         //先にリソースを消費する
         _resourceManager.UseResources(_buildingPrices[buildingType]);
-        BuildingBase building = Instantiate(_buildingDataSet.Buildings[(int)buildingType].BuildingBase, parentTransform)
+        BuildingBase building = Instantiate(_buildingDataSet.Buildings[(int)buildingType].BuildingBase)
             .GetComponent<BuildingBase>();
         _buildingList[buildingType].Add(building);
         

@@ -87,7 +87,7 @@ public class GridSerectManager : MonoBehaviour
     /// <param name="building"></param>
     public void SetBuilding(BuildingType buildingType)
     {
-        var obj = Instantiate(BuildingManager.Instance.InstantiateBuilding(buildingType , transform ));
+        var obj = BuildingManager.Instance.InstantiateBuilding(buildingType);
         if (_gridList.Contains(_currentCursorPos))
         {
             Debug.LogWarning("すでに建物があります。");
