@@ -8,22 +8,35 @@
                 "CurrentBuildTime": 5.019996166229248
             },
             "Position": {
-                "x": -5.0,
+                "x": -3.0,
                 "y": 0.0,
-                "z": 4.0
+                "z": -4.0
             }
         },
         {
             "Type": 1,
             "CurrentCondition": {
-                "IsBuilding": false,
-                "IsActivate": false,
-                "CurrentBuildTime": 0.0
+                "IsBuilding": true,
+                "IsActivate": true,
+                "CurrentBuildTime": 5.019996166229248
             },
             "Position": {
-                "x": -1.0,
+                "x": 0.0,
                 "y": 0.0,
                 "z": -4.0
+            }
+        },
+        {
+            "Type": 1,
+            "CurrentCondition": {
+                "IsBuilding": true,
+                "IsActivate": true,
+                "CurrentBuildTime": 5.019996166229248
+            },
+            "Position": {
+                "x": 3.0,
+                "y": 0.0,
+                "z": -3.0
             }
         }
     ]

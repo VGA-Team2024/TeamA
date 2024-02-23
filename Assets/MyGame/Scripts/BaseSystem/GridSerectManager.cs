@@ -19,6 +19,7 @@ public class GridSerectManager : MonoBehaviour
     [SerializeField] private BuildingType _buildingType;
     [SerializeField] private SelectType _selectType = SelectType.SetBuildingMode;
     [SerializeField] private BuildingManager _buildingManager;
+    [SerializeField] private Builder _builder;
     private List<Vector3> _gridList = new List<Vector3>();
     private Vector3 _currentCursorPos;
     
@@ -99,8 +100,7 @@ public class GridSerectManager : MonoBehaviour
 
         obj.transform.position = _currentCursorPos;
         _gridList.Add(_currentCursorPos);
-        
-        FindObjectOfType<Builder>().AddTarget(obj.transform);
+        _builder.AddTarget(obj.transform);
     }
 
     /// <summary>
