@@ -18,6 +18,7 @@ public class GridSerectManager : MonoBehaviour
     [SerializeField] private GameObject _testObj;
     [SerializeField] private BuildingType _buildingType;
     [SerializeField] private SelectType _selectType = SelectType.SetBuildingMode;
+    [SerializeField] private BuildingManager _buildingManager;
     private List<Vector3> _gridList = new List<Vector3>();
     private Vector3 _currentCursorPos;
     
@@ -50,9 +51,10 @@ public class GridSerectManager : MonoBehaviour
             if (_selectType == SelectType.SetBuildingMode)
             {
                 SetBuilding(_buildingType);
+                
             }
             else if (_selectType == SelectType.SelectBuildingMode)
-            {
+            {   //施設を選択した場合の処理を呼び出す
                 SelectBuilding();
             }
         }
@@ -87,7 +89,8 @@ public class GridSerectManager : MonoBehaviour
     /// <param name="building"></param>
     public void SetBuilding(BuildingType buildingType)
     {
-        var obj = BuildingManager.Instance.InstantiateBuilding(buildingType);
+        if (!_buildingManager.IsBuildable(_buildingType)) return;
+        var obj = _buildingManager.InstantiateBuilding(_buildingType);    
         if (_gridList.Contains(_currentCursorPos))
         {
             Debug.LogWarning("すでに建物があります。");
