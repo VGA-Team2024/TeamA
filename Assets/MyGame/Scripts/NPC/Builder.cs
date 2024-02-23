@@ -21,21 +21,19 @@ public class Builder : MonoBehaviour
         Idle,
         Moving,
         Building,
-    }
-
-    private void Start()
-    {
         
     }
-
     // Update is called once per frame
     void Update()
     {
-        SetTarget();
-        IsArrived();
+        MoveToTarget();
+        BuildTarget();
     }
 
-    private void SetTarget()
+    /// <summary>
+    /// 移動先候補がある場合に移動するように
+    /// </summary>
+    private void MoveToTarget()
     {
         if (_targets.Count > 0 && _state == BuilderState.Idle)
         {
@@ -50,7 +48,7 @@ public class Builder : MonoBehaviour
     /// 建設予定地に到着したかどうかを判定し、到着したら建設を開始する
     /// 建築中は他の建築予定地に移動しない
     /// </summary>
-    private void IsArrived()
+    private void BuildTarget()
     {
         if (_target == null) return;
         if (_agent.remainingDistance > _targetDistance) return;
@@ -63,6 +61,10 @@ public class Builder : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 建築候補を追加する処理
+    /// </summary>
+    /// <param name="target"></param>
     public void AddTarget(Transform target)
     {
         _targets.Enqueue(target);
