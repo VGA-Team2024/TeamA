@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Barrack
   m_EditorClassIdentifier: 
   _buildingType: 2
-  _building: {fileID: 5877666844082127281, guid: 26b68b3e3b1959543a261aec421b8e3e, type: 3}
+  _buildingBase: {fileID: 5877666844082127281, guid: 26b68b3e3b1959543a261aec421b8e3e, type: 3}
   _name: "\u5175\u820E"
   _price: 1000
   _maxAmount: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BaseCamp
   m_EditorClassIdentifier: 
   _buildingType: 0
-  _building: {fileID: 5566877337248657482, guid: bacc13d911d64bb4c974b24c86fb9351, type: 3}
+  _buildingBase: {fileID: 5566877337248657482, guid: bacc13d911d64bb4c974b24c86fb9351, type: 3}
   _name: "\u62E0\u70B9"
   _price: 0
   _maxAmount: 1
