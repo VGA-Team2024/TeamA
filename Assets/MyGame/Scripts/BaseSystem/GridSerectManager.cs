@@ -13,14 +13,13 @@ using UnityEngine;
 /// </summary>
 public class GridSerectManager : MonoBehaviour
 {
-    [SerializeField,Header("グリッドのサイズ")] Vector2Int _gridSize;
+
     [SerializeField, Header("カーソル用のオブジェクト")] private GameObject _cursorObj;
-    [SerializeField] private GameObject _testObj;
     [SerializeField] private BuildingType _buildingType;
     [SerializeField] private SelectType _selectType = SelectType.SetBuildingMode;
     [SerializeField] private BuildingManager _buildingManager;
     [SerializeField] private Builder _builder;
-    private List<Vector3> _gridList = new List<Vector3>();
+    [SerializeField] private GridManager _gridManager;
     private Vector3 _currentCursorPos;
     
     public enum  SelectType
@@ -75,6 +74,15 @@ public class GridSerectManager : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// 建設する建物を変更する
+    /// </summary>
+    /// <param name="buildingType"></param>
+    public void ChangeSetBuildingType(BuildingType buildingType)
+    {
+        _buildingType = buildingType;
+    }
+    
     private void SelectBuilding()
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -92,31 +100,14 @@ public class GridSerectManager : MonoBehaviour
     {
         if (!_buildingManager.IsBuildable(_buildingType)) return;
         var obj = _buildingManager.InstantiateBuilding(_buildingType);    
-        if (_gridList.Contains(_currentCursorPos))
+        if (_gridManager.GridList.Contains(_currentCursorPos))
         {
             Debug.LogWarning("すでに建物があります。");
             return;
         }
 
         obj.transform.position = _currentCursorPos;
-        _gridList.Add(_currentCursorPos);
+        _gridManager.AddObjectPos(_currentCursorPos);
         _builder.AddTarget(obj.transform);
-    }
-
-    /// <summary>
-    /// 指定した種類のプレハブを取得する
-    /// </summary>
-    /// <param name="buildingType"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
-    private GameObject GetBuildingPrefab(BuildingType buildingType)
-    {
-        switch (buildingType)
-        {
-            case BuildingType.Test:
-                return _testObj;
-            default:
-                return _testObj;
-        }
     }
 }
