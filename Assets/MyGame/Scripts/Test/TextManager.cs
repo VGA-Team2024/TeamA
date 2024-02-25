@@ -25,7 +25,7 @@ public class TextManager : MonoBehaviour
 
     private void ExpressResource(float currentResource)
     {
-        _resourceText.text = currentResource.ToString(".00");
+        _resourceText.text = currentResource.ToString("0");
     }
     private void ExpressUnit(int currentUnit)
     {
