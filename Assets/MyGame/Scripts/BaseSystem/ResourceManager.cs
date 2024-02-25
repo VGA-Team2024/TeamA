@@ -7,6 +7,8 @@ using Object = UnityEngine.Object;
 public class ResourceManager : SingletonMonoBehavior<ResourceManager>
 {
     [SerializeField] private float _defaultResources;
+    private BuildingManager _buildingManager;
+    
     private float _currentResources;
     private int _currentUnitsCount;
     private int _maxUnitCount;
@@ -96,9 +98,11 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
         CurrentResources -= gold;
     }
 
+    
     private void Start()
     {
-        BuildingManager.Instance.MaxUnit.Subscribe(x => MaxUnitCount = x).AddTo(this); 
+        _buildingManager = BuildingManager.Instance;
+        _buildingManager.MaxUnit.Subscribe(x => MaxUnitCount = x).AddTo(this); 
         CurrentResources = _defaultResources;
     }
 
@@ -117,6 +121,7 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
     {
         if (CurrentUnitsCount >= units)
         {
+            _buildingManager.RemoveUnit(units);
             CurrentUnitsCount -= units;
             Debug.Log("戦争に勝ちました");
             return true;
