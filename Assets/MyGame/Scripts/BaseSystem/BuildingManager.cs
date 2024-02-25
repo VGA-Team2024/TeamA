@@ -120,6 +120,8 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
         return _buildingList[BuildingType.ArmyCamp].OfType<ArmyCamp>().FirstOrDefault(x => x.IsUnitCreatable()).AddUnit();
     }
     
+    
+    
     private BuildingsSaveData _buildingsSaveData;
     
     /// <summary>
