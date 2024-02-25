@@ -7,7 +7,7 @@ using UnityEngine;
 /// 兵士の管理クラス
 /// 生成、削除、移動先指定などを行う
 /// </summary>
-public class SoliderManager : MonoBehaviour
+public class SoldierManager : MonoBehaviour
 {
     [SerializeField, Header("フィールドに表示する兵士の最大数")] int _maxFieldSoldierCount;
     [SerializeField] GameObject _soldierPrefab;
@@ -21,11 +21,11 @@ public class SoliderManager : MonoBehaviour
     /// フィールドに表示する兵士の最大数を超えた場合は生成されない。
     /// </summary>
     /// <param name="instantiateNum">生成数(デフォルトは1)</param>
-    public async UniTask AddSoldier(int instantiateNum = 1)
+    public async UniTask AddSoldier( Vector3 pos, int instantiateNum = 1)
     {
         for (int i = 0; i < instantiateNum; i++)
         {
-            var soldier = Instantiate(_soldierPrefab);
+            var soldier = Instantiate(_soldierPrefab, pos, Quaternion.identity);
             _soldierList.Add(soldier);
             if (_soldierList.Count >= _maxFieldSoldierCount)
             {
