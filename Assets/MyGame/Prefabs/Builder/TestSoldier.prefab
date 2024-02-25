@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 802802253629217427}
   - component: {fileID: 2268501812369573889}
   - component: {fileID: 8235360535148447735}
+  - component: {fileID: -6087260693995969151}
   m_Layer: 0
   m_Name: TestSoldier
   m_TagString: Untagged
@@ -113,7 +114,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 298937304039318979}
-  m_Enabled: 0
+  m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
@@ -128,3 +129,17 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-6087260693995969151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298937304039318979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eefac9d82ff246c449d803582c2b50e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _target: {fileID: 0}
+  _agent: {fileID: 8235360535148447735}

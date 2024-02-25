@@ -1,19 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
+/// <summary>
+/// フィールドを歩き回るソルジャークラス
+/// </summary>
 public class Soldier : MonoBehaviour
 {
-    private GridManager _gridManager;
+    [SerializeField] private Transform _target;
+    [SerializeField] NavMeshAgent _agent;
     // Start is called before the first frame update
-    void Start()
+    
+    public void SetTarget(Transform target)
     {
-        
+        _target = target;
+        _agent.SetDestination(_target.position);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Death()
     {
-        
+        Destroy(this.gameObject);
     }
 }
