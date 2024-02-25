@@ -63,18 +63,18 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
     /// </summary>
     public bool IsBuildable(BuildingType buildingType)
     {
-        if (_resourceManager.CurrentResources >= _buildingPrices[buildingType])
+        if (_resourceManager.CurrentResources < _buildingPrices[buildingType])
         {
             Debug.Log("資源が足りません");
             return false;
         }
-        if (_buildingList[buildingType].Count < _maxBuildingStocks[buildingType])
+        if (_buildingList[buildingType].Count >= _maxBuildingStocks[buildingType])
         {
             Debug.Log("建築上限です");
             return false;
         }
 
-        return false;
+        return true;
     }
 
     /// <summary>
