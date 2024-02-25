@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class GridManager : MonoBehaviour
 {
-    [SerializeField,Header("グリッドのサイズ")] Vector2Int _gridSize;
+    [SerializeField,Header("グリッド1マスのサイズ")] Vector2Int _gridSize;
     private List<Vector3> _gridList = new List<Vector3>();
     public List<Vector3> GridList => _gridList;
     
@@ -18,5 +18,14 @@ public class GridManager : MonoBehaviour
     public void AddObjectPos(Vector3 pos)
     {
         _gridList.Add(pos);
+    }
+    
+    /// <summary>
+    /// 現在のグリッドの位置を取得する
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 GetRandomEmptyGridPos()
+    {
+        return Vector3.zero;
     }
 }
