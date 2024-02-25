@@ -24,9 +24,12 @@ public class Barrack : BuildingBase
         {
             _resourceManager.UseResources(_cost);
             //兵士の生成
-            var soldier = Instantiate(_soldier , transform.position + transform.forward , Quaternion.identity  , transform);
+            var soldier = Instantiate(_soldier);
             //TODO 兵士プレハブの目的地を設定したい。
-            _buildingManager.CreateUnit();
+            var armyTransform = _buildingManager.CreateUnit(soldier);
+            
+            soldier.transform.SetParent(armyTransform);
+            soldier.transform.position = armyTransform.position + Vector3.back;
         }
     }
 

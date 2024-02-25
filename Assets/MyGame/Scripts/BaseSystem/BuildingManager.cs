@@ -114,10 +114,19 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
     /// ユニットの生成時にArmyCamp(待機所)の目的地を返す、生成はBarrack(兵士育成所)をクリック
     /// </summary>
     /// <returns>ArmyCampの中で待機可能な位置を返す。</returns>
-    public Transform CreateUnit()
+    public Transform CreateUnit(GameObject soldier)
     {
         _resourceManager.AddUnits(1);
-        return _buildingList[BuildingType.ArmyCamp].OfType<ArmyCamp>().FirstOrDefault(x => x.IsUnitCreatable()).AddUnit();
+        return _buildingList[BuildingType.ArmyCamp].OfType<ArmyCamp>().FirstOrDefault(x => x.IsUnitCreatable())?.AddUnit(soldier);
+    }
+    
+    public void RemoveUnit(int unitCount)
+    {
+        var armyCamps =  _buildingList[BuildingType.ArmyCamp].OfType<ArmyCamp>();
+        for (int i = 0; i < unitCount; i++)
+        {
+            armyCamps.FirstOrDefault(x => x.IsUnitRemovable()).RemoveUnit();
+        }
     }
     
     private BuildingsSaveData _buildingsSaveData;
