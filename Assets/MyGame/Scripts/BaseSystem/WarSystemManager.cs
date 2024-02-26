@@ -11,7 +11,7 @@ public class WarSystemManager : MonoBehaviour
     /// <summary>
     /// 戦争の時間
     /// </summary>
-    private readonly TimeSpan _warTimeSpan = new(0, 0, 10);
+    private readonly TimeSpan _warTimeSpan = new(6, 0, 0);
     private DateTime _preTimeSpan;
     private ResourceManager _resourceManager;
 

@@ -1,43 +1,50 @@
 {
+    "NextBuildingID": 2,
     "_buildingsSaveData": [
         {
-            "Type": 1,
+            "BuildingID": 0,
+            "Position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 3.0
+            },
+            "Type": 0,
             "CurrentCondition": {
                 "IsBuilding": true,
                 "IsActivate": true,
-                "CurrentBuildTime": 5.019996166229248
-            },
-            "Position": {
-                "x": -6.0,
-                "y": 0.0,
-                "z": 5.0
+                "CurrentBuildTime": 0.0
             }
         },
         {
-            "Type": 1,
+            "BuildingID": 1,
+            "Position": {
+                "x": 3.0,
+                "y": 0.0,
+                "z": 3.0
+            },
+            "Type": 3,
             "CurrentCondition": {
                 "IsBuilding": true,
                 "IsActivate": true,
-                "CurrentBuildTime": 5.019996166229248
-            },
-            "Position": {
-                "x": -4.0,
-                "y": 0.0,
-                "z": 1.0
+                "CurrentBuildTime": 0.0
             }
-        },
+        }
+    ],
+    "_minesSaveData": [
         {
-            "Type": 2,
+            "BuildingID": 1,
+            "Position": {
+                "x": 3.0,
+                "y": 0.0,
+                "z": 3.0
+            },
+            "Type": 3,
             "CurrentCondition": {
                 "IsBuilding": true,
                 "IsActivate": true,
-                "CurrentBuildTime": 5.019996166229248
+                "CurrentBuildTime": 0.0
             },
-            "Position": {
-                "x": -3.0,
-                "y": 0.0,
-                "z": 7.0
-            }
+            "CurrentGold": 1000.0
         }
     ]
 }

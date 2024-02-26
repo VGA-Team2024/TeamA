@@ -39,22 +39,5 @@ public abstract class SaveData : ISaveData
     public string FileName => _fileName ??= GetType().FullName + ".json";
 }
 
-[Serializable]
-public class BuildingSaveData : SaveData 
-{
 
-    //publicかSerializeField属性を持つもの出ないと保存できない
-    public BuildingType Type;
-    public BuildingCondition CurrentCondition;
-    public Vector3 Position;
-    
-    public BuildingSaveData( BuildingType buildingType , Vector3 position, BuildingCondition currentCondition)
-    {
-        Position = position;
-        Type = buildingType;
-        CurrentCondition = currentCondition;
-    }
-
-
-}
 
