@@ -1,6 +1,32 @@
 {
     "_buildingsSaveData": [
         {
+            "Type": 0,
+            "CurrentCondition": {
+                "IsBuilding": false,
+                "IsActivate": false,
+                "CurrentBuildTime": 0.0
+            },
+            "Position": {
+                "x": 0.0,
+                "y": 0.800000011920929,
+                "z": 0.0
+            }
+        },
+        {
+            "Type": 1,
+            "CurrentCondition": {
+                "IsBuilding": false,
+                "IsActivate": false,
+                "CurrentBuildTime": 0.0
+            },
+            "Position": {
+                "x": 0.0,
+                "y": 0.800000011920929,
+                "z": 0.0
+            }
+        },
+        {
             "Type": 2,
             "CurrentCondition": {
                 "IsBuilding": true,
@@ -11,6 +37,19 @@
                 "x": 0.0,
                 "y": 0.0,
                 "z": 0.0
+            }
+        },
+        {
+            "Type": 3,
+            "CurrentCondition": {
+                "IsBuilding": true,
+                "IsActivate": true,
+                "CurrentBuildTime": 5.019996166229248
+            },
+            "Position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -1.0
             }
         }
     ]
