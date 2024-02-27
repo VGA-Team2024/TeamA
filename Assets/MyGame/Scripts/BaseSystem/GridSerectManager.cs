@@ -65,13 +65,23 @@ public class GridSerectManager : MonoBehaviour
     /// </summary>
     private void MoveCursor()
     {
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out var hit))
-        {
-            var gridPos = new Vector3(Mathf.Floor(hit.point.x), 0, Mathf.Floor(hit.point.z));
-            _currentCursorPos = gridPos;
-            _cursorObj.transform.position = gridPos;
-        }
+        // var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        // if (Physics.Raycast(ray, out var hit))
+        // {
+        //     var gridPos = new Vector3(Mathf.Floor(hit.point.x), 0, Mathf.Floor(hit.point.z));
+        //     _currentCursorPos = gridPos;
+        //     _cursorObj.transform.position = gridPos;
+        // }
+        
+        Vector3 mousePos = Input.mousePosition;
+        // カメラから地面までの距離を考慮
+        float distanceToGround = Mathf.Abs(Camera.main.transform.position.y - 0); // 地面がY=0の場合
+        mousePos.z = distanceToGround;
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
+        
+        var gridPos = new Vector3(Mathf.Floor(worldPosition.x), 0, Mathf.Floor(worldPosition.z));
+        _currentCursorPos = gridPos;
+        _cursorObj.transform.position = gridPos;
     }
     
     /// <summary>
