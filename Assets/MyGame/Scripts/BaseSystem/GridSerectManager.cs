@@ -21,6 +21,7 @@ public class GridSerectManager : MonoBehaviour
     [SerializeField] private Builder _builder;
     [SerializeField] private GridManager _gridManager;
     private Vector3 _currentCursorPos;
+    private float _buildingYOffect = 0.4f;
     
     public enum  SelectType
     {
@@ -70,17 +71,6 @@ public class GridSerectManager : MonoBehaviour
         var gridPos = new Vector3(Mathf.Floor(hit.point.x), 0, Mathf.Floor(hit.point.z));
         _currentCursorPos = gridPos;
         _cursorObj.transform.position = gridPos;
-        
-        
-        // Vector3 mousePos = Input.mousePosition;
-        // // カメラから地面までの距離を考慮
-        // float distanceToGround = Mathf.Abs(Camera.main.transform.position.y - 0); // 地面がY=0の場合
-        // mousePos.z = distanceToGround;
-        // Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
-        //
-        // var gridPos = new Vector3(Mathf.Floor(worldPosition.x), 0, Mathf.Floor(worldPosition.z));
-        // _currentCursorPos = gridPos;
-        // _cursorObj.transform.position = gridPos;
     }
     
     /// <summary>
@@ -115,7 +105,8 @@ public class GridSerectManager : MonoBehaviour
             return;
         }
 
-        obj.transform.position = _currentCursorPos;
+        var  y = obj.transform.position.y;
+        obj.transform.position = new (_currentCursorPos.x, _buildingYOffect, _currentCursorPos.z);
         _gridManager.AddObjectPos(_currentCursorPos);
         _builder.AddTarget(obj.transform);
     }
