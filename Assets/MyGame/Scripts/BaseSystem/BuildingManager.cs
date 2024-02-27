@@ -6,9 +6,13 @@ using UnityEngine;
 
 public class BuildingManager : SingletonMonoBehavior<BuildingManager>
 {
-    [SerializeField , Header("初期拠点")] private BaseCamp _baseCamp;
     [SerializeField] private ResourceManager _resourceManager;
     [SerializeField] private BuildingDataSet _buildingDataSet;
+    
+    [SerializeField , Header("初期拠点")] private Transform _firstBaseCampTransform;
+    [SerializeField , Header("初期鉱山")] private Transform _firstMineTransform;
+    
+
 
     #region 公開用
     
@@ -49,14 +53,19 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
     /// <summary>
     /// 建物を呼び出す。
     /// </summary>
-    public BuildingBase InstantiateBuilding(BuildingType buildingType)
+    public BuildingBase CreateBuilding(BuildingType buildingType)
     {
         //先にリソースを消費する
         _resourceManager.UseResources(_buildingPrices[buildingType]);
-        BuildingBase building = Instantiate(_buildingDataSet.Buildings[(int)buildingType].BuildingBase)
-            .GetComponent<BuildingBase>();
+        return InstantiateBuilding(buildingType);
+    }
+
+    private BuildingBase InstantiateBuilding(BuildingType buildingType , BuildingCondition buildingCondition = default)
+    {
+        BuildingBase building = Instantiate(_buildingDataSet.Buildings[(int)buildingType].BuildingBase);
+        building.Initialize(_nextBuildingID ,buildingCondition);
         _buildingList[buildingType].Add(building);
-        
+        _nextBuildingID += 1;
         return building;
     }
     
@@ -96,7 +105,11 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
     /// 現在の施設リスト
     /// </summary>
     private readonly SortedDictionary<BuildingType , List<BuildingBase>> _buildingList = new ();
-    
+
+    /// <summary>
+    /// 次の施設ID
+    /// </summary>
+    private static int _nextBuildingID = 0;
     
     /// <summary>
     /// キャッシュ用
@@ -109,7 +122,9 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
     /// </summary>
     private readonly ReactiveProperty<int> _maxUnit = new(0);
 
-        
+    private BuildingsSaveData _buildingsSaveData;
+    
+    
     /// <summary>
     /// ユニットの生成時にArmyCamp(待機所)の目的地を返す、生成はBarrack(兵士育成所)をクリック
     /// </summary>
@@ -129,25 +144,55 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
         }
     }
     
-    private BuildingsSaveData _buildingsSaveData;
-    
     /// <summary>
     /// 初期化
     /// </summary>
     protected override void OnAwake()
     {
         InitializeDictionary();
-        SaveDataManagement.LoadJson<BuildingsSaveData>(out var data);
-        _buildingsSaveData = data;
+        
+        if (SaveDataManagement.LoadJson<BuildingsSaveData>(out var data))
+        {
+            _buildingsSaveData = data;
+            StartUp();
+        }//セーブデータロード時
+        else
+        {
+            _buildingsSaveData = new();
+            StartUpFirstTime();
+        }//初回ロード時
+        
         Application.quitting += OnSave;
+    }
+
+    /// <summary>
+    /// 初回起動時
+    /// </summary>
+    private void StartUpFirstTime()
+    {
+        _nextBuildingID = 0;
+        
+        var obj = InstantiateBuilding(BuildingType.BaseCamp , new BuildingCondition(true , true, 0 ));
+        obj.transform.position = _firstBaseCampTransform.position;
+        
+        var obj2 =  InstantiateBuilding(BuildingType.Mine , new BuildingCondition(true , true, 0 ));
+        obj2.transform.position = _firstMineTransform.position;
+    }
+
+    /// <summary>
+    /// 初回以外、ゲームロード
+    /// </summary>
+    private void StartUp()
+    {
+        _nextBuildingID = _buildingsSaveData.NextBuildingID;
     }
     
     private void OnSave()
     {
-        _buildingsSaveData.SaveBuildings(_buildingList);
+        _buildingsSaveData.SaveBuildings(_buildingList ,_nextBuildingID);
+        
         SaveDataManagement.SaveJson(_buildingsSaveData);
     }
-    #endregion
     
     /// <summary>
     /// 建築物リストに変更があった際に呼び出す。
@@ -171,9 +216,10 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
             _buildingPrices.Add(buildingType, buildingData.Price);
             _buildingNames.Add(buildingType, buildingData.Name);
         }
-        //ベースキャンプを追加
-        //_buildingList[BuildingType.BaseCamp].Add(_baseCamp);
     }
+    #endregion
+    
+
 }
 
 /// <summary>
@@ -182,18 +228,22 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
 [Serializable]
 public class BuildingsSaveData : SaveData
 {
+    public int NextBuildingID;
     [SerializeField] private BuildingSaveData[] _buildingsSaveData;
-
-    public void SaveBuildings(SortedDictionary<BuildingType , List<BuildingBase>> _buildingList)
+    [SerializeField] private MineSaveData[] _minesSaveData;
+    
+    public void SaveBuildings(SortedDictionary<BuildingType , List<BuildingBase>> buildingList ,int nextBuildingID)
     {
-        List<BuildingSaveData>  saveData = new();
-        foreach (var kv in _buildingList)
+        NextBuildingID = nextBuildingID;
+        List<BuildingSaveData>  buildingsDataList = new();
+        foreach (var kv in buildingList)
         {
             foreach (var buildingBase in kv.Value)
             {
-                saveData.Add(new BuildingSaveData(kv.Key ,buildingBase.transform.position , buildingBase.CurrentCondition));
+                buildingsDataList.Add(buildingBase.MakeSaveData());
             }
         }
-        _buildingsSaveData = saveData.ToArray();
+        _buildingsSaveData = buildingsDataList.ToArray();
+        _minesSaveData = buildingsDataList.OfType<MineSaveData>().ToArray();
     }
 }
