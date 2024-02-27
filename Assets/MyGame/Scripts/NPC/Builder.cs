@@ -54,6 +54,7 @@ public class Builder : MonoBehaviour
     {
         if (_target == null) return;
         if (_agent.remainingDistance > _targetDistance) return;
+        _agent.SetDestination(transform.position);
         if (_target.TryGetComponent<BuildingBase>(out var buildingBase))
         {
             _animator.SetFloat("Speed_f", 0);
