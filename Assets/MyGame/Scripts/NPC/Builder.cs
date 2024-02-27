@@ -14,6 +14,7 @@ public class Builder : MonoBehaviour
     [SerializeField] NavMeshAgent _agent;
     [SerializeField] private BuilderState _state = BuilderState.Idle;
     [SerializeField] private float _targetDistance = 0.1f;
+    [SerializeField] private Animator _animator;
     private Queue<Transform> _targets = new Queue<Transform>();
     
     public enum BuilderState
@@ -40,7 +41,8 @@ public class Builder : MonoBehaviour
             Debug.Log("ターゲットがある");
             _target = _targets.Dequeue();
             _state = BuilderState.Moving;
-            if (_target) _agent.SetDestination(_target.position);
+            _agent.SetDestination(_target.position);
+            _animator.SetFloat("Speed_f", 1);
         }
     }
 
@@ -51,12 +53,20 @@ public class Builder : MonoBehaviour
     private void BuildTarget()
     {
         if (_target == null) return;
-        if (_agent.remainingDistance > _targetDistance) return;
+        if (Mathf.Abs(Vector3.Distance(transform.position, _target.position)) > _targetDistance) return;
+        Debug.Log(_agent.remainingDistance);
+        _agent.SetDestination(transform.position);
         if (_target.TryGetComponent<BuildingBase>(out var buildingBase))
         {
+            _animator.SetFloat("Speed_f", 0);
+            _animator.SetBool("Melee", true);
             buildingBase.StartBuilding();
             _state = BuilderState.Building;
-            buildingBase.OnBuildingComplete += () => _state = BuilderState.Idle;
+            buildingBase.OnBuildingComplete += () =>
+            {
+                _animator.SetBool("Melee", false);
+                _state = BuilderState.Idle;
+            };
             _target = null;
         }
     }

@@ -120,7 +120,6 @@ public class GridSerectManager : MonoBehaviour
             return;
         }
 
-        var  y = obj.transform.position.y;
         obj.transform.position = new (_currentCursorPos.x, _buildingYOffect, _currentCursorPos.z);
         _gridManager.AddObjectPos(_currentCursorPos);
         _builder.AddTarget(obj.transform);

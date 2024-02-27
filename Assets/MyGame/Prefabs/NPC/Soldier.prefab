@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8235360535148447735}
   - component: {fileID: -6087260693995969151}
   m_Layer: 0
-  m_Name: TestSoldier
+  m_Name: Soldier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 0.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _agent: {fileID: 8235360535148447735}
+  _animator: {fileID: 3097736093988033143}
 --- !u!1001 &3097736093995459919
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -169,6 +170,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73908ff37f8527246b505b44088d5f62, type: 3}
+--- !u!95 &3097736093988033143 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9533240, guid: 73908ff37f8527246b505b44088d5f62, type: 3}
+  m_PrefabInstance: {fileID: 3097736093995459919}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3097736093995889813 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 430554, guid: 73908ff37f8527246b505b44088d5f62, type: 3}
