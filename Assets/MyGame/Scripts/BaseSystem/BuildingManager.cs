@@ -139,15 +139,20 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
     private readonly ReactiveProperty<int> _maxUnit = new(0);
 
     private BuildingsSaveData _buildingsSaveData;
-    
 
-    
+    /// <summary>
+    /// 初期化
+    /// </summary>
+    protected override void OnAwake()
+    {
+        InitializeDictionary();
+    }
     /// <summary>
     /// ゲーム開始時
     /// </summary>
     private void Start()
     {
-        InitializeDictionary();
+        
         
         if (SaveDataManagement.LoadJson<BuildingsSaveData>(out var data))
         {
