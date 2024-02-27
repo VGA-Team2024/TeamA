@@ -10,11 +10,13 @@ public class ModeChangeButton : MonoBehaviour
     [SerializeField] private GridSerectManager _gridSerectManager;
     public void SetBuildMode()
     {
-        _gridSerectManager.ChangeSelectType(GridSerectManager.SelectType.SelectBuildingMode);
+        Debug.Log("SetBuildMode");
+        _gridSerectManager.ChangeSelectType(GridSerectManager.SelectType.SetBuildingMode);
     }
     
     public void SetSelectBuildingMode()
     {
+        Debug.Log("SetSelectBuildingMode");
         _gridSerectManager.ChangeSelectType(GridSerectManager.SelectType.SelectBuildingMode);
     }
 }
