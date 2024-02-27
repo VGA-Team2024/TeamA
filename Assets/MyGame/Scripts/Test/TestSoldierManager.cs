@@ -12,7 +12,7 @@ public class TestSoldierManager : MonoBehaviour
     
     private void Start()
     {
-        _createButton.onClick.AddListener(() => _soldierManager.AddSoldier(Vector3.zero, _soldierCount));
+        //_createButton.onClick.AddListener(() => _soldierManager.AddSoldier(Vector3.zero, _soldierCount));
         _deathButton.onClick.AddListener(() => _soldierManager.RemoveSoldier(_soldierCount));
     }
 }
