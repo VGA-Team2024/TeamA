@@ -40,7 +40,7 @@ public class Builder : MonoBehaviour
             Debug.Log("ターゲットがある");
             _target = _targets.Dequeue();
             _state = BuilderState.Moving;
-            if (_target) _agent.SetDestination(_target.position);
+            _agent.SetDestination(_target.position);
         }
     }
 
