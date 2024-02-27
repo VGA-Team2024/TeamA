@@ -17,6 +17,7 @@ public class Mine : BuildingBase
     protected override void OnStart()
     {
         _resourceManager = ResourceManager.Instance;
+        ShowCurrentGold();
     }
 
     protected override void OnFixedUpdate()
@@ -24,19 +25,39 @@ public class Mine : BuildingBase
         if (_currentGold < _maxStorage)
         {
             _currentGold += _generateGold * Time.fixedDeltaTime;
-            _goldText.text = _currentGold.ToString("0");
+            ShowCurrentGold();
         }
     }
 
     public override void OnClick()
     {
+        if (!CurrentCondition.IsActivate) return;
         _resourceManager.AddResources(_currentGold);
         _currentGold = 0;
     }
 
     public override BuildingSaveData MakeSaveData()
     {
-        return new MineSaveData(BuildingID, BuildingType, transform.position, CurrentCondition, _currentGold);
+        return new MineSaveData(base.MakeSaveData(), _currentGold);
+    }
+
+    public override void LoadSaveData(BuildingSaveData saveData)
+    {
+        base.LoadSaveData(saveData);
+        if (saveData is MineSaveData mineSaveData)
+        {
+            _currentGold = mineSaveData.CurrentGold;
+            
+        }
+        else
+        {
+            Debug.LogError("Cast失敗");
+        }
+    }
+
+    private void ShowCurrentGold()
+    {
+        _goldText.text = _currentGold.ToString("0");
     }
 }
 
@@ -47,6 +68,11 @@ public class MineSaveData : BuildingSaveData
 
     public MineSaveData(int buildingID, BuildingType buildingType, Vector3 position, BuildingCondition currentCondition, float currentGold) 
         : base(buildingID, buildingType, position, currentCondition)
+    {
+        CurrentGold = currentGold;
+    }
+
+    public MineSaveData(BuildingSaveData makeSaveData, float currentGold) : base(makeSaveData)
     {
         CurrentGold = currentGold;
     }

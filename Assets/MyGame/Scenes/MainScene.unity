@@ -4167,7 +4167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1c366bf04245f947b347959d0d4074e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _NextUnitCountText: {fileID: 457646551}
+  _nextUnitCountText: {fileID: 457646551}
   _warTimeText: {fileID: 1733465956}
 --- !u!1001 &1270292640
 PrefabInstance:

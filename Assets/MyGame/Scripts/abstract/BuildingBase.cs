@@ -47,7 +47,15 @@ public class BuildingSaveData : SaveData ,IEquatable<BuildingSaveData>
         Type = buildingType;
         CurrentCondition = currentCondition;
     }
-    
+
+    protected BuildingSaveData(BuildingSaveData makeSaveData)
+    {
+        BuildingID = makeSaveData.BuildingID;
+        Position = makeSaveData.Position;
+        Type = makeSaveData.Type;
+        CurrentCondition = makeSaveData.CurrentCondition;
+    }
+
     public bool Equals(BuildingSaveData other)
     {
         return Type.Equals(other.Type) && CurrentCondition.Equals(other.CurrentCondition) && Position.Equals(other.Position);
@@ -99,11 +107,14 @@ public abstract class BuildingBase : MonoBehaviour
     /// 建設が完了した際に呼び出される
     /// </summary>
     public event Action OnBuildingComplete ;
-    
+
     /// <summary>
     /// クリックイベント
     /// </summary>
-    public abstract void OnClick();
+    public virtual void OnClick()
+    {
+        
+    }
 
     /// <summary>
     /// 建物の生成時にIDをセットする
@@ -112,9 +123,6 @@ public abstract class BuildingBase : MonoBehaviour
     {
         _buildingID = id;
         _currentCondition = currentCondition ?? new BuildingCondition(false , false ,0);
-        
-        if (_currentCondition.IsActivate)
-            _buildingTimeText.gameObject.SetActive(false);
     }
     
     /// <summary>
@@ -144,6 +152,10 @@ public abstract class BuildingBase : MonoBehaviour
     private void Start()
     {
         OnStart();
+        if (_currentCondition.IsBuilding)
+            BuildCompleted();
+        else
+            _buildingTimeText.text = (_buildingData.BuildTime - _currentCondition.CurrentBuildTime).ToString("0");
 
     }
 
@@ -163,16 +175,24 @@ public abstract class BuildingBase : MonoBehaviour
                 _buildingTimeText.text = (_buildingData.BuildTime - _currentCondition.CurrentBuildTime).ToString("0");
                 if (_currentCondition.CurrentBuildTime > _buildingData.BuildTime)
                 {
-                    Debug.Log("建設終了");
-                    OnBuildingComplete?.Invoke();
-                    BuildingManager.Instance.RegisterBuilding(this);
-                    _currentCondition.IsActivate = true;
-                    _buildingTimeText.gameObject.SetActive(false);
+                    BuildCompleted();
                 }
             }
         }
     }
 
+    private void BuildCompleted()
+    {
+        Debug.Log("建設終了");
+        OnBuildingComplete?.Invoke();
+        OnBuildFinish();
+        BuildingManager.Instance.RegisterBuilding(this);
+        _currentCondition.IsActivate = true;
+        _buildingTimeText.gameObject.SetActive(false);
+    }
+
+    public virtual void OnBuildFinish(){}
+    
     public virtual BuildingSaveData MakeSaveData()
     {
         return new BuildingSaveData(_buildingID , BuildingType, transform.position, _currentCondition);
@@ -181,8 +201,12 @@ public abstract class BuildingBase : MonoBehaviour
         // _currentCondition.IsActivate = false;
         // _currentCondition.CurrentBuildTime = 0;
     }
-    public virtual void OnLoad()
+    
+    public virtual void LoadSaveData(BuildingSaveData saveData)
     {
+        _buildingID =  saveData.BuildingID;
+        transform.position = saveData.Position;
+        _currentCondition = saveData.CurrentCondition;
         //下の状態をロードする
         // _currentCondition.IsBuilding = false;
         // _currentCondition.IsActivate = false;

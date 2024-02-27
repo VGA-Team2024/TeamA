@@ -6,15 +6,23 @@ using UnityEngine;
 /// </summary>
 public class Barrack : BuildingBase
 {
-    [SerializeField,Header("兵士プレハブ")] private GameObject _soldier;
+    
+    [SerializeField, Header("生成間隔")] private float _createSpan;
     
     [SerializeField,Header("兵士作成コスト")] private float _cost;
     
     private ResourceManager _resourceManager;
     private BuildingManager _buildingManager;
-    
+    private SoldierManager _soldierManager;
+    private float _createTimer;
     public override void OnClick()
     {
+        if (!CurrentCondition.IsActivate) return;
+        if (_createTimer < _createSpan)
+        {
+            Debug.Log("生成間隔が早すぎます");
+            return;
+        }
         if (!_buildingManager.IsUnitCreatable())
         {
             Debug.Log("もう作成できません");
@@ -22,14 +30,9 @@ public class Barrack : BuildingBase
         }
         if (_resourceManager.IsUseResources(_cost))
         {
-            _resourceManager.UseResources(_cost);
-            //兵士の生成
-            var soldier = Instantiate(_soldier);
-            //TODO 兵士プレハブの目的地を設定したい。
-            var armyTransform = _buildingManager.CreateUnit(soldier);
-            
-            soldier.transform.SetParent(armyTransform);
-            soldier.transform.position = armyTransform.position + Vector3.back;
+            _resourceManager.UseResources(_cost); 
+            _buildingManager.CreateUnit();
+            _createTimer = 0f;
         }
     }
 
@@ -37,11 +40,12 @@ public class Barrack : BuildingBase
     {
         _resourceManager = ResourceManager.Instance;
         _buildingManager = BuildingManager.Instance;
+        _soldierManager = FindObjectOfType<SoldierManager>();
     }
 
     protected override void OnFixedUpdate()
     {
-
+        _createTimer += Time.fixedDeltaTime;
     }
     
 }

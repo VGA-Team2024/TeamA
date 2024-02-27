@@ -53,22 +53,16 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
     /// <summary>
     /// 建物を呼び出す。
     /// </summary>
-    public BuildingBase CreateBuilding(BuildingType buildingType)
+    public BuildingBase CreateBuilding(BuildingType buildingType ,Vector3 position)
     {
         //先にリソースを消費する
         _resourceManager.UseResources(_buildingPrices[buildingType]);
-        return InstantiateBuilding(buildingType);
-    }
-
-    private BuildingBase InstantiateBuilding(BuildingType buildingType , BuildingCondition buildingCondition = default)
-    {
-        BuildingBase building = Instantiate(_buildingDataSet.Buildings[(int)buildingType].BuildingBase);
-        building.Initialize(_nextBuildingID ,buildingCondition);
-        _buildingList[buildingType].Add(building);
+        var building = InstantiateBuilding(_nextBuildingID , buildingType , position);
         _nextBuildingID += 1;
         return building;
     }
-    
+
+
     /// <summary>
     /// 建築が終了した際に呼び出される　。TODO 建築スタート時に呼ばれて欲しい。
     /// </summary>
@@ -96,6 +90,28 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
         return true;
     }
 
+        
+    /// <summary>
+    /// ユニットの生成時にArmyCamp(待機所)の目的地を返す、生成はBarrack(兵士育成所)をクリック
+    /// </summary>
+    /// <returns>ArmyCampの中で待機可能な位置を返す。</returns>
+    public void CreateUnit()
+    {
+        _buildingList[BuildingType.ArmyCamp].OfType<ArmyCamp>().FirstOrDefault(x => x.IsUnitCreatable())?.CreateUnit();
+    }
+    
+    /// <summary>
+    /// ユニットをArmycampから削除する
+    /// </summary>
+    /// <param name="unitCount"></param>
+    public void RemoveUnit(int unitCount)
+    {
+        var armyCamps =  _buildingList[BuildingType.ArmyCamp].OfType<ArmyCamp>();
+        for (int i = 0; i < unitCount; i++)
+        {
+            armyCamps.FirstOrDefault(x => x.IsUnitRemovable()).RemoveUnit();
+        }
+    }
     
     #endregion
 
@@ -109,7 +125,7 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
     /// <summary>
     /// 次の施設ID
     /// </summary>
-    private static int _nextBuildingID = 0;
+    private static int _nextBuildingID;
     
     /// <summary>
     /// キャッシュ用
@@ -124,30 +140,12 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
 
     private BuildingsSaveData _buildingsSaveData;
     
+
     
     /// <summary>
-    /// ユニットの生成時にArmyCamp(待機所)の目的地を返す、生成はBarrack(兵士育成所)をクリック
+    /// ゲーム開始時
     /// </summary>
-    /// <returns>ArmyCampの中で待機可能な位置を返す。</returns>
-    public Transform CreateUnit(GameObject soldier)
-    {
-        _resourceManager.AddUnits(1);
-        return _buildingList[BuildingType.ArmyCamp].OfType<ArmyCamp>().FirstOrDefault(x => x.IsUnitCreatable())?.AddUnit(soldier);
-    }
-    
-    public void RemoveUnit(int unitCount)
-    {
-        var armyCamps =  _buildingList[BuildingType.ArmyCamp].OfType<ArmyCamp>();
-        for (int i = 0; i < unitCount; i++)
-        {
-            armyCamps.FirstOrDefault(x => x.IsUnitRemovable()).RemoveUnit();
-        }
-    }
-    
-    /// <summary>
-    /// 初期化
-    /// </summary>
-    protected override void OnAwake()
+    private void Start()
     {
         InitializeDictionary();
         
@@ -171,12 +169,9 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
     private void StartUpFirstTime()
     {
         _nextBuildingID = 0;
-        
-        var obj = InstantiateBuilding(BuildingType.BaseCamp , new BuildingCondition(true , true, 0 ));
-        obj.transform.position = _firstBaseCampTransform.position;
-        
-        var obj2 =  InstantiateBuilding(BuildingType.Mine , new BuildingCondition(true , true, 0 ));
-        obj2.transform.position = _firstMineTransform.position;
+        InstantiateBuilding(0 ,BuildingType.BaseCamp ,_firstBaseCampTransform.position , new BuildingCondition(true , true, 0 ));
+        InstantiateBuilding(1 ,BuildingType.Mine ,_firstMineTransform.position, new BuildingCondition(true , true, 0 ));
+        _nextBuildingID = 2;
     }
 
     /// <summary>
@@ -185,17 +180,46 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
     private void StartUp()
     {
         _nextBuildingID = _buildingsSaveData.NextBuildingID;
+        //建物の生成。
+        foreach (var saveData in _buildingsSaveData.BuildingsArray)
+        {
+            LoadBuildings(saveData);
+        }
+        foreach (var saveData in _buildingsSaveData.MinesArray)
+        {
+            LoadBuildings(saveData);
+        }
+        foreach (var saveData in _buildingsSaveData.ArmyCampsArray)
+        {
+            LoadBuildings(saveData);
+        }
+        UpdateBuildings();
     }
-    
+
+    private const float BuildingYOffset = 0.4f;
+    private BuildingBase InstantiateBuilding(int buildingID , BuildingType buildingType , Vector3 position , BuildingCondition buildingCondition = default)
+    {
+        var cloneObj = _buildingDataSet.Buildings[(int)buildingType].BuildingBase;
+        BuildingBase building = Instantiate(cloneObj , new Vector3(position.x ,BuildingYOffset , position.z) , cloneObj.transform.rotation);
+        building.Initialize(buildingID ,buildingCondition);
+        _buildingList[buildingType].Add(building);
+        return building;
+    }
+
+    private void LoadBuildings(BuildingSaveData saveData)
+    {
+        BuildingBase building = Instantiate(_buildingDataSet.Buildings[(int)saveData.Type].BuildingBase);
+        building.LoadSaveData(saveData);
+        _buildingList[saveData.Type].Add(building);
+    }
     private void OnSave()
     {
         _buildingsSaveData.SaveBuildings(_buildingList ,_nextBuildingID);
-        
         SaveDataManagement.SaveJson(_buildingsSaveData);
     }
     
     /// <summary>
-    /// 建築物リストに変更があった際に呼び出す。
+    /// 建築物に変更がある際に計測しなおす。
     /// </summary>
     private void UpdateBuildings()
     { 
@@ -228,13 +252,27 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
 [Serializable]
 public class BuildingsSaveData : SaveData
 {
-    public int NextBuildingID;
-    [SerializeField] private BuildingSaveData[] _buildingsSaveData;
-    [SerializeField] private MineSaveData[] _minesSaveData;
+    [SerializeField] private  int _nextBuildingID;
+    [SerializeField] private BuildingSaveData[] _buildingsArray;
+    /// <summary>
+    /// JsonUtilityでは派生クラスのままでは保存できないため、派生クラス用の配列を用意
+    /// </summary>
+    [SerializeField] private MineSaveData[] _minesArray;
+    [SerializeField] private ArmyCampSaveData[] _armyCampsArray;
+
+    
+    public int NextBuildingID => _nextBuildingID;
+
+    public BuildingSaveData[] BuildingsArray => _buildingsArray;
+
+    public MineSaveData[] MinesArray => _minesArray;
+    
+    public ArmyCampSaveData[] ArmyCampsArray => _armyCampsArray;
+
     
     public void SaveBuildings(SortedDictionary<BuildingType , List<BuildingBase>> buildingList ,int nextBuildingID)
     {
-        NextBuildingID = nextBuildingID;
+        _nextBuildingID = nextBuildingID;
         List<BuildingSaveData>  buildingsDataList = new();
         foreach (var kv in buildingList)
         {
@@ -243,7 +281,13 @@ public class BuildingsSaveData : SaveData
                 buildingsDataList.Add(buildingBase.MakeSaveData());
             }
         }
-        _buildingsSaveData = buildingsDataList.ToArray();
-        _minesSaveData = buildingsDataList.OfType<MineSaveData>().ToArray();
+
+        buildingsDataList = buildingsDataList.OrderBy(x => x.BuildingID).ToList();
+        
+        _minesArray = buildingsDataList.OfType<MineSaveData>().ToArray();
+        _armyCampsArray = buildingsDataList.OfType<ArmyCampSaveData>().ToArray();
+        //派生クラスのセーブデータを除去
+        _buildingsArray = buildingsDataList.Except(_minesArray).Except(_armyCampsArray).ToArray();
+        
     }
 }

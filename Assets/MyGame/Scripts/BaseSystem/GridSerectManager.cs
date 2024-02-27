@@ -120,15 +120,15 @@ public class GridSerectManager : MonoBehaviour
     public void SetBuilding(BuildingType buildingType)
     {
         if (!_buildingManager.IsBuildable(_buildingType)) return;
-        var obj = _buildingManager.CreateBuilding(_buildingType);    
+           
         if (_gridManager.GridList.Contains(_currentCursorPos))
         {
             Debug.LogWarning("すでに建物があります。");
             return;
         }
-
-        obj.transform.position = new (_currentCursorPos.x, _buildingYOffect, _currentCursorPos.z);
+        var obj = _buildingManager.CreateBuilding(_buildingType , new Vector3(_currentCursorPos.x, _buildingYOffect, _currentCursorPos.z)); 
         _gridManager.AddObjectPos(_currentCursorPos);
         _builder.AddTarget(obj.transform);
     }
+    
 }
