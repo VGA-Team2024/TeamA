@@ -10,6 +10,7 @@ using UnityEngine.AI;
 public class Soldier : MonoBehaviour
 {
     [SerializeField] NavMeshAgent _agent;
+    [SerializeField] private Animator _animator;
     private GridManager _gridManager;
     private float _waitTime = 0f; // 次の移動までの待機時間
     private bool _isWaiting = false; //
@@ -43,6 +44,7 @@ public class Soldier : MonoBehaviour
         {
             // 目的地に到着したら待機状態にする
             _isWaiting = true;
+            _animator.SetFloat("Speed_f", 0);
             _waitTime = UnityEngine.Random.Range(1f, 5f); // 1秒から5秒の間でランダムに待機
         }
     }
@@ -51,5 +53,6 @@ public class Soldier : MonoBehaviour
     {
         Vector3 destination = _gridManager.GetRandomEmptyGridPos();
         _agent.SetDestination(destination);
+        _animator.SetFloat("Speed_f", 1);
     }
 }

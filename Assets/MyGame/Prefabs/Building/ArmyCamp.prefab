@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 5915648819405068593}
   - component: {fileID: 2612878911859580253}
   - component: {fileID: 4240995174487479664}
+  - component: {fileID: -1007709370378059719}
   m_Layer: 0
   m_Name: ArmyCamp
   m_TagString: Untagged
@@ -262,6 +263,22 @@ MonoBehaviour:
   _buildingData: {fileID: 11400000, guid: 089bcf7af5c4e2740b30f09f31e41f73, type: 2}
   _buildingTimeText: {fileID: 7415861450730561492}
   _maxUnit: 5
+--- !u!208 &-1007709370378059719
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8726305659694749658}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.575, y: 0.635, z: 0.655}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &5342044858488102512
 PrefabInstance:
   m_ObjectHideFlags: 0

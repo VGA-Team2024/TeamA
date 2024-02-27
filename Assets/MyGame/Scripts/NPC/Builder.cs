@@ -53,7 +53,8 @@ public class Builder : MonoBehaviour
     private void BuildTarget()
     {
         if (_target == null) return;
-        if (_agent.remainingDistance > _targetDistance) return;
+        if (Mathf.Abs(Vector3.Distance(transform.position, _target.position)) > _targetDistance) return;
+        Debug.Log(_agent.remainingDistance);
         _agent.SetDestination(transform.position);
         if (_target.TryGetComponent<BuildingBase>(out var buildingBase))
         {
