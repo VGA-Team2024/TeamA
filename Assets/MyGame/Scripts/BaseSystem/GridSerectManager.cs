@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// グリッドを管理するクラス
@@ -50,6 +51,12 @@ public class GridSerectManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                // ここでreturnすることで、UI要素上でのクリックの場合は以降の処理を行わない
+                return;
+            }
+            
             if (_selectType == SelectType.SetBuildingMode)
             {
                 SetBuilding(_buildingType);

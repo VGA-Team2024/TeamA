@@ -16,23 +16,17 @@ public class SoldierManager : MonoBehaviour
     
 
     /// <summary>
-    /// 兵士を生成する。引き数で生成数を指定できる。
-    /// 生成は非同期で行い、指定した秒数ごとに生成される。
+    /// 兵士を生成する。
     /// フィールドに表示する兵士の最大数を超えた場合は生成されない。
     /// </summary>
-    /// <param name="instantiateNum">生成数(デフォルトは1)</param>
-    public async UniTask AddSoldier( Vector3 pos, int instantiateNum = 1)
+    public void AddSoldier( Vector3 pos)
     {
-        for (int i = 0; i < instantiateNum; i++)
+        var soldier = Instantiate(_soldierPrefab, pos, Quaternion.identity);
+        _soldierList.Add(soldier);
+        if (_soldierList.Count >= _maxFieldSoldierCount)
         {
-            var soldier = Instantiate(_soldierPrefab, pos, Quaternion.identity);
-            _soldierList.Add(soldier);
-            if (_soldierList.Count >= _maxFieldSoldierCount)
-            {
-                Debug.Log("フィールドに表示する兵士の最大数を超えています");
-                return;
-            }
-            await UniTask.Delay(System.TimeSpan.FromSeconds(_instantiateSpan));
+            Debug.Log("フィールドに表示する兵士の最大数を超えています");
+            return;
         }
     }
 
