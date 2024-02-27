@@ -45,6 +45,7 @@ public class GridSerectManager : MonoBehaviour
 
     private void Update()
     {
+        ShowCursor();
         MoveCursor();
 
         if (Input.GetMouseButtonDown(0))
@@ -61,12 +62,26 @@ public class GridSerectManager : MonoBehaviour
         }
     }
     
+    private void ShowCursor()
+    {
+        if (_selectType == SelectType.SelectBuildingMode)
+        {
+            _cursorObj.SetActive(false);
+            return;
+        }
+        _cursorObj.SetActive(true);
+    }
+    
     /// <summary>
     /// カーソルを動かす
     /// </summary>
     private void MoveCursor()
     {
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Vector3 mousePos = Input.mousePosition;
+        // カメラから地面までの距離を考慮
+        float distanceToGround = Mathf.Abs(Camera.main.transform.position.y - 0); // 地面がY=0の場合
+        mousePos.z = distanceToGround;
+        var ray = Camera.main.ScreenPointToRay(mousePos);
         if (!Physics.Raycast(ray, out var hit)) return;
         var gridPos = new Vector3(Mathf.Floor(hit.point.x), 0, Mathf.Floor(hit.point.z));
         _currentCursorPos = gridPos;
