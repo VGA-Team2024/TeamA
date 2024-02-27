@@ -35,7 +35,7 @@ public interface ISaveData
 [Serializable]
 public abstract class SaveData : ISaveData
 {
-    private static string _fileName;
+    private string _fileName;
     public string FileName => _fileName ??= GetType().FullName + ".json";
 }
 

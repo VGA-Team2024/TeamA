@@ -99,12 +99,6 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
     }
 
     
-    private void Start()
-    {
-        _buildingManager = BuildingManager.Instance;
-        _buildingManager.MaxUnit.Subscribe(x => MaxUnitCount = x).AddTo(this); 
-        CurrentResources = _defaultResources;
-    }
 
     /// <summary>
     /// ユニットを追加する
@@ -132,6 +126,58 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
             //ゴールドを減らす等の処理
             return false;
         }
+    }
+
+    private ResourceSaveData _resourceSaveData;
+    /// <summary>
+    /// ゲーム開始時
+    /// </summary>
+    private void Start()
+    {
+        if (SaveDataManagement.LoadJson<ResourceSaveData>(out var data))
+        {
+            _resourceSaveData = data;
+            StartUp();
+        }//セーブデータロード時
+        else
+        {
+            _resourceSaveData = new();
+            StartUpFirstTime();
+        }//初回ロード時
+        
+        Application.quitting += OnSave;
+        
+        _buildingManager = BuildingManager.Instance;
+        _buildingManager.MaxUnit.Subscribe(x => MaxUnitCount = x).AddTo(this); 
+        
+    }
+    private void StartUp()
+    {
+        CurrentResources = _resourceSaveData.CurrentResources;
+    }
+    private void StartUpFirstTime()
+    {
+        CurrentResources = _defaultResources;
+    }
+    private void OnSave()
+    {
+        _resourceSaveData.SaveResources(CurrentResources);
+        SaveDataManagement.SaveJson(_resourceSaveData);
+    }
+    
+    
+}
+
+[Serializable]
+public class ResourceSaveData : SaveData
+{
+    [SerializeField] private float _currentResources ;
+
+    public float CurrentResources => _currentResources;
+
+    public void SaveResources(float currentResource)
+    {
+        _currentResources = currentResource;
     }
     
 }

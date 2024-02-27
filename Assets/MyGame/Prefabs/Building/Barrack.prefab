@@ -136,7 +136,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -262,7 +262,7 @@ MonoBehaviour:
   _buildingCollider: {fileID: 2612878911859580253}
   _buildingData: {fileID: 11400000, guid: 0b3bf60e0de233c44bbe3ec84f558d87, type: 2}
   _buildingTimeText: {fileID: 7415861450730561492}
-  _soldier: {fileID: 298937304039318979, guid: 42de8619afb4d7648bbe42d23b6ba89e, type: 3}
+  _createSpan: 0.2
   _cost: 100
 --- !u!208 &2773151185842260350
 NavMeshObstacle:
