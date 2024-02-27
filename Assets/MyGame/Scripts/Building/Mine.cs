@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +19,7 @@ public class Mine : BuildingBase
     protected override void OnStart()
     {
         _resourceManager = ResourceManager.Instance;
-        ShowCurrentGold();
+        this.ObserveEveryValueChanged(x => x._currentGold).Subscribe(_ => ShowCurrentGold()).AddTo(this);
     }
 
     protected override void OnFixedUpdate()
@@ -25,10 +27,13 @@ public class Mine : BuildingBase
         if (_currentGold < _maxStorage)
         {
             _currentGold += _generateGold * Time.fixedDeltaTime;
-            ShowCurrentGold();
         }
     }
 
+    public void ReleaseGold()
+    {
+        _currentGold = 0;
+    }
     public override void OnClick()
     {
         if (!CurrentCondition.IsActivate) return;

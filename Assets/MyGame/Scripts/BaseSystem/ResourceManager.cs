@@ -92,7 +92,7 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
     {
         if (CurrentResources < gold)
         {
-            Debug.LogWarning("gold不足です");
+            CurrentResources = 0;
             return;
         }
         CurrentResources -= gold;
@@ -123,6 +123,9 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
         else
         {
             Debug.Log("戦争に負けました");
+            _buildingManager.RemoveUnit(CurrentUnitsCount);
+            UseResources((units - CurrentUnitsCount) * 10);
+            _buildingManager.ReleaseGold();
             //ゴールドを減らす等の処理
             return false;
         }

@@ -112,7 +112,14 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
             armyCamps.FirstOrDefault(x => x.IsUnitRemovable()).RemoveUnit();
         }
     }
-    
+
+    public void ReleaseGold()
+    {
+        foreach (var mine in _buildingList[BuildingType.Mine].OfType<Mine>())
+        {
+            mine.ReleaseGold();
+        }
+    }
     #endregion
 
     #region 非公開
