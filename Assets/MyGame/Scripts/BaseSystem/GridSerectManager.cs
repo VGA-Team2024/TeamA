@@ -109,7 +109,7 @@ public class GridSerectManager : MonoBehaviour
     public void SetBuilding(BuildingType buildingType)
     {
         if (!_buildingManager.IsBuildable(_buildingType)) return;
-        var obj = _buildingManager.InstantiateBuilding(_buildingType);    
+        var obj = _buildingManager.CreateBuilding(_buildingType);    
         if (_gridManager.GridList.Contains(_currentCursorPos))
         {
             Debug.LogWarning("すでに建物があります。");
