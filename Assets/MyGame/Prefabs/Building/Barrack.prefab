@@ -262,7 +262,7 @@ MonoBehaviour:
   _buildingCollider: {fileID: 2612878911859580253}
   _buildingData: {fileID: 11400000, guid: 0b3bf60e0de233c44bbe3ec84f558d87, type: 2}
   _buildingTimeText: {fileID: 7415861450730561492}
-  _createSpan: 0.2
+  _createSpan: 0.1
   _cost: 100
 --- !u!208 &2773151185842260350
 NavMeshObstacle:

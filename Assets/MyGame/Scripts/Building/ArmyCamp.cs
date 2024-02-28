@@ -60,7 +60,7 @@ public class ArmyCamp : BuildingBase
 
     public override BuildingSaveData MakeSaveData()
     {
-        return new ArmyCampSaveData(base.MakeSaveData() , _currentMaxUnit ,_unitList.Count);
+        return new ArmyCampSaveData(base.MakeSaveData() , _maxUnit ,_unitList.Count);
     }
 
     public override void LoadSaveData(BuildingSaveData saveData)

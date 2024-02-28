@@ -109,7 +109,7 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
         var armyCamps =  _buildingList[BuildingType.ArmyCamp].OfType<ArmyCamp>();
         for (int i = 0; i < unitCount; i++)
         {
-            armyCamps.FirstOrDefault(x => x.IsUnitRemovable()).RemoveUnit();
+            armyCamps.FirstOrDefault(x => x.IsUnitRemovable())?.RemoveUnit();
         }
     }
 
@@ -181,8 +181,8 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
     private void StartUpFirstTime()
     {
         _nextBuildingID = 0;
-        InstantiateBuilding(0 ,BuildingType.BaseCamp ,_firstBaseCampTransform.position , new BuildingCondition(true , true, 0 ));
-        InstantiateBuilding(1 ,BuildingType.Mine ,_firstMineTransform.position, new BuildingCondition(true , true, 0 ));
+        InstantiateBuilding(0 ,BuildingType.BaseCamp ,_firstBaseCampTransform.position , new BuildingCondition(false , true, 0 ));
+        InstantiateBuilding(1 ,BuildingType.Mine ,_firstMineTransform.position, new BuildingCondition(false , true, 0 ));
         _nextBuildingID = 2;
     }
 
@@ -192,18 +192,26 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
     private void StartUp()
     {
         _nextBuildingID = _buildingsSaveData.NextBuildingID;
-        //建物の生成。
-        foreach (var saveData in _buildingsSaveData.BuildingsArray)
+        //セーブデータの連結（和集合）、重複削除
+        var buildingsSaveData = _buildingsSaveData.ArmyCampsArray.Union<BuildingSaveData>(_buildingsSaveData.MinesArray).Union(_buildingsSaveData.BuildingsArray);
+        List<BuildingBase> buildings = new List<BuildingBase>();
+        foreach (var saveData in buildingsSaveData)
         {
-            LoadBuildings(saveData);
+            buildings.Add(LoadBuildings(saveData));
         }
-        foreach (var saveData in _buildingsSaveData.MinesArray)
+
+        var builder = FindObjectOfType<Builder>();
+
+        var isBuildingObj = buildings.FirstOrDefault(x => x.CurrentCondition.IsBuilding);
+        if (isBuildingObj != null)
         {
-            LoadBuildings(saveData);
+            isBuildingObj.CurrentCondition.IsBuilding = false;
+            builder.AddTarget(isBuildingObj.transform);
         }
-        foreach (var saveData in _buildingsSaveData.ArmyCampsArray)
+        foreach (var building in buildings.Where(x => !x.CurrentCondition.IsActivate)
+                     .OrderBy(x => x.CurrentCondition.CurrentBuildTime))
         {
-            LoadBuildings(saveData);
+            builder.AddTarget(building.transform);
         }
         UpdateBuildings();
     }
@@ -218,11 +226,12 @@ public class BuildingManager : SingletonMonoBehavior<BuildingManager>
         return building;
     }
 
-    private void LoadBuildings(BuildingSaveData saveData)
+    private BuildingBase LoadBuildings(BuildingSaveData saveData)
     {
         BuildingBase building = Instantiate(_buildingDataSet.Buildings[(int)saveData.Type].BuildingBase);
         building.LoadSaveData(saveData);
         _buildingList[saveData.Type].Add(building);
+        return building;
     }
     private void OnSave()
     {
@@ -299,7 +308,7 @@ public class BuildingsSaveData : SaveData
         _minesArray = buildingsDataList.OfType<MineSaveData>().ToArray();
         _armyCampsArray = buildingsDataList.OfType<ArmyCampSaveData>().ToArray();
         //派生クラスのセーブデータを除去
-        _buildingsArray = buildingsDataList.Except(_minesArray).Except(_armyCampsArray).ToArray();
+        _buildingsArray = buildingsDataList.Where(x => x is not (MineSaveData or ArmyCampSaveData)).ToArray();
         
     }
 }

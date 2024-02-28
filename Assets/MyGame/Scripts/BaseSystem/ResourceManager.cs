@@ -125,6 +125,7 @@ public class ResourceManager : SingletonMonoBehavior<ResourceManager>
             Debug.Log("戦争に負けました");
             _buildingManager.RemoveUnit(CurrentUnitsCount);
             UseResources((units - CurrentUnitsCount) * 10);
+            CurrentUnitsCount = 0;
             _buildingManager.ReleaseGold();
             //ゴールドを減らす等の処理
             return false;

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UniRx;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +11,7 @@ using UnityEngine.UI;
 public class BuildButton : MonoBehaviour
 {
     [SerializeField] Button _button;
+    [SerializeField] private TMP_Text _buildingCostText;
     [SerializeField] private TMP_Text _buildingNameText;
     [SerializeField] private TMP_Text _buildingStock;
     [SerializeField] BuildingType _buildingType;
@@ -34,7 +34,7 @@ public class BuildButton : MonoBehaviour
         _buildingPrice = _buildingManager.BuildingPrices[_buildingType];
         _buildingName = _buildingManager.BuildingNames[_buildingType];
         _maxBuildingStock = _buildingManager.MaxBuildingStocks[_buildingType];
-
+        _buildingCostText.text = $"{_buildingPrice}";
         _buildingNameText.text = $"{_buildingName}";
         
         _resourceManager.ObserveEveryValueChanged(x => x.CurrentResources).Subscribe(_ => CheckAvailable()).AddTo(this);

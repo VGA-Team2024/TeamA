@@ -323,7 +323,7 @@ MonoBehaviour:
   _buildingData: {fileID: 11400000, guid: 42e30f9c0f6397e4c8f8510a7110102d, type: 2}
   _buildingTimeText: {fileID: 7415861450730561492}
   _goldText: {fileID: 1646565925478819878}
-  _generateGold: 500
+  _generateGold: 300
   _maxStorage: 1000
 --- !u!135 &2612878911859580253
 SphereCollider:

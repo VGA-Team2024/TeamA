@@ -28,6 +28,10 @@ public class Mine : BuildingBase
         {
             _currentGold += _generateGold * Time.fixedDeltaTime;
         }
+        else if(_maxStorage < _currentGold)
+        {
+            _currentGold = _maxStorage;
+        }
     }
 
     public void ReleaseGold()
