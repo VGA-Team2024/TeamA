@@ -58,6 +58,11 @@ public class Builder : MonoBehaviour
         _agent.SetDestination(transform.position);
         if (_target.TryGetComponent<BuildingBase>(out var buildingBase))
         {
+            if (buildingBase.CurrentCondition.IsActivate)
+            {
+                _target = null;
+                return;
+            }
             _animator.SetFloat("Speed_f", 0);
             _animator.SetBool("Melee", true);
             buildingBase.StartBuilding();

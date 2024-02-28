@@ -152,7 +152,7 @@ public abstract class BuildingBase : MonoBehaviour
     private void Start()
     {
         OnStart();
-        if (_currentCondition.IsBuilding)
+        if (_currentCondition.IsActivate)
             BuildCompleted();
         else
             _buildingTimeText.text = (_buildingData.BuildTime - _currentCondition.CurrentBuildTime).ToString("0");
@@ -188,6 +188,7 @@ public abstract class BuildingBase : MonoBehaviour
         OnBuildFinish();
         BuildingManager.Instance.RegisterBuilding(this);
         _currentCondition.IsActivate = true;
+        _currentCondition.IsBuilding = false;
         _buildingTimeText.gameObject.SetActive(false);
     }
 

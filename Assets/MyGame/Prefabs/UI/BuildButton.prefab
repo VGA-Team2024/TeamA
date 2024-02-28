@@ -228,9 +228,9 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontSize: 18
-  m_fontSizeBase: 36.31
+  m_fontSizeBase: 18
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -675,6 +675,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 1396175040611664341}
+  _buildingCostText: {fileID: 3444354985484115795}
   _buildingNameText: {fileID: 5718820238257508875}
   _buildingStock: {fileID: 4484987053453966296}
   _buildingType: 0
