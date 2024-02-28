@@ -299,7 +299,7 @@ public class BuildingsSaveData : SaveData
         _minesArray = buildingsDataList.OfType<MineSaveData>().ToArray();
         _armyCampsArray = buildingsDataList.OfType<ArmyCampSaveData>().ToArray();
         //派生クラスのセーブデータを除去
-        _buildingsArray = buildingsDataList.Except(_minesArray).Except(_armyCampsArray).ToArray();
+        _buildingsArray = buildingsDataList.Where(x => x is not (MineSaveData or ArmyCampSaveData)).ToArray();
         
     }
 }
