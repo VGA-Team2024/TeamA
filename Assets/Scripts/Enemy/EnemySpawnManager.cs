@@ -1,42 +1,42 @@
-using Alchemy.Inspector;
+ï»¿using Alchemy.Inspector;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// ƒGƒlƒ~[‚Ì¶¬ŠÇ—A‰Šú‰»A‚ğó‚¯‚Â
+/// ã‚¨ãƒãƒŸãƒ¼ã®ç”Ÿæˆç®¡ç†ã€åˆæœŸåŒ–ã€ã‚’å—ã‘æŒã¤
 /// </summary>
 public class EnemySpawnManager : MonoBehaviour
 {
-    [LabelText("‚±‚ÌƒV[ƒ“‚Å¶¬‚·‚éƒGƒlƒ~[‚Ìƒf[ƒ^ƒŠƒXƒg")]
+    [LabelText("ã“ã®ã‚·ãƒ¼ãƒ³ã§ç”Ÿæˆã™ã‚‹ã‚¨ãƒãƒŸãƒ¼ã®ãƒ‡ãƒ¼ã‚¿ãƒªã‚¹ãƒˆ")]
     [SerializeField] private List<EnemyData> _enemyData = new List<EnemyData>();
-    /// <summary>@Œ»İ‚ÌƒGƒlƒ~[‚Ì¶¬ƒ^ƒCƒ}[‚ğ‚Ü‚Æ‚ß‚½”z—ñ@</summary>
+    /// <summary>ã€€ç¾åœ¨ã®ã‚¨ãƒãƒŸãƒ¼ã®ç”Ÿæˆã‚¿ã‚¤ãƒãƒ¼ã‚’ã¾ã¨ã‚ãŸé…åˆ—ã€€</summary>
     private float[] _spawnTimerArr = new float[0];
-    /// <summary>@ƒGƒlƒ~[‚Ì¶¬‰ñ”‚ğ‚Ü‚Æ‚ß‚½”z—ñ@</summary>
+    /// <summary>ã€€ã‚¨ãƒãƒŸãƒ¼ã®ç”Ÿæˆå›æ•°ã‚’ã¾ã¨ã‚ãŸé…åˆ—ã€€</summary>
     private int[] _enemyGenerateCountArr = new int[0];
-    /// <summary>@Œ»İ‚ÌƒV[ƒ“ã‚ÌƒGƒlƒ~[‚ª‘¶İ‚·‚é‚©‚ğ‚Ü‚Æ‚ß‚½”z—ñ@</summary>
+    /// <summary>ã€€ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ä¸Šã®ã‚¨ãƒãƒŸãƒ¼ãŒå­˜åœ¨ã™ã‚‹ã‹ã‚’ã¾ã¨ã‚ãŸé…åˆ—ã€€</summary>
     private bool[] _isEnemyExistArr = new bool[0];
 
-    [LabelText("ƒGƒlƒ~[‚ÌƒXƒ|[ƒ“ˆÊ’u‚ğ•\¦‚·‚éBox‚ÌF")]
+    [LabelText("ã‚¨ãƒãƒŸãƒ¼ã®ã‚¹ãƒãƒ¼ãƒ³ä½ç½®ã‚’è¡¨ç¤ºã™ã‚‹Boxã®è‰²")]
     [FoldoutGroup("Gizmos Settings")][SerializeField] private Color _spawnPointColor = new Color(1, 0, 0, 0.7f);
-    [LabelText("ƒGƒlƒ~[‚ÌƒXƒ|[ƒ“ˆÊ’u‚ğ•\¦‚·‚éBox‚Ì‘å‚«‚³")]
+    [LabelText("ã‚¨ãƒãƒŸãƒ¼ã®ã‚¹ãƒãƒ¼ãƒ³ä½ç½®ã‚’è¡¨ç¤ºã™ã‚‹Boxã®å¤§ãã•")]
     [FoldoutGroup("Gizmos Settings")][SerializeField] private Vector3 _spawnPointScale = Vector3.one;
 
-    [LabelText("ƒGƒlƒ~[‚ÌˆÚ“®–Ú•W‚ğ‚ğ•\¦‚·‚éBox‚ÌF")]
+    [LabelText("ã‚¨ãƒãƒŸãƒ¼ã®ç§»å‹•ç›®æ¨™ã‚’ã‚’è¡¨ç¤ºã™ã‚‹Boxã®è‰²")]
     [FoldoutGroup("Gizmos Settings")][SerializeField] private Color _targetPointColor = new Color(1, 0, 1, 0.5f);
-    [LabelText("ƒGƒlƒ~[‚ÌˆÚ“®–Ú•W‚ğ•\¦‚·‚éBox‚Ì‘å‚«‚³")]
+    [LabelText("ã‚¨ãƒãƒŸãƒ¼ã®ç§»å‹•ç›®æ¨™ã‚’è¡¨ç¤ºã™ã‚‹Boxã®å¤§ãã•")]
     [FoldoutGroup("Gizmos Settings")][SerializeField] private Vector3 _targetPointScale = Vector3.one;
     private void Start()
     {
-        //‚à‚µƒGƒlƒ~[ƒf[ƒ^‚ªˆê‚Â‚à‚È‚¢A‚à‚µ‚­‚ÍEnemyPrefabLoader‚ª‘¶İ‚µ‚È‚¯‚ê‚Î©g‚ğíœ
+        //ã‚‚ã—ã‚¨ãƒãƒŸãƒ¼ãƒ‡ãƒ¼ã‚¿ãŒä¸€ã¤ã‚‚ãªã„ã€ã‚‚ã—ãã¯EnemyPrefabLoaderãŒå­˜åœ¨ã—ãªã‘ã‚Œã°è‡ªèº«ã‚’å‰Šé™¤
         if (_enemyData.Count == 0 || EnemyPrefabLoader.Instance == null)
         {
             this.gameObject.SetActive(false);
             return;
         }
-        //‚»‚ê‚¼‚ê”z—ñ‚ğ‰Šú‰»
+        //ãã‚Œãã‚Œé…åˆ—ã‚’åˆæœŸåŒ–
         _spawnTimerArr = new float[_enemyData.Count];
         _enemyGenerateCountArr = new int[_enemyData.Count];
         _isEnemyExistArr = new bool[_enemyData.Count];
-        //Å‰‚Í‚·‚®‚ÉƒXƒ|[ƒ“‚·‚é‚æ‚¤‚Éƒ^ƒCƒ}[‚ğ‰Šú‰»
+        //æœ€åˆã¯ã™ãã«ã‚¹ãƒãƒ¼ãƒ³ã™ã‚‹ã‚ˆã†ã«ã‚¿ã‚¤ãƒãƒ¼ã‚’åˆæœŸåŒ–
         for (int i = 0; i < _enemyData.Count; i++)
         {
             _spawnTimerArr[i] = _enemyData[i].GenerateInterval - 1;
@@ -47,13 +47,13 @@ public class EnemySpawnManager : MonoBehaviour
     {
         for (int i = 0; i < _enemyData.Count; i++)
         {
-            //ƒ^ƒCƒ}[‰ÁZ
+            //ã‚¿ã‚¤ãƒãƒ¼åŠ ç®—
             _spawnTimerArr[i] += Time.deltaTime;
             if (IsSpawnableEnemy(i))
             {
-                //ÀÛ‚Éƒ[ƒh‚·‚é
+                //å®Ÿéš›ã«ãƒ­ãƒ¼ãƒ‰ã™ã‚‹
                 GameObject? loadedObject = EnemyPrefabLoader.Instance.GetEnemyPrefab(_enemyData[i].Enemy);
-                //null‚Å‚È‚¯‚ê‚ÎƒGƒlƒ~[‚ğ‰Šú‰»‚·‚é
+                //nullã§ãªã‘ã‚Œã°ã‚¨ãƒãƒŸãƒ¼ã‚’åˆæœŸåŒ–ã™ã‚‹
                 if (loadedObject != null)
                 {
                     InitializeSpawnedEnemy(loadedObject, i);
@@ -62,7 +62,7 @@ public class EnemySpawnManager : MonoBehaviour
         }
     }
     /// <summary>
-    /// ƒGƒlƒ~[‚ªƒXƒ|[ƒ“‚Å‚«‚é‚©”»’è
+    /// ã‚¨ãƒãƒŸãƒ¼ãŒã‚¹ãƒãƒ¼ãƒ³ã§ãã‚‹ã‹åˆ¤å®š
     /// </summary>
     private bool IsSpawnableEnemy(int index)
     {
@@ -82,13 +82,13 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void InitializeSpawnedEnemy(GameObject enemyObject, int index)
     {
-        //ƒGƒlƒ~[¶¬
+        //ã‚¨ãƒãƒŸãƒ¼ç”Ÿæˆ
         GameObject instantiatedObject = GameObject.Instantiate(enemyObject);
-        //ƒXƒ|[ƒ“‚É”º‚¤’l‚Ì•Ï“®
+        //ã‚¹ãƒãƒ¼ãƒ³ã«ä¼´ã†å€¤ã®å¤‰å‹•
         _enemyGenerateCountArr[index]++;
         _isEnemyExistArr[index] = true;
         _spawnTimerArr[index] = 0;
-        //ƒGƒlƒ~[“à•”‚Ì‰Šú‰»
+        //ã‚¨ãƒãƒŸãƒ¼å†…éƒ¨ã®åˆæœŸåŒ–
         instantiatedObject.transform.position = _enemyData[index].SpawnPoint;
         instantiatedObject.transform.rotation *= Quaternion.AngleAxis(_enemyData[index].SpawnedEnemyRotationY, Vector3.up);
         EnemyBase enemyBase = instantiatedObject.GetComponent<EnemyBase>();
@@ -96,7 +96,7 @@ public class EnemySpawnManager : MonoBehaviour
         {
             enemyBase = instantiatedObject.AddComponent<EnemyBase>();
         }
-        //ƒGƒlƒ~[‚ª”jŠü‚³‚ê‚éÛ‚És‚¤ˆ—‚ğ“o˜^
+        //ã‚¨ãƒãƒŸãƒ¼ãŒç ´æ£„ã•ã‚Œã‚‹éš›ã«è¡Œã†å‡¦ç†ã‚’ç™»éŒ²
         enemyBase._disposeAction += RegisterAction;
         enemyBase.GetNextPosition += _enemyData[index].MovePatern.GetNextTarget;
         enemyBase.GetNextGoalAction += _enemyData[index].MovePatern.NextTargetActionAsync;
@@ -120,15 +120,15 @@ public class EnemySpawnManager : MonoBehaviour
         {
             if (_enemyData[i].IsDrawTargetsPosition)
             {
-                //ƒGƒlƒ~[‚ÌƒXƒ|[ƒ“ƒ|ƒCƒ“ƒg‚Ì•`‰æ
+                //ã‚¨ãƒãƒŸãƒ¼ã®ã‚¹ãƒãƒ¼ãƒ³ãƒã‚¤ãƒ³ãƒˆã®æç”»
                 Gizmos.color = _spawnPointColor;
                 Vector3 centerSpawnPoint = _enemyData[i].SpawnPoint + Vector3.up * _spawnPointScale.y * 0.5f;
                 Gizmos.DrawCube(centerSpawnPoint, _spawnPointScale);
-                //ƒGƒlƒ~[‚Ì³–Ê‚ğ•`‰æ
+                //ã‚¨ãƒãƒŸãƒ¼ã®æ­£é¢ã‚’æç”»
                 Gizmos.DrawLine(centerSpawnPoint, centerSpawnPoint + Quaternion.AngleAxis(_enemyData[i].SpawnedEnemyRotationY, Vector3.up) * Vector3.forward);
-                //nullƒ`ƒFƒbƒN
+                //nullãƒã‚§ãƒƒã‚¯
                 if (_enemyData[i].MovePatern == null) { continue; };
-                //ƒGƒlƒ~[‚Ì„‰ñ’n‚Ì•`‰æ
+                //ã‚¨ãƒãƒŸãƒ¼ã®å·¡å›åœ°ã®æç”»
                 Gizmos.color = _targetPointColor;
                 foreach ((Vector3 position, float rotationEuler) targetData in _enemyData[i].MovePatern.GetAllTargets())
                 {
