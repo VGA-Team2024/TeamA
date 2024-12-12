@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 
 public class BossAreaAttack : MonoBehaviour
@@ -13,7 +13,7 @@ public class BossAreaAttack : MonoBehaviour
     {
         SetupWarningIndicator();
     }
-    private void Update() //‚Å‚Î‚Á‚­
+    private void Update() //ã§ã°ã£ã
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -25,28 +25,28 @@ public class BossAreaAttack : MonoBehaviour
         }
     }
     /// <summary>
-    /// Œx•\¦ƒIƒuƒWƒFƒNƒg‚Ì‰Šúİ’è
+    /// è­¦å‘Šè¡¨ç¤ºã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®åˆæœŸè¨­å®š
     /// </summary>
     private void SetupWarningIndicator()
     {
         if (warningIndicator == null)
         {
-            Debug.LogError("Œx•\¦—p‚ÌƒIƒuƒWƒFƒNƒg‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");
+            Debug.LogError("è­¦å‘Šè¡¨ç¤ºç”¨ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚");
             return;
         }
 
         warningIndicatorCollider = warningIndicator.GetComponent<BoxCollider>();
         if (warningIndicatorCollider == null)
         {
-            Debug.LogError("Œx•\¦—pƒIƒuƒWƒFƒNƒg‚ÉBoxCollider‚ª‚ ‚è‚Ü‚¹‚ñB");
+            Debug.LogError("è­¦å‘Šè¡¨ç¤ºç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«BoxColliderãŒã‚ã‚Šã¾ã›ã‚“ã€‚");
             return;
         }
 
-        warningIndicator.SetActive(false); // ‰Šúó‘Ô‚Å”ñƒAƒNƒeƒBƒu
+        warningIndicator.SetActive(false); // åˆæœŸçŠ¶æ…‹ã§éã‚¢ã‚¯ãƒ†ã‚£ãƒ–
     }
 
     /// <summary>
-    /// Œx•\¦‚ğŠJn
+    /// è­¦å‘Šè¡¨ç¤ºã‚’é–‹å§‹
     /// </summary>
     public void ShowWarning()
     {
@@ -57,7 +57,7 @@ public class BossAreaAttack : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀÛ‚ÌUŒ‚ˆ—
+    /// å®Ÿéš›ã®æ”»æ’ƒå‡¦ç†
     /// </summary>
     public void ExecuteAttack(float damage)
     {
@@ -67,18 +67,18 @@ public class BossAreaAttack : MonoBehaviour
 
         foreach (RaycastHit hit in hits)
         {
-            Debug.Log($"UŒ‚”ÍˆÍ“à‚ÉƒvƒŒƒCƒ„[‚ğŒŸ’m");
-            // ƒ_ƒ[ƒWˆ—
+            Debug.Log($"æ”»æ’ƒç¯„å›²å†…ã«ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’æ¤œçŸ¥");
+            // ãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†
             if(hit.collider.TryGetComponent<PlayerDamageReceiver>(out PlayerDamageReceiver damageReceiver))
             {
                 damageReceiver.ApplyDamage(damage);
-                Debug.Log($"{hit.collider.name}‚É{damage}ƒ_ƒ[ƒW—^‚¦‚½");
+                Debug.Log($"{hit.collider.name}ã«{damage}ãƒ€ãƒ¡ãƒ¼ã‚¸ä¸ãˆãŸ");
             }
         }
     }
 
     /// <summary>
-    /// Œx•\¦‚ğ”ñƒAƒNƒeƒBƒu‰»
+    /// è­¦å‘Šè¡¨ç¤ºã‚’éã‚¢ã‚¯ãƒ†ã‚£ãƒ–åŒ–
     /// </summary>
     private IEnumerator HideWarningAfterDelay(float delay)
     {
@@ -90,7 +90,7 @@ public class BossAreaAttack : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒGƒfƒBƒ^ã‚Å”ÍˆÍ‚ğ‹Šo‰»
+    /// ã‚¨ãƒ‡ã‚£ã‚¿ä¸Šã§ç¯„å›²ã‚’è¦–è¦šåŒ–
     /// </summary>
     private void OnDrawGizmosSelected()
     {

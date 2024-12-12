@@ -23,25 +23,37 @@ public class RotatableObject : MonoBehaviour
     }
     public void CheckObstacle(float rotateInput)
     {
-        if(Physics.OverlapBox(this.transform.position,
+        if (CheckRotateFloor())
+        {
+            if (Data.ObstacledInput != 0 && rotateInput != 0 && Mathf.Sign(Data.ObstacledInput) != Mathf.Sign(rotateInput))
+            {
+                Data.IsRotatable = true;
+                Data.ObstacledInput = 0;
+                return;
+            }
+        }
+        if (Physics.OverlapBox(this.transform.position,
             this.transform.localScale * (0.5f + _adjustOverlapBoxRange),
             transform.rotation, _obstacleOrRotateLayer, QueryTriggerInteraction.Collide).Length > 0)
         {
             Data.IsRotatable = false;
-            if(rotateInput != 0)
+            if (rotateInput != 0 && Data.ObstacledInput == 0)
             {
                 Data.ObstacledInput = rotateInput > 0 ? 1 : -1;
+                Debug.Log($"{Data.Collider.name} : {Data.ObstacledInput}");
             }
         }
     }
-    public void CheckRotateFloor()
+    public bool CheckRotateFloor()
     {
         if (Physics.OverlapBox(this.transform.position,
             this.transform.localScale * (0.5f + _adjustOverlapBoxRange),
             transform.rotation, _floorLayer, QueryTriggerInteraction.Collide).Length > 1)
         {
             Data.IsRotatable = true;
+            return true;
         }
+        return false;
     }
     /// <summary>
     /// 回せない状態かつ入力が前回止まっていた入力であるならfalse、それ以外ならtrueを返す
@@ -49,9 +61,9 @@ public class RotatableObject : MonoBehaviour
     /// <param name="rotateInput">
     /// 回転用の入力
     /// </param>
-    public bool IsRotatable(float rotateInput) 
+    public bool IsRotatable(float rotateInput)
     {
-        if(!Data.IsRotatable && (rotateInput - Data.ObstacledInput) * (rotateInput - Data.ObstacledInput) < 2)
+        if (!Data.IsRotatable && (rotateInput - Data.ObstacledInput) * (rotateInput - Data.ObstacledInput) < 2)
         {
             return false;
         }
@@ -74,7 +86,7 @@ public class RotateFloorData
     public GameObject Floor;
     [Alchemy.Inspector.ReadOnly]
     public Collider Collider;
-    public bool IsRotatable =　false;
+    public bool IsRotatable = false;
     public float ObstacledInput = 0;
     public float Angle;
     public Vector3 StickChildVector;
