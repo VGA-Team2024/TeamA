@@ -1,4 +1,4 @@
-using Alchemy.Inspector;
+ï»¿using Alchemy.Inspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,19 +7,19 @@ using static CriWare.CriProfiler;
 public class CRIPlaySoundSample : MonoBehaviour
 {
     /// <summary>
-    /// CueSheet‚Ìİ’è
-    /// <br>‚»‚ê‚¼‚ê‚É‘Î‰‚µ‚½‚à‚Ì‚ğAtomBrowser‚©‚ç’T‚µ‚Ä•¶š—ñ‚Åw’è‚·‚é‚±‚Æ</br>
+    /// CueSheetã®è¨­å®š
+    /// <br>ãã‚Œãã‚Œã«å¯¾å¿œã—ãŸã‚‚ã®ã‚’AtomBrowserã‹ã‚‰æ¢ã—ã¦æ–‡å­—åˆ—ã§æŒ‡å®šã™ã‚‹ã“ã¨</br>
     /// </summary>
-    [LabelText("BGM‚ÌCueSheet")]
+    [LabelText("BGMã®CueSheet")]
     [SerializeField] string _bgmCueSheet;
-    [LabelText("SE‚ÌCueSheet")]
+    [LabelText("SEã®CueSheet")]
     [SerializeField] string _seCueSheet;
-    [LabelText("Voice‚ÌCueSheet")]
+    [LabelText("Voiceã®CueSheet")]
     [SerializeField] string _voiceCueSheet;
 
-    [Title("3DƒTƒEƒ“ƒh‚Ì”­¶’n“_‚©‚ç•·‚«è‚Ö‚ÌƒxƒNƒgƒ‹")]
+    [Title("3Dã‚µã‚¦ãƒ³ãƒ‰ã®ç™ºç”Ÿåœ°ç‚¹ã‹ã‚‰èãæ‰‹ã¸ã®ãƒ™ã‚¯ãƒˆãƒ«")]
     [SerializeField] Vector3 _3dSoundPlayPosition;
-    [Title("BGM‚Ì‹@”\‚ğ‚·ŠÖ”ŒQ")]
+    [Title("BGMã®æ©Ÿèƒ½ã‚’è©¦ã™é–¢æ•°ç¾¤")]
     [Button]
     private void OnPlayBGM(string CueName)
     {
@@ -32,7 +32,7 @@ public class CRIPlaySoundSample : MonoBehaviour
     }
 
 
-    [Title("SE‚Ì‹@”\‚ğ‚·ŠÖ”ŒQ")]
+    [Title("SEã®æ©Ÿèƒ½ã‚’è©¦ã™é–¢æ•°ç¾¤")]
     [Button]
     private void OnChangeSEVolume(float volume)
     {
@@ -45,7 +45,7 @@ public class CRIPlaySoundSample : MonoBehaviour
     }
 
 
-    [Title("Voice‚Ì‹@”\‚ğ‚·ŠÖ”ŒQ")]
+    [Title("Voiceã®æ©Ÿèƒ½ã‚’è©¦ã™é–¢æ•°ç¾¤")]
     [Button]
     private void OnPlayVoice(string CueName)
     {
@@ -58,7 +58,7 @@ public class CRIPlaySoundSample : MonoBehaviour
     }
 
 
-    [Title("’x‰„‚Å—¬‚¹‚é‹@”\‚ğ‚·ŠÖ”ŒQ")]
+    [Title("é…å»¶ã§æµã›ã‚‹æ©Ÿèƒ½ã‚’è©¦ã™é–¢æ•°ç¾¤")]
     [Button]
     private void PlaySoundsWaitable(List<(SoundType soundType, string cueName, float waitTime)> soundData)
     {
