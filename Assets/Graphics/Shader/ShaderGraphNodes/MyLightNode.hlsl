@@ -4,6 +4,10 @@
 #ifndef SHADERGRAPH_PREVIEW
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 
+#pragma multi_compile _ _MAIN_LIGHT_SHADOWS
+#pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
+#pragma multi_compile _ _SHADOWS_SOFT
+
 #endif
 
 void GetMainLightParams_float(float3 WorldPosition, out half3 Direction, out half3 Color, out float DistanceAttenuation,
@@ -21,7 +25,7 @@ void GetMainLightParams_float(float3 WorldPosition, out half3 Direction, out hal
     Direction = mainLight.direction;
     Color = mainLight.color;
     DistanceAttenuation = mainLight.distanceAttenuation;
-    ShadowAttenuation = mainLight.shadowAttenuation;
+    ShadowAttenuation = MainLightRealtimeShadow(shadowCoord);
 
     #endif
 }
@@ -43,6 +47,15 @@ void GetAdditionalLight_float(float3 WorldPosition, float3 Normal, out half3 Col
         Color += LightingLambert(lightColor, light.direction, Normal);
     }
 
+    #endif
+}
+
+void GetHalfVector_float(float3 ViewVector, out float3 HalfVector)
+{
+    #ifdef SHADERGRAPH_PREVIEW
+    HalfVector = half3(0.5, 0.5, 0);
+    #else
+    HalfVector = normalize(_MainLightPosition + ViewVector);
     #endif
 }
 
