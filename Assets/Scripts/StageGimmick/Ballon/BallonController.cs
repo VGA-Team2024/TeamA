@@ -7,7 +7,7 @@ using LitMotion.Extensions;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 
-public class BallonController : MonoBehaviour, IAbilityDetectable
+public class BallonController : MonoBehaviour, IAbilityDetectable, IResetable
 {
     [LabelText("移動距離")]
     [SerializeField] private float _moveDistance = 3.0f;
@@ -85,7 +85,10 @@ public class BallonController : MonoBehaviour, IAbilityDetectable
                 _timer = 0f;
             }
         }
-        CatchPlayer();
+        else
+        {
+            CatchPlayer();
+        }
     }
 
     //Motionを再生するメソッド
@@ -217,6 +220,7 @@ public class BallonController : MonoBehaviour, IAbilityDetectable
     {
         _upMoveBuilder.Dispose();
         _downMoveBuilder.Dispose();
+        CancelletionReset();
     }
 
     private void OnDrawGizmos()
@@ -240,5 +244,43 @@ public class BallonController : MonoBehaviour, IAbilityDetectable
     public Transform GetTransform()
     {
         return this.transform;
+    }
+    /// <summary>
+    /// リセットアクションの追加
+    /// </summary>
+    public void RegisterReset()
+    {
+        try
+        {
+            FindAnyObjectByType<GimmickResetManager>().GetComponent<GimmickResetManager>()._resetAction += ResetGimmick;
+        }
+        catch
+        {
+            Debug.Log($"{this.gameObject.name} can't register ResetGimmick ");
+        }
+    }
+    public void ResetGimmick()
+    {
+        _isPause = true;
+        _isUp = true;
+
+        // 初期状態で停止
+        _upMoveMotion.PlaybackSpeed = 0f;
+        _downMoveMotion.PlaybackSpeed = 0f;
+
+        //位置リセット
+        this.transform.position = _startPos;
+    }
+
+    public void CancelletionReset()
+    {
+        try
+        {
+            FindAnyObjectByType<GimmickResetManager>().GetComponent<GimmickResetManager>()._resetAction -= ResetGimmick;
+        }
+        catch
+        {
+            Debug.Log($"{this.gameObject.name} can't register ResetGimmick ");
+        }
     }
 }
