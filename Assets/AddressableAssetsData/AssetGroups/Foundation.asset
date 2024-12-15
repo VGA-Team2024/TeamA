@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Default Group
+  m_Name: Foundation
   m_EditorClassIdentifier: 
-  m_GroupName: Default Group
+  m_GroupName: Foundation
   m_Data:
     m_SerializedData: []
-  m_GUID: 055b6216634c8ba4b80610294c57a4cb
+  m_GUID: 4e370cdda799a2a45aa9ef4b1abe3ef2
   m_SerializeEntries:
-  - m_GUID: 75bda8f836a56154caac0e35934a5625
-    m_Address: PlayerPrefab
+  - m_GUID: b7f272b4a64653647b4d4ba249b8836f
+    m_Address: Assets/Scenes/SceneDependencies.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b5116f778bac72f4b937c070e3437bce
-    m_Address: Assets/Prefabs/Enemy/Surtr.prefab
+  - m_GUID: c60c2ca92c2d30244a57d8d3d38604a1
+    m_Address: Assets/Prefabs/CRI.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e0d0367a3ee85d04e9e02597765e473d
-    m_Address: CanvasPrefab
+  - m_GUID: f52adb1f762b12d499e7423060ada622
+    m_Address: Assets/Prefabs/Review.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -36,5 +36,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: f7954a5e551c001488d9ecd8e2f3601d, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 50dc79a7cd3032249bfd2c00651d2a3a, type: 2}
-    - {fileID: 11400000, guid: e25237a00d08e894dadccfa8e4fc50d1, type: 2}
+    - {fileID: 11400000, guid: 0304b7e387c896d4b8599303099551f3, type: 2}
+    - {fileID: 11400000, guid: f0889c629aab8e845b806e0ee1459ce6, type: 2}
