@@ -45,6 +45,7 @@ public class BallonController : MonoBehaviour, IAbilityDetectable, IResetable
         _startPos = this.transform.position;
         _endPos = new Vector3(_startPos.x, _startPos.y + _moveDistance, _startPos.z);
 
+        RegisterReset();
         // // 上昇と下降をまとめる
         // _downMoveBuilder = LMotion
         //    .Create(_endPos, _startPos, _moveDuration)
@@ -277,15 +278,7 @@ public class BallonController : MonoBehaviour, IAbilityDetectable, IResetable
     }
     public void ResetGimmick()
     {
-        _isPause = true;
-        _isUp = true;
-
-        // 初期状態で停止
-        _upMoveMotion.PlaybackSpeed = 0f;
-        _downMoveMotion.PlaybackSpeed = 0f;
-
-        //位置リセット
-        this.transform.position = _startPos;
+        //地面についた状態にしたい
     }
 
     public void CancelletionReset()
@@ -296,7 +289,7 @@ public class BallonController : MonoBehaviour, IAbilityDetectable, IResetable
         }
         catch
         {
-            Debug.Log($"{this.gameObject.name} can't register ResetGimmick ");
+            Debug.Log($"{this.gameObject.name} can't remove ResetGimmick ");
         }
     }
 }
