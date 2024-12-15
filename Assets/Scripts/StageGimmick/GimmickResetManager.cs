@@ -24,5 +24,6 @@ public class GimmickResetManager : MonoBehaviour, IInteractable
     public void OnInteract(IInteractCallBackReceivable caller)
     {
         _resetAction?.Invoke();
+        Debug.Log("Interact Reset");
     }
 }

@@ -7,7 +7,7 @@ using LitMotion.Extensions;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 
-public class BallonController : MonoBehaviour, IAbilityDetectable
+public class BallonController : MonoBehaviour, IAbilityDetectable, IResetable
 {
     [LabelText("移動距離")]
     [SerializeField] private float _moveDistance = 3.0f;
@@ -24,8 +24,8 @@ public class BallonController : MonoBehaviour, IAbilityDetectable
 
     private Vector3 _startPos;
     private Vector3 _endPos;
-    private MotionBuilder<Vector3, NoOptions, LitMotion.Adapters.Vector3MotionAdapter> _upMoveBuilder;
-    private MotionBuilder<Vector3, NoOptions, LitMotion.Adapters.Vector3MotionAdapter> _downMoveBuilder;
+    // private MotionBuilder<Vector3, NoOptions, LitMotion.Adapters.Vector3MotionAdapter> _upMoveBuilder;
+    // private MotionBuilder<Vector3, NoOptions, LitMotion.Adapters.Vector3MotionAdapter> _downMoveBuilder;
     private MotionHandle _upMoveMotion;
     private MotionHandle _downMoveMotion;
     private bool _isPause = true;
@@ -45,33 +45,29 @@ public class BallonController : MonoBehaviour, IAbilityDetectable
         _startPos = this.transform.position;
         _endPos = new Vector3(_startPos.x, _startPos.y + _moveDistance, _startPos.z);
 
-        // 上昇と下降をまとめる
-        _downMoveBuilder = LMotion
-           .Create(_endPos, _startPos, _moveDuration)
-           .WithEase(Ease.InOutCubic)
-           .WithOnComplete(async () =>
-           {
-               CancellationTokenSource token = new CancellationTokenSource();
-               await StartCountdown(token.Token);
-           })
-           .Preserve();
-        _downMoveMotion = _downMoveBuilder.BindToPosition(transform);
-
-        _upMoveBuilder = LMotion
-            .Create(_startPos, _endPos, _moveDuration)
-            .WithEase(Ease.InOutCubic)
-            .WithOnComplete(async () =>
-            {
-                CancellationTokenSource token = new CancellationTokenSource();
-                await StartCountdown(token.Token);
-            })
-            .Preserve();
-        _upMoveMotion = _upMoveBuilder.BindToPosition(transform);
-
-        
-        // 初期状態で停止
-        _upMoveMotion.PlaybackSpeed = 0f;
-        _downMoveMotion.PlaybackSpeed = 0f;
+        RegisterReset();
+        // // 上昇と下降をまとめる
+        // _downMoveBuilder = LMotion
+        //    .Create(_endPos, _startPos, _moveDuration)
+        //    .WithEase(Ease.InOutCubic)
+        //    .WithOnComplete(async () =>
+        //    {
+        //        CancellationTokenSource token = new CancellationTokenSource();
+        //        await StartCountdown(token.Token);
+        //    })
+        //    .Preserve();
+        // _downMoveMotion = _downMoveBuilder.BindToPosition(transform);
+        //
+        // _upMoveBuilder = LMotion
+        //     .Create(_startPos, _endPos, _moveDuration)
+        //     .WithEase(Ease.InOutCubic)
+        //     .WithOnComplete(async () =>
+        //     {
+        //         CancellationTokenSource token = new CancellationTokenSource();
+        //         await StartCountdown(token.Token);
+        //     })
+        //     .Preserve();
+        // _upMoveMotion = _upMoveBuilder.BindToPosition(transform);
     }
 
     private void Update()
@@ -85,21 +81,30 @@ public class BallonController : MonoBehaviour, IAbilityDetectable
                 _timer = 0f;
             }
         }
-        CatchPlayer();
+        else
+        {
+            CatchPlayer();
+        }
     }
 
     //Motionを再生するメソッド
     private void StartMotion()
     {
-        SwitchPause();
+        _isPause = false;
         if (!_isCountingDown)
         {
             if (_isUp)
             {
+                if (!_upMoveMotion.IsActive())
+                {
+                    PlayCurrentMotion();
+                }
                 _upMoveMotion.PlaybackSpeed = 1f;
             }
             else
             {
+                if (!_downMoveMotion.IsActive())
+                    PlayCurrentMotion();
                 _downMoveMotion.PlaybackSpeed = 1f;
             }
         }
@@ -108,7 +113,7 @@ public class BallonController : MonoBehaviour, IAbilityDetectable
     //Motionを止めるメソッド
     private void StopMotion()
     {
-        SwitchPause();
+        _isPause = true;
         if (!_isCountingDown)
         {
             if (_isUp)
@@ -128,19 +133,33 @@ public class BallonController : MonoBehaviour, IAbilityDetectable
         if(_isUp)
         {
             _upMoveMotion.ToDisposable().Dispose();
-            _upMoveMotion = _upMoveBuilder.BindToPosition(transform);
+            _upMoveMotion = LMotion
+                .Create(_startPos, _endPos, _moveDuration)
+                .WithEase(Ease.InOutCubic)
+                .WithOnComplete(async () =>
+                {
+                    CancellationTokenSource token = new CancellationTokenSource();
+                    await StartCountdown(token.Token);
+                })
+                .BindToPosition(transform)
+                .AddTo(gameObject);
+            _upMoveMotion.PlaybackSpeed = 0f;
         }
         else
         {
             _downMoveMotion.ToDisposable().Dispose();
-            _downMoveMotion = _downMoveBuilder.BindToPosition(transform);
+            _downMoveMotion = LMotion
+                .Create(_endPos, _startPos, _moveDuration)
+                .WithEase(Ease.InOutCubic)
+                .WithOnComplete(async () =>
+                {
+                    CancellationTokenSource token = new CancellationTokenSource();
+                    await StartCountdown(token.Token);
+                })
+                .BindToPosition(transform)
+                .AddTo(gameObject);
+            _downMoveMotion.PlaybackSpeed = 0f;
         }
-    }
-
-    // カウントダウンの一時停止を切り替える
-    public void SwitchPause()
-    {
-        _isPause = !_isPause;
     }
 
     //カウントダウンメソッド
@@ -165,6 +184,7 @@ public class BallonController : MonoBehaviour, IAbilityDetectable
 
         SwitchDirection();
         PlayCurrentMotion();
+        StartMotion();
     }
 
     private void SwitchDirection()
@@ -175,10 +195,10 @@ public class BallonController : MonoBehaviour, IAbilityDetectable
     [Button]
     public void TestButton()
     {
-        if (_isPause)
-            StartMotion();
-        else
+        if (!_isPause)
             StopMotion();
+        else
+            StartMotion();
     }
 
     public void OnAbilityDetect(WandManager.CaptureAbility ability)
@@ -215,8 +235,9 @@ public class BallonController : MonoBehaviour, IAbilityDetectable
 
     private void OnDestroy()
     {
-        _upMoveBuilder.Dispose();
-        _downMoveBuilder.Dispose();
+        // _upMoveBuilder.Dispose();
+        // _downMoveBuilder.Dispose();
+        CancelletionReset();
     }
 
     private void OnDrawGizmos()
@@ -240,5 +261,35 @@ public class BallonController : MonoBehaviour, IAbilityDetectable
     public Transform GetTransform()
     {
         return this.transform;
+    }
+    /// <summary>
+    /// リセットアクションの追加
+    /// </summary>
+    public void RegisterReset()
+    {
+        try
+        {
+            FindAnyObjectByType<GimmickResetManager>().GetComponent<GimmickResetManager>()._resetAction += ResetGimmick;
+        }
+        catch
+        {
+            Debug.Log($"{this.gameObject.name} can't register ResetGimmick ");
+        }
+    }
+    public void ResetGimmick()
+    {
+        //地面についた状態にしたい
+    }
+
+    public void CancelletionReset()
+    {
+        try
+        {
+            FindAnyObjectByType<GimmickResetManager>().GetComponent<GimmickResetManager>()._resetAction -= ResetGimmick;
+        }
+        catch
+        {
+            Debug.Log($"{this.gameObject.name} can't remove ResetGimmick ");
+        }
     }
 }
