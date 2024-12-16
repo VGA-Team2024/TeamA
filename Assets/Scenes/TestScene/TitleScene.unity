@@ -275,6 +275,11 @@ MonoBehaviour:
   - Image/star
   - good
   - byebye
+  _spriteDatas:
+  - Key: cat
+    Sprite: {fileID: 21300000, guid: 49ead333a54cbfe4d97ac3daf7e1ede2, type: 3}
+  - Key: star
+    Sprite: {fileID: 21300000, guid: ee05d7edbb24802439f7c316e5054e18, type: 3}
 --- !u!4 &285443670
 Transform:
   m_ObjectHideFlags: 0

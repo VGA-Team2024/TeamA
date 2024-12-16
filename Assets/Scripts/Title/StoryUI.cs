@@ -1,33 +1,43 @@
 using LitMotion;
 using LitMotion.Extensions;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
+public class SpriteData
+{
+    public string Key;
+    public Sprite Sprite;
+}
+
 public class StoryUI : MonoBehaviour
 {
     [SerializeField] string _path = "Image";
     [SerializeField] TextMeshProUGUI _lineText;//文字表示するテキスト
-    [SerializeField] UnityEngine.UI.Image _bgImage;//背景イメージ
-    [SerializeField] UnityEngine.UI.Image _animImage;//アニメーション処理用イメージ
+    [SerializeField] Image _bgImage;//背景イメージ
+    [SerializeField] Image _animImage;//アニメーション処理用イメージ
     [SerializeField] int _textSpeed = 5;
-
     [SerializeField] private float _fadeDuration;//画像のフェードにかかる時間
     [SerializeField] private Ease _ease;
+    [SerializeField, Multiline] string[] _lines; // "Image/キー名" で画像変更行, それ以外はテキスト行
 
-    [SerializeField, MultilineAttribute] string[] _lines;
+    [SerializeField] SpriteData[] _spriteDatas; // InspectorでKeyとSpriteを紐づけ
 
-    MotionHandle _handle;//テキストのモーションハンドル
-    int _count = 0;
+    private Dictionary<string, Sprite> _spriteDictionary;
+    private MotionHandle _handle;
+    private int _count = 0;
+    void Awake()
+    {
+        // SpriteData配列からDictionaryへ変換
+        _spriteDictionary = _spriteDatas.ToDictionary(x => x.Key, x => x.Sprite);
+    }
     void Start()
     {
         StoryText();
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -41,7 +51,6 @@ public class StoryUI : MonoBehaviour
             {
                 StoryText();
             }
-
         }
     }
     public void StoryText()
@@ -52,37 +61,42 @@ public class StoryUI : MonoBehaviour
             Debug.Log("ストーリー終了");
             return;
         }
-        //「/」の記号で画像変更かテキスト変更かを判別
         string[] line = _lines[_count].Split('/');
-        if (line[0] == _path)
+        // line[0] == "Image" の場合はline[1]がキー名、それ以外はテキスト表示
+        if (line[0] == _path && line.Length > 1)
         {
             //画像変更する
             Debug.Log("画像変更");
-
-            _animImage.sprite = Resources.Load<Sprite>(_lines[_count]);
-            LMotion.Create(0f, 1f, _fadeDuration)//アルファ値をフェードさせる
-            .WithEase(_ease)
-            .WithOnComplete(() => FadeIn())//モーションが完了したときの処理
-            .BindToColorA(_animImage);
-
+            string key = line[1];
+            if (_spriteDictionary.TryGetValue(key, out var sprite))
+            {
+                _animImage.sprite = sprite;
+                LMotion.Create(0f, 1f, _fadeDuration)//アルファ値をフェードさせる
+                      .WithEase(_ease)
+                      .WithOnComplete(() => FadeIn())//モーションが完了したときの処理
+                      .BindToColorA(_animImage);
+            }
+            else
+            {
+                Debug.LogWarning($"キー '{key}' に対応する画像が見つかりません");
+            }
             _count++;
-            StoryText();//イメージ変更とともにテキストも変えるため、StoryText()を再呼び出し
+            StoryText();
         }
         else
         {
-
+            string text = _lines[_count];
             //テキスト表示アニメーションのハンドルを入れる
-            _handle = LMotion.String.Create512Bytes("", _lines[_count], _lines[_count].Length / _textSpeed).WithRichText().WithScrambleChars(ScrambleMode.None)
-            .BindToText(_lineText); ;
-
+            _handle = LMotion.String.Create512Bytes("", text, text.Length / _textSpeed)
+                     .WithRichText()
+                     .WithScrambleChars(ScrambleMode.None)
+                     .BindToText(_lineText);
             _count++;
         }
-
     }
     public void FadeIn()
     {
-        //フェードインが完了したら、アニメーション用のimageのスプライトを_bgImageに移行
-        //その後_animImageのアルファ値を0にして非表示
+        // フェードイン完了後、_animImageの画像を_bgImageへ移し、_animImageは透明化
         _bgImage.sprite = _animImage.sprite;
         _animImage.color = new Color(1, 1, 1, 0);
     }
