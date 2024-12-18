@@ -32,7 +32,7 @@ public class RotateManager : MonoBehaviour
         }
 
         //ç™å≥ÇÃÇ‚Ç¬ÇæÇØãNìÆ
-        _rotateFloorDataList[0].Data.IsRotatable = true;
+        //_rotateFloorDataList[0]._isRotatable = true;
     }
     public void OnInputVec2()
     {
@@ -53,10 +53,6 @@ public class RotateManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             _isEnableGimmick = !_isEnableGimmick;
-            foreach (RotatableObject obj in _rotateFloorDataList)
-            {
-                obj.Data.Collider.isTrigger = _isEnableGimmick;
-            }
             Debug.Log($"RotateGimmick : {_isEnableGimmick}");
         }
         if (!_isEnableGimmick)
@@ -77,28 +73,13 @@ public class RotateManager : MonoBehaviour
     private void Rotate()
     {
         for (int i = 0; i < _rotateFloorDataList.Count && _rotateFloorDataList[i].IsRotatable(_inputHori); i++)
-        {
-            if (_rotateFloorDataList[i].Data.IsRotatable == true)
+        {/*
+            if (_rotateFloorDataList[i]._isRotatable == true)
             {
-                _rotateFloorDataList[i].Data.Floor.transform.RotateAround(transform.position, transform.forward, _inputHori * _rotateSpeedCoefficient);
-            }
+                _rotateFloorDataList[i].transform.RotateAround(transform.position, transform.forward, _inputHori * _rotateSpeedCoefficient);
+            }*/
         }
     }
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.gameObject.CompareTag("RotateFloor"))
-    //    {
-    //        for (int i = 0; i < _rotateFloorDataList.Count; i++)
-    //        {
-    //            if (Mathf.Sign(_rotateFloorDataList[i].Data.ObstacledInput) != Mathf.Sign(_inputHori))
-    //            {
-    //                _rotateFloorDataList[i].Data.IsRotatable = true;
-    //                _rotateFloorDataList[i].Data.ObstacledInput = 0;
-    //            }
-    //        }
-    //    }
-    //}
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
