@@ -1,21 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 public class ObjectRotator : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _rotatingObject;
-    [SerializeField]
-    private float _rotationAngle;
-    private void Update()
+    private float angle = 340;
+    public float rotationSpeed = 50f;
+
+    [SerializeField] private GameObject RotatableObject;
+
+    void Update()
     {
-        if (Input.GetKey(KeyCode.N))
+        float input = Input.GetAxis("Horizontal");
+
+        Vector3 currentEuler = RotatableObject.transform.eulerAngles;
+        float currentY = currentEuler.y;
+        if (currentY > 180f)
         {
-            ApplyRotation();
+            currentY -= 360f;
         }
-    }
-    private void ApplyRotation()
-    {
-        _rotatingObject.transform.Rotate(0, _rotationAngle, 0);
+        float targetY = currentY + input * rotationSpeed * Time.deltaTime;
+        targetY = Mathf.Clamp(targetY, 0, angle); //êßå¿Ç©ÇØÇÈ
+        if (targetY < 0f)
+        {
+            targetY += 360f;
+        }
+        RotatableObject.transform.eulerAngles = new Vector3(currentEuler.x, targetY, currentEuler.z);
     }
 }
