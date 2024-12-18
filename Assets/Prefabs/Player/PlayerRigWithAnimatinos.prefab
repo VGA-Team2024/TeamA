@@ -2318,6 +2318,7 @@ MonoBehaviour:
   <Capturaing>k__BackingField: {fileID: 7887626156143386934}
   <Status>k__BackingField: {fileID: 5684113951345485763}
   <WandManager>k__BackingField: {fileID: 5829841489486024722}
+  <Provider>k__BackingField: {fileID: 6145988459650360922}
   FreeLookMovementSpeed: 6
   RotationDampTime: 10
 --- !u!114 &8642858200781016620
@@ -2949,8 +2950,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360.16016, y: -345}
-  m_SizeDelta: {x: 603.5936, y: 70.8683}
+  m_AnchoredPosition: {x: 388.22, y: -348}
+  m_SizeDelta: {x: 811.2936, y: 70.8683}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4432219040758699121
 CanvasRenderer:
@@ -2993,7 +2994,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "E : Ability\u3092\u4F7F\u7528\u3059\u308B"
+  m_Text: "\u5DE6\u30AF\u30EA\u30C3\u30AF : Ability\u3092\u4F7F\u7528\u3059\u308B"
 --- !u!1 &6477743861923578046
 GameObject:
   m_ObjectHideFlags: 0
@@ -3969,8 +3970,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 320, y: -222}
-  m_SizeDelta: {x: 523.2734, y: 70.8683}
+  m_AnchoredPosition: {x: 362.09863, y: -233}
+  m_SizeDelta: {x: 759.041, y: 70.8683}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6678377854133198996
 CanvasRenderer:
@@ -4013,7 +4014,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "C :\u30AD\u30E3\u30D7\u30C1\u30E3\u3059\u308B"
+  m_Text: "\u53F3\u30AF\u30EA\u30C3\u30AF:\u30AD\u30E3\u30D7\u30C1\u30E3\u3059\u308B"
 --- !u!1 &8216380131291821791
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class PlayerOperatingUIState : PlayerBaseState
     {
     }
     IDisposable disposable = null;
+
     public override void Enter()
     {
         InputReader.Instance.SetEnableInput(false);
@@ -20,6 +21,7 @@ public class PlayerOperatingUIState : PlayerBaseState
                 ReturnToLocomotion();
             });
         Cursor.lockState = CursorLockMode.None;
+        if(_stateMachine.Provider != null ) { _stateMachine.Provider.enabled = false; }
     }
 
     public override void Tick(float deltaTime)
@@ -28,6 +30,8 @@ public class PlayerOperatingUIState : PlayerBaseState
 
     public override void Exit()
     {
+        if (_stateMachine.Provider != null) { _stateMachine.Provider.enabled = true; }
+
         InputReader.Instance.SetEnableInput(true);
         disposable?.Dispose();
         Cursor.lockState = CursorLockMode.Locked;

@@ -50,6 +50,42 @@ public class OptionPresenter : UIGroup
 
             }).AddTo(this);
 
+        _menuView.OnSettingButtonPressed
+            .Subscribe(_ =>
+            {
+                _menuView.Hide().Forget();
+                _settingView.Show().Forget();
+
+            }).AddTo(this);
+
+        _menuView.OnIntroButtonPressed
+            .Subscribe(_ =>
+            {
+                _menuView.Hide().Forget();
+                _introductionView.Show().Forget();
+            }).AddTo(this);
+
+        _introductionView.OnCancelButtonPressed
+            .Subscribe(_ =>
+            {
+                _introductionView.Hide().Forget();
+                _menuView.Show().Forget();
+            }).AddTo(this);
+
+        _settingView.OnCancelButtonPressed
+            .Subscribe(_ =>
+            {
+                _settingView.Hide().Forget();
+                _menuView.Show().Forget();
+            }).AddTo(this);
+
+        _exitView.OnExitCancel
+            .Subscribe(_ =>
+            {
+                _exitView.Hide().Forget();
+                _menuView.Show().Forget();
+            }).AddTo(this);
+
         //I—¹ƒ{ƒ^ƒ“‚Ì‰Šú‰»
         _exitView.OnExitConfirmed
             .Subscribe(_=>
