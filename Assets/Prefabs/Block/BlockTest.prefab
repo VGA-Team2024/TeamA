@@ -119,6 +119,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _breakBlockPrefab: {fileID: 0}
-  _collapseForce: 5
+  _collapseForce: 500
   _collapseRadius: 5
   _collapseDestorySecond: 5

@@ -36,9 +36,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Mockup/MockUp.unity
     guid: a704b5aecf1200e4bac3d7816ffae00b
   - enabled: 1
-    path: Assets/Scenes/Sample/3DSoundSample.unity
-    guid: a174e69cd80e78248945d3373b6e48f0
-  - enabled: 1
     path: Assets/Scenes/CRI/PlaySoundSample.unity
     guid: 0e43765a639212d4f9e16f128e114864
   - enabled: 1
@@ -72,16 +69,22 @@ EditorBuildSettings:
     path: Assets/Scenes/CRI/CRIExecuter.unity
     guid: 527f3aa5a9bff1e4ab99ce31c4b75985
   - enabled: 1
-    path: Assets/Scenes/Sample/PlaySoundSample.unity
-    guid: 00000000000000000000000000000000
-  - enabled: 1
     path: Assets/Scenes/TestScene/PlayerTestScene.unity
     guid: a35aaea4c99f76c4a8cce932226bff06
   - enabled: 1
     path: Assets/Scenes/TestScene/RotateFloorTest.unity
-    guid: 6b38fa906dc33874f8cbacb90b9cdb69
+    guid: e26c394819e26f74c8d2ecf9a1eb51c9
   - enabled: 1
     path: Assets/Scenes/TestScene/GimmickTest/DonutsTest.unity
     guid: 95f6d92ca42cf484f8b875de2810de59
+  - enabled: 1
+    path: Assets/Scenes/System/ReviewTest.unity
+    guid: 963cf3fb75ade1343879e65c8c838a10
+  - enabled: 1
+    path: Assets/Scenes/TestScene/TitleScene.unity
+    guid: 752e7a788ef43d44fa86c1a3c5cdfe0b
+  - enabled: 1
+    path: Assets/Scenes/TestScene/GimmickTest/FloorTest.unity
+    guid: f938c8c19ef9e294280e72fa90036a94
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 7366e43fa3f777f4292c2095e8b63e4c, type: 2}

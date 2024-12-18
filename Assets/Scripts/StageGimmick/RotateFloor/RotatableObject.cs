@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public class RotatableObject : MonoBehaviour
 {
-    [SerializeField] public RotateFloorData Data;
+    private bool _isRotatable = false;
+    private float _obstacledInput = 0;
+    private GameObject _parent;
     [SerializeField] private float _adjustOverlapBoxRange = 0.1f;
     private int _obstacleOrRotateLayer;
     private int _floorLayer;
@@ -15,20 +16,19 @@ public class RotatableObject : MonoBehaviour
     {
         _obstacleOrRotateLayer = 1 << 10;
         _floorLayer = 1 << 11;
-        Data.Floor = this.gameObject;
-        Data.Collider = this.gameObject.GetComponent<Collider>();
-        Rigidbody rb = this.gameObject.GetComponent<Rigidbody>();
-        rb.isKinematic = true;
-        rb.useGravity = false;
+    }
+    public void SetParent(GameObject gameObject)
+    {
+        _parent = gameObject;
     }
     public void CheckObstacle(float rotateInput)
     {
         if (CheckRotateFloor())
         {
-            if (Data.ObstacledInput != 0 && rotateInput != 0 && Mathf.Sign(Data.ObstacledInput) != Mathf.Sign(rotateInput))
+            if (_obstacledInput != 0 && rotateInput != 0 && Mathf.Sign(_obstacledInput) != Mathf.Sign(rotateInput))
             {
-                Data.IsRotatable = true;
-                Data.ObstacledInput = 0;
+                _isRotatable = true;
+                _obstacledInput = 0;
                 return;
             }
         }
@@ -36,11 +36,11 @@ public class RotatableObject : MonoBehaviour
             this.transform.localScale * (0.5f + _adjustOverlapBoxRange),
             transform.rotation, _obstacleOrRotateLayer, QueryTriggerInteraction.Collide).Length > 0)
         {
-            Data.IsRotatable = false;
-            if (rotateInput != 0 && Data.ObstacledInput == 0)
+            _isRotatable = false;
+            if (rotateInput != 0 && _obstacledInput == 0)
             {
-                Data.ObstacledInput = rotateInput > 0 ? 1 : -1;
-                Debug.Log($"{Data.Collider.name} : {Data.ObstacledInput}");
+                _obstacledInput = rotateInput > 0 ? 1 : -1;
+                Debug.Log($"{this.gameObject.name} : {_obstacledInput}");
             }
         }
     }
@@ -50,7 +50,7 @@ public class RotatableObject : MonoBehaviour
             this.transform.localScale * (0.5f + _adjustOverlapBoxRange),
             transform.rotation, _floorLayer, QueryTriggerInteraction.Collide).Length > 1)
         {
-            Data.IsRotatable = true;
+            _isRotatable = true;
             return true;
         }
         return false;
@@ -63,7 +63,7 @@ public class RotatableObject : MonoBehaviour
     /// </param>
     public bool IsRotatable(float rotateInput)
     {
-        if (!Data.IsRotatable && (rotateInput - Data.ObstacledInput) * (rotateInput - Data.ObstacledInput) < 2)
+        if (!_isRotatable && (rotateInput - _obstacledInput) * (rotateInput - _obstacledInput) < 2)
         {
             return false;
         }
@@ -77,18 +77,4 @@ public class RotatableObject : MonoBehaviour
         Gizmos.DrawWireCube(Vector3.zero, transform.localScale * (1 + _adjustOverlapBoxRange));
         Gizmos.matrix = normalMatrix;
     }
-}
-
-[System.Serializable]
-public class RotateFloorData
-{
-    [Alchemy.Inspector.ReadOnly]
-    public GameObject Floor;
-    [Alchemy.Inspector.ReadOnly]
-    public Collider Collider;
-    public bool IsRotatable = false;
-    public float ObstacledInput = 0;
-    public float Angle;
-    public Vector3 StickChildVector;
-    public RotateFloorData ChildData;
 }
