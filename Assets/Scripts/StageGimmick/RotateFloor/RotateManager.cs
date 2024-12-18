@@ -31,8 +31,11 @@ public class RotateManager : MonoBehaviour
             }
         }
 
-        //ªŒ³‚Ì‚â‚Â‚¾‚¯‹N“®
-        //_rotateFloorDataList[0]._isRotatable = true;
+        _rotateFloorDataList[0].SetParent(_rotateFloorDataList[0].gameObject);
+        for(int i = 1; i < _rotateFloorDataList.Count; i++)
+        {
+            _rotateFloorDataList[i].SetParent(_rotateFloorDataList[i - 1].gameObject);
+        }
     }
     public void OnInputVec2()
     {
@@ -44,7 +47,6 @@ public class RotateManager : MonoBehaviour
         {
             return;
         }
-        CheckSituation(_inputHori);
         Rotate();
     }
 
@@ -62,22 +64,11 @@ public class RotateManager : MonoBehaviour
 
         OnInputVec2();
     }
-    private void CheckSituation(float inputAxis)
-    {
-        for (int i = 0; i < _rotateFloorDataList.Count; i++)
-        {
-            _rotateFloorDataList[i].CheckRotateFloor();
-            _rotateFloorDataList[i].CheckObstacle(inputAxis);
-        }
-    }
     private void Rotate()
     {
         for (int i = 0; i < _rotateFloorDataList.Count && _rotateFloorDataList[i].IsRotatable(_inputHori); i++)
-        {/*
-            if (_rotateFloorDataList[i]._isRotatable == true)
-            {
-                _rotateFloorDataList[i].transform.RotateAround(transform.position, transform.forward, _inputHori * _rotateSpeedCoefficient);
-            }*/
+        {
+            _rotateFloorDataList[i].transform.RotateAround(transform.position, transform.forward, _inputHori * _rotateSpeedCoefficient);
         }
     }
     private void OnDrawGizmos()
