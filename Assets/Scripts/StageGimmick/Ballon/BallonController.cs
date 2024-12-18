@@ -200,6 +200,12 @@ public class BallonController : MonoBehaviour, IAbilityDetectable, IResetable
         else
             StartMotion();
     }
+    
+    [Button]
+    public void TestButton1()
+    {
+        ResetGimmick();
+    }
 
     public void OnAbilityDetect(WandManager.CaptureAbility ability)
     {
@@ -278,7 +284,15 @@ public class BallonController : MonoBehaviour, IAbilityDetectable, IResetable
     }
     public void ResetGimmick()
     {
-        //地面についた状態にしたい
+        _isPause = true;
+        _isUp = true;
+        _timer = 0;
+        _isEnableDetect = true;
+        _isCountingDown = false;
+        
+        _upMoveMotion.ToDisposable().Dispose();
+        _downMoveMotion.ToDisposable().Dispose();
+        this.transform.position = _startPos;
     }
 
     public void CancelletionReset()
