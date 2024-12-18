@@ -7,7 +7,7 @@ using LitMotion.Extensions;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 
-public class BallonController : MonoBehaviour, IInteractable
+public class BallonController : MonoBehaviour, IAbilityDetectable, IResetable
 {
     [LabelText("移動距離")]
     [SerializeField] private float _moveDistance = 3.0f;
@@ -15,6 +15,8 @@ public class BallonController : MonoBehaviour, IInteractable
     [SerializeField] private float _moveDuration = 3.0f;
     [LabelText("停止時間")]
     [SerializeField] private float _pauseDuration = 2.0f;
+    [LabelText("入力受け付けない時間")]
+    [SerializeField] private float _disableDetectDuration = 1.0f;
 
     [Header("当たり判定")]
     [SerializeField] private Vector3 _offset;
@@ -22,8 +24,8 @@ public class BallonController : MonoBehaviour, IInteractable
 
     private Vector3 _startPos;
     private Vector3 _endPos;
-    private MotionBuilder<Vector3, NoOptions, LitMotion.Adapters.Vector3MotionAdapter> _upMoveBuilder;
-    private MotionBuilder<Vector3, NoOptions, LitMotion.Adapters.Vector3MotionAdapter> _downMoveBuilder;
+    // private MotionBuilder<Vector3, NoOptions, LitMotion.Adapters.Vector3MotionAdapter> _upMoveBuilder;
+    // private MotionBuilder<Vector3, NoOptions, LitMotion.Adapters.Vector3MotionAdapter> _downMoveBuilder;
     private MotionHandle _upMoveMotion;
     private MotionHandle _downMoveMotion;
     private bool _isPause = true;
@@ -32,6 +34,10 @@ public class BallonController : MonoBehaviour, IInteractable
 
     private CharacterMovement _cache = null;
 
+    private float _timer = 0;
+    private bool _isEnableDetect = true;
+    public bool IsEnableDetect => _isEnableDetect;
+
 
     // Start is called before the first frame update
     private void Start()
@@ -39,52 +45,66 @@ public class BallonController : MonoBehaviour, IInteractable
         _startPos = this.transform.position;
         _endPos = new Vector3(_startPos.x, _startPos.y + _moveDistance, _startPos.z);
 
-        // 上昇と下降をまとめる
-        _downMoveBuilder = LMotion
-           .Create(_endPos, _startPos, _moveDuration)
-           .WithEase(Ease.InOutCubic)
-           .WithOnComplete(async () =>
-           {
-               CancellationTokenSource token = new CancellationTokenSource();
-               await StartCountdown(token.Token);
-           })
-           .Preserve();
-        _downMoveMotion = _downMoveBuilder.BindToPosition(transform);
-
-        _upMoveBuilder = LMotion
-            .Create(_startPos, _endPos, _moveDuration)
-            .WithEase(Ease.InOutCubic)
-            .WithOnComplete(async () =>
-            {
-                CancellationTokenSource token = new CancellationTokenSource();
-                await StartCountdown(token.Token);
-            })
-            .Preserve();
-        _upMoveMotion = _upMoveBuilder.BindToPosition(transform);
-
-        
-        // 初期状態で停止
-        _upMoveMotion.PlaybackSpeed = 0f;
-        _downMoveMotion.PlaybackSpeed = 0f;
+        RegisterReset();
+        // // 上昇と下降をまとめる
+        // _downMoveBuilder = LMotion
+        //    .Create(_endPos, _startPos, _moveDuration)
+        //    .WithEase(Ease.InOutCubic)
+        //    .WithOnComplete(async () =>
+        //    {
+        //        CancellationTokenSource token = new CancellationTokenSource();
+        //        await StartCountdown(token.Token);
+        //    })
+        //    .Preserve();
+        // _downMoveMotion = _downMoveBuilder.BindToPosition(transform);
+        //
+        // _upMoveBuilder = LMotion
+        //     .Create(_startPos, _endPos, _moveDuration)
+        //     .WithEase(Ease.InOutCubic)
+        //     .WithOnComplete(async () =>
+        //     {
+        //         CancellationTokenSource token = new CancellationTokenSource();
+        //         await StartCountdown(token.Token);
+        //     })
+        //     .Preserve();
+        // _upMoveMotion = _upMoveBuilder.BindToPosition(transform);
     }
 
     private void Update()
     {
-        CatchPlayer();
+        if(!_isEnableDetect)
+        {
+            _timer += Time.deltaTime;
+            if(_timer >= _disableDetectDuration)
+            {
+                _isEnableDetect = true;
+                _timer = 0f;
+            }
+        }
+        else
+        {
+            CatchPlayer();
+        }
     }
 
     //Motionを再生するメソッド
     private void StartMotion()
     {
-        SwitchPause();
+        _isPause = false;
         if (!_isCountingDown)
         {
             if (_isUp)
             {
+                if (!_upMoveMotion.IsActive())
+                {
+                    PlayCurrentMotion();
+                }
                 _upMoveMotion.PlaybackSpeed = 1f;
             }
             else
             {
+                if (!_downMoveMotion.IsActive())
+                    PlayCurrentMotion();
                 _downMoveMotion.PlaybackSpeed = 1f;
             }
         }
@@ -93,7 +113,7 @@ public class BallonController : MonoBehaviour, IInteractable
     //Motionを止めるメソッド
     private void StopMotion()
     {
-        SwitchPause();
+        _isPause = true;
         if (!_isCountingDown)
         {
             if (_isUp)
@@ -113,19 +133,33 @@ public class BallonController : MonoBehaviour, IInteractable
         if(_isUp)
         {
             _upMoveMotion.ToDisposable().Dispose();
-            _upMoveMotion = _upMoveBuilder.BindToPosition(transform);
+            _upMoveMotion = LMotion
+                .Create(_startPos, _endPos, _moveDuration)
+                .WithEase(Ease.InOutCubic)
+                .WithOnComplete(async () =>
+                {
+                    CancellationTokenSource token = new CancellationTokenSource();
+                    await StartCountdown(token.Token);
+                })
+                .BindToPosition(transform)
+                .AddTo(gameObject);
+            _upMoveMotion.PlaybackSpeed = 0f;
         }
         else
         {
             _downMoveMotion.ToDisposable().Dispose();
-            _downMoveMotion = _downMoveBuilder.BindToPosition(transform);
+            _downMoveMotion = LMotion
+                .Create(_endPos, _startPos, _moveDuration)
+                .WithEase(Ease.InOutCubic)
+                .WithOnComplete(async () =>
+                {
+                    CancellationTokenSource token = new CancellationTokenSource();
+                    await StartCountdown(token.Token);
+                })
+                .BindToPosition(transform)
+                .AddTo(gameObject);
+            _downMoveMotion.PlaybackSpeed = 0f;
         }
-    }
-
-    // カウントダウンの一時停止を切り替える
-    public void SwitchPause()
-    {
-        _isPause = !_isPause;
     }
 
     //カウントダウンメソッド
@@ -150,6 +184,7 @@ public class BallonController : MonoBehaviour, IInteractable
 
         SwitchDirection();
         PlayCurrentMotion();
+        StartMotion();
     }
 
     private void SwitchDirection()
@@ -160,25 +195,24 @@ public class BallonController : MonoBehaviour, IInteractable
     [Button]
     public void TestButton()
     {
-        if (_isPause)
-            StartMotion();
-        else
+        if (!_isPause)
             StopMotion();
+        else
+            StartMotion();
+    }
+    
+    [Button]
+    public void TestButton1()
+    {
+        ResetGimmick();
     }
 
-    public bool CanInteract()
+    public void OnAbilityDetect(WandManager.CaptureAbility ability)
     {
-        return true;
-    }
-
-    public string GetInteractionMessage()
-    {
-        return "動かす";
-    }
-
-    public void OnInteract(IInteractCallBackReceivable caller)
-    {
-        if (_isPause)
+        if(ability != WandManager.CaptureAbility.Test3 || !_isEnableDetect)
+            return;
+        _isEnableDetect = false;
+        if (!_isPause)
             StopMotion();
         else
             StartMotion();
@@ -207,8 +241,9 @@ public class BallonController : MonoBehaviour, IInteractable
 
     private void OnDestroy()
     {
-        _upMoveBuilder.Dispose();
-        _downMoveBuilder.Dispose();
+        // _upMoveBuilder.Dispose();
+        // _downMoveBuilder.Dispose();
+        CancelletionReset();
     }
 
     private void OnDrawGizmos()
@@ -227,5 +262,48 @@ public class BallonController : MonoBehaviour, IInteractable
 
         //当たり判定
         Gizmos.DrawCube(transform.position + transform.TransformVector(_offset), _size);
+    }
+
+    public Transform GetTransform()
+    {
+        return this.transform;
+    }
+    /// <summary>
+    /// リセットアクションの追加
+    /// </summary>
+    public void RegisterReset()
+    {
+        try
+        {
+            FindAnyObjectByType<GimmickResetManager>().GetComponent<GimmickResetManager>()._resetAction += ResetGimmick;
+        }
+        catch
+        {
+            Debug.Log($"{this.gameObject.name} can't register ResetGimmick ");
+        }
+    }
+    public void ResetGimmick()
+    {
+        _isPause = true;
+        _isUp = true;
+        _timer = 0;
+        _isEnableDetect = true;
+        _isCountingDown = false;
+        
+        _upMoveMotion.ToDisposable().Dispose();
+        _downMoveMotion.ToDisposable().Dispose();
+        this.transform.position = _startPos;
+    }
+
+    public void CancelletionReset()
+    {
+        try
+        {
+            FindAnyObjectByType<GimmickResetManager>().GetComponent<GimmickResetManager>()._resetAction -= ResetGimmick;
+        }
+        catch
+        {
+            Debug.Log($"{this.gameObject.name} can't remove ResetGimmick ");
+        }
     }
 }

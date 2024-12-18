@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Ability
 {
 
-    [Obsolete("‚±‚ÌƒNƒ‰ƒX‚Íg—p‚µ‚È‚­‚È‚è‚Ü‚µ‚½BƒRƒ“ƒtƒŠƒNƒg‚µ‚È‚­‚È‚ê‚Îíœ‚µ‚Ü‚·")]
+    [Obsolete("ã“ã®ã‚¯ãƒ©ã‚¹ã¯ä½¿ç”¨ã—ãªããªã‚Šã¾ã—ãŸã€‚ã‚³ãƒ³ãƒ•ãƒªã‚¯ãƒˆã—ãªããªã‚Œã°å‰Šé™¤ã—ã¾ã™")]
     public interface IPlayerAbility 
     {
 
@@ -23,7 +23,7 @@ namespace Ability
 
         
     }
-    //‚È‚ñ‚ÌƒAƒrƒŠƒeƒB‚àİ’è‚³‚ê‚Ä‚¢‚È‚¢‚±‚Æ‚ğ•\‚·Ability‚Å‚·
+    //ãªã‚“ã®ã‚¢ãƒ“ãƒªãƒ†ã‚£ã‚‚è¨­å®šã•ã‚Œã¦ã„ãªã„ã“ã¨ã‚’è¡¨ã™Abilityã§ã™
     public sealed class NoneAbility : IPlayerAbility
     {
         public bool HasAbility() { return false; }
@@ -33,7 +33,7 @@ namespace Ability
         public void PerformAbility() { }
     }
 
-    //ƒeƒXƒg—p
+    //ãƒ†ã‚¹ãƒˆç”¨
     [Serializable]
     public class CandleAbility : IPlayerAbility
     {
@@ -44,7 +44,7 @@ namespace Ability
 
         public void PerformAbility()
         {
-            Debug.Log("CandleAbility‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚·");
+            Debug.Log("CandleAbilityãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã™");
         }
     }
 

@@ -1,19 +1,19 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 
 public class BossAreaAttack : MonoBehaviour
 {
-    [SerializeField] private GameObject warningIndicator;
-    [SerializeField] private LayerMask targetLayer;
-    [SerializeField] private float warningDuration = 3f;
+    [SerializeField] private GameObject _warningIndicator;
+    [SerializeField] private LayerMask _targetLayer;
+    [SerializeField] private float _warningDuration = 3f;
 
-    private BoxCollider warningIndicatorCollider;
+    private BoxCollider _warningIndicatorCollider;
 
     private void Start()
     {
         SetupWarningIndicator();
     }
-    private void Update() //‚Å‚Î‚Á‚­
+    private void Update() //ã§ã°ã£ã
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -25,79 +25,78 @@ public class BossAreaAttack : MonoBehaviour
         }
     }
     /// <summary>
-    /// Œx•\¦ƒIƒuƒWƒFƒNƒg‚Ì‰Šúİ’è
+    /// è­¦å‘Šè¡¨ç¤ºã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®åˆæœŸè¨­å®š
     /// </summary>
     private void SetupWarningIndicator()
     {
-        if (warningIndicator == null)
+        if (_warningIndicator == null)
         {
-            Debug.LogError("Œx•\¦—p‚ÌƒIƒuƒWƒFƒNƒg‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");
+            Debug.LogError("è­¦å‘Šè¡¨ç¤ºç”¨ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚");
             return;
         }
 
-        warningIndicatorCollider = warningIndicator.GetComponent<BoxCollider>();
-        if (warningIndicatorCollider == null)
+        _warningIndicatorCollider = _warningIndicator.GetComponent<BoxCollider>();
+        if (_warningIndicatorCollider == null)
         {
-            Debug.LogError("Œx•\¦—pƒIƒuƒWƒFƒNƒg‚ÉBoxCollider‚ª‚ ‚è‚Ü‚¹‚ñB");
+            Debug.LogError("è­¦å‘Šè¡¨ç¤ºç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«BoxColliderãŒã‚ã‚Šã¾ã›ã‚“ã€‚");
             return;
         }
-
-        warningIndicator.SetActive(false); // ‰Šúó‘Ô‚Å”ñƒAƒNƒeƒBƒu
+        _warningIndicator.SetActive(false); // åˆæœŸçŠ¶æ…‹ã§éã‚¢ã‚¯ãƒ†ã‚£ãƒ–
     }
 
     /// <summary>
-    /// Œx•\¦‚ğŠJn
+    /// è­¦å‘Šè¡¨ç¤ºã‚’é–‹å§‹
     /// </summary>
     public void ShowWarning()
     {
-        if (warningIndicator == null) return;
+        if (_warningIndicator == null) return;
 
-        warningIndicator.SetActive(true); 
-        StartCoroutine(HideWarningAfterDelay(warningDuration));
+        _warningIndicator.SetActive(true);
+        StartCoroutine(HideWarningAfterDelay(_warningDuration));
     }
 
     /// <summary>
-    /// ÀÛ‚ÌUŒ‚ˆ—
+    /// å®Ÿéš›ã®æ”»æ’ƒå‡¦ç†
     /// </summary>
     public void ExecuteAttack(float damage)
     {
-        Vector3 boxCenter = warningIndicatorCollider.bounds.center;
-        Vector3 boxHalfExtents = warningIndicatorCollider.bounds.extents;
-        RaycastHit[] hits = Physics.BoxCastAll(boxCenter, boxHalfExtents, Vector3.forward, Quaternion.identity, 1f, targetLayer);
-
+        Vector3 boxCenter = _warningIndicatorCollider.bounds.center;
+        Vector3 boxHalfExtents = _warningIndicatorCollider.bounds.extents;
+        Quaternion boxRotation = transform.rotation;
+        RaycastHit[] hits = Physics.BoxCastAll(boxCenter, boxHalfExtents, Vector3.forward, boxRotation, 1f, _targetLayer);
         foreach (RaycastHit hit in hits)
         {
-            Debug.Log($"UŒ‚”ÍˆÍ“à‚ÉƒvƒŒƒCƒ„[‚ğŒŸ’m");
-            // ƒ_ƒ[ƒWˆ—
-            if(hit.collider.TryGetComponent<PlayerDamageReceiver>(out PlayerDamageReceiver damageReceiver))
+            Debug.Log($"æ”»æ’ƒç¯„å›²å†…ã«ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’æ¤œçŸ¥");
+            // ãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†
+            if (hit.collider.TryGetComponent<PlayerDamageReceiver>(out PlayerDamageReceiver damageReceiver))
             {
                 damageReceiver.ApplyDamage(damage);
-                Debug.Log($"{hit.collider.name}‚É{damage}ƒ_ƒ[ƒW—^‚¦‚½");
+                Debug.Log($"{hit.collider.name}ã«{damage}ãƒ€ãƒ¡ãƒ¼ã‚¸ä¸ãˆãŸ");
             }
         }
     }
 
     /// <summary>
-    /// Œx•\¦‚ğ”ñƒAƒNƒeƒBƒu‰»
+    /// è­¦å‘Šè¡¨ç¤ºã‚’éã‚¢ã‚¯ãƒ†ã‚£ãƒ–åŒ–
     /// </summary>
     private IEnumerator HideWarningAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        if (warningIndicator != null)
+        if (_warningIndicator != null)
         {
-            warningIndicator.SetActive(false);
+            _warningIndicator.SetActive(false);
         }
     }
 
     /// <summary>
-    /// ƒGƒfƒBƒ^ã‚Å”ÍˆÍ‚ğ‹Šo‰»
+    /// ã‚¨ãƒ‡ã‚£ã‚¿ä¸Šã§ç¯„å›²ã‚’è¦–è¦šåŒ–
     /// </summary>
     private void OnDrawGizmosSelected()
     {
-        if (warningIndicator != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(warningIndicator.GetComponent<BoxCollider>().bounds.center, warningIndicator.GetComponent<BoxCollider>().bounds.size);
-        }
+        var cube = Gizmos.matrix;
+        Gizmos.matrix = Matrix4x4.TRS(this.transform.localPosition, this.transform.localRotation, this.transform.localScale);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(_warningIndicator.transform.localPosition, _warningIndicator.transform.localScale);
+        Gizmos.matrix = cube;
     }
 }
