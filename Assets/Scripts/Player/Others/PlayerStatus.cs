@@ -1,9 +1,9 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using Ability;
-//‰¼ƒvƒŒƒCƒ„[ƒXƒe[ƒ^ƒX
+//ä»®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
 public class PlayerStatus : MonoBehaviour
 {
 
