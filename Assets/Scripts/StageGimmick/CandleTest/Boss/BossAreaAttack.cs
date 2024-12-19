@@ -41,7 +41,6 @@ public class BossAreaAttack : MonoBehaviour
             Debug.LogError("警告表示用オブジェクトにBoxColliderがありません。");
             return;
         }
-
         _warningIndicator.SetActive(false); // 初期状態で非アクティブ
     }
 

@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Donuts
+  - RotateFloor
+  - Detach
   layers:
   - Default
   - TransparentFX
@@ -16,8 +18,8 @@ TagManager:
   - Player
   - Enemy
   - CameraThrough
-  - 
-  - 
+  - Obstacle
+  - RotateFloor
   - 
   - 
   - 
