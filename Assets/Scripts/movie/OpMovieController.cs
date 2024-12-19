@@ -1,7 +1,9 @@
+using System;
 using Alchemy.Inspector;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class OpMovieController : MonoBehaviour
 {
@@ -10,11 +12,23 @@ public class OpMovieController : MonoBehaviour
     [LabelText("フェード時間")]
     [SerializeField] private float fadeDuration = 1f;
 
+    [LabelText("VideoPlayer")] 
+    [SerializeField] private VideoPlayer _videoPlayer;
+
     bool _isSkip;
     private void Awake()
     {
         //レコードスタート
         GameEventRecorder.GameStart();
+        
+        _videoPlayer.Prepare();
+    }
+
+    private void Start()
+    {
+        _videoPlayer.loopPointReached += FinishMovie;
+        //ビデオプレイヤーを再生
+        _videoPlayer.Play();
     }
 
     private void Update()
@@ -42,6 +56,17 @@ public class OpMovieController : MonoBehaviour
     /// </summary>
     public void MoveScene()
     {
+        ResetVideo();
+        SceneLoader.LoadSceneSimple("FirstStageSystem");
+    }
+
+    /// <summary>
+    /// ビデオ終了時に呼び出す
+    /// </summary>
+    private void FinishMovie(VideoPlayer vp)
+    {
+        _isSkip = true;
+        ResetVideo();
         SceneLoader.LoadSceneSimple("FirstStageSystem");
     }
 
@@ -58,5 +83,14 @@ public class OpMovieController : MonoBehaviour
         }
 
         MoveScene();
+    }
+
+    /// <summary>
+    /// ビデオの初期化
+    /// </summary>
+    private void ResetVideo()
+    {
+        _videoPlayer.frame = 0;
+        _videoPlayer.Pause();
     }
 }
