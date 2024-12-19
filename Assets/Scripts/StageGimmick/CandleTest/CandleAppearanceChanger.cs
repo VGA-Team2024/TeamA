@@ -116,7 +116,7 @@ public class CandleAppearanceChanger : MonoBehaviour, IInteractable, IResetable,
 
     public void OnAbilityDetect(WandManager.CaptureAbility ability)
     {
-        if (WandManager.CaptureAbility.Test1 != ability) { return; }
+        if (WandManager.CaptureAbility.Candle != ability) { return; }
         if (IsEnableDetect && _processed)
         {
             _isFire = !_isFire;

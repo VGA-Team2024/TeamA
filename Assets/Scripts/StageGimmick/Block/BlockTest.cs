@@ -45,7 +45,7 @@ public class BlockTest : MonoBehaviour, IAbilityDetectable
 
     public void OnAbilityDetect(WandManager.CaptureAbility ability)
     {
-        if(ability == WandManager.CaptureAbility.Test2)
+        if(ability == WandManager.CaptureAbility.Marshmallow)
         {
             Collapse();
         }
