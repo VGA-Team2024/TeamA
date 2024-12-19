@@ -2,58 +2,59 @@ using Alchemy.Inspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public class RotatableObject : MonoBehaviour
 {
-    [SerializeField] public RotateFloorData Data;
+    private float _obstacledInput = 0;
+    private GameObject _parent;
     [SerializeField] private float _adjustOverlapBoxRange = 0.1f;
     private int _obstacleOrRotateLayer;
     private int _floorLayer;
+
+    bool _isContainParent = false;
+    bool _isObstacled = false;
     private void Start()
     {
         _obstacleOrRotateLayer = 1 << 10;
         _floorLayer = 1 << 11;
-        Data.Floor = this.gameObject;
-        Data.Collider = this.gameObject.GetComponent<Collider>();
-        Rigidbody rb = this.gameObject.GetComponent<Rigidbody>();
-        rb.isKinematic = true;
-        rb.useGravity = false;
     }
-    public void CheckObstacle(float rotateInput)
+    public void SetParent(GameObject gameObject)
     {
-        if (CheckRotateFloor())
-        {
-            if (Data.ObstacledInput != 0 && rotateInput != 0 && Mathf.Sign(Data.ObstacledInput) != Mathf.Sign(rotateInput))
-            {
-                Data.IsRotatable = true;
-                Data.ObstacledInput = 0;
-                return;
-            }
-        }
+        _parent = gameObject;
+    }
+    private void CheckObstacles(float rotateInput)
+    {
         if (Physics.OverlapBox(this.transform.position,
             this.transform.localScale * (0.5f + _adjustOverlapBoxRange),
             transform.rotation, _obstacleOrRotateLayer, QueryTriggerInteraction.Collide).Length > 0)
         {
-            Data.IsRotatable = false;
-            if (rotateInput != 0 && Data.ObstacledInput == 0)
+            //後天的なら入力値保存
+            if (rotateInput != 0 && !_isObstacled)
             {
-                Data.ObstacledInput = rotateInput > 0 ? 1 : -1;
-                Debug.Log($"{Data.Collider.name} : {Data.ObstacledInput}");
+                _obstacledInput = rotateInput > 0 ? 1 : -1;
+                Debug.Log($"{this.gameObject.name} : {_obstacledInput}");
             }
+            _isObstacled = true;
+        }
+        else
+        {
+            _isObstacled = false;
         }
     }
-    public bool CheckRotateFloor()
+    private void CheckRotateFloor()
     {
         if (Physics.OverlapBox(this.transform.position,
             this.transform.localScale * (0.5f + _adjustOverlapBoxRange),
-            transform.rotation, _floorLayer, QueryTriggerInteraction.Collide).Length > 1)
+            transform.rotation, _floorLayer, QueryTriggerInteraction.Collide).Any(x => x.gameObject == _parent))
         {
-            Data.IsRotatable = true;
-            return true;
+            _isContainParent = true;
         }
-        return false;
+        else
+        {
+            _isContainParent = false;
+        }
     }
     /// <summary>
     /// 回せない状態かつ入力が前回止まっていた入力であるならfalse、それ以外ならtrueを返す
@@ -63,7 +64,14 @@ public class RotatableObject : MonoBehaviour
     /// </param>
     public bool IsRotatable(float rotateInput)
     {
-        if (!Data.IsRotatable && (rotateInput - Data.ObstacledInput) * (rotateInput - Data.ObstacledInput) < 2)
+        CheckObstacles(rotateInput);
+        CheckRotateFloor();
+        
+        if(!_isContainParent)
+        {
+            return false;
+        }
+        if(_isObstacled && (rotateInput - _obstacledInput) * (rotateInput - _obstacledInput) < 2)
         {
             return false;
         }
@@ -77,18 +85,4 @@ public class RotatableObject : MonoBehaviour
         Gizmos.DrawWireCube(Vector3.zero, transform.localScale * (1 + _adjustOverlapBoxRange));
         Gizmos.matrix = normalMatrix;
     }
-}
-
-[System.Serializable]
-public class RotateFloorData
-{
-    [Alchemy.Inspector.ReadOnly]
-    public GameObject Floor;
-    [Alchemy.Inspector.ReadOnly]
-    public Collider Collider;
-    public bool IsRotatable = false;
-    public float ObstacledInput = 0;
-    public float Angle;
-    public Vector3 StickChildVector;
-    public RotateFloorData ChildData;
 }

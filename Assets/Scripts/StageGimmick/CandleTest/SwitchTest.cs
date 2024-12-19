@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class SwitchTest : MonoBehaviour,IActivatable
+public class SwitchTest : MonoBehaviour
 {
-    public event Action OnActivated;
+    [SerializeField] private UnityEvent OnActivated;
     private bool _hasProcessed = false;
     private float _rayDistance = 1f;
     private float _switchDistance = 2f;

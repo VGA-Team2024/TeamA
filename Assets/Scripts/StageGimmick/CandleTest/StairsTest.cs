@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StairsTest : MonoBehaviour, IGimmick
+public class StairsTest : MonoBehaviour
 {
     [SerializeField] float _delay;
     [SerializeField] string _sceneName;

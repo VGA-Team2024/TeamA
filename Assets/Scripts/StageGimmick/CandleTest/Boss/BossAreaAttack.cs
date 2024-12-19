@@ -60,21 +60,25 @@ public class BossAreaAttack : MonoBehaviour
     /// </summary>
     public void ExecuteAttack(float damage)
     {
-        Vector3 boxCenter = _warningIndicatorCollider.bounds.center;
-        Vector3 boxHalfExtents = _warningIndicatorCollider.bounds.extents;
-        Quaternion boxRotation = transform.rotation;
-        RaycastHit[] hits = Physics.BoxCastAll(boxCenter, boxHalfExtents, Vector3.forward, boxRotation, 1f, _targetLayer);
-        foreach (RaycastHit hit in hits)
+        // 警告表示用オブジェクトの位置・サイズ・回転を取得
+        Vector3 boxCenter = _warningIndicator.transform.position;
+        Vector3 boxHalfExtents = _warningIndicator.transform.lossyScale / 2f; // グローバルスケールを考慮
+        Quaternion boxRotation = _warningIndicator.transform.rotation;
+
+        // OverlapBoxで判定
+        Collider[] colliders = Physics.OverlapBox(boxCenter, boxHalfExtents, boxRotation, _targetLayer);
+        foreach (Collider collider in colliders)
         {
-            Debug.Log($"攻撃範囲内にプレイヤーを検知");
+            Debug.Log($"攻撃範囲内にプレイヤーを検知: {collider.name}");
             // ダメージ処理
-            if (hit.collider.TryGetComponent<PlayerDamageReceiver>(out PlayerDamageReceiver damageReceiver))
+            if (collider.TryGetComponent<PlayerDamageReceiver>(out PlayerDamageReceiver damageReceiver))
             {
                 damageReceiver.ApplyDamage(damage);
-                Debug.Log($"{hit.collider.name}に{damage}ダメージ与えた");
+                Debug.Log($"{collider.name}に{damage}ダメージ与えた");
             }
         }
     }
+
 
     /// <summary>
     /// 警告表示を非アクティブ化
