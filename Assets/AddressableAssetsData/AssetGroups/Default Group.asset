@@ -17,8 +17,18 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 055b6216634c8ba4b80610294c57a4cb
   m_SerializeEntries:
+  - m_GUID: 12e17cf1c63e2a3419226b0e714dddac
+    m_Address: Assets/Prefabs/Enemy/Marchmallow.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 75bda8f836a56154caac0e35934a5625
     m_Address: PlayerPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 888833de5d52bb04fa81559cb88bbc5d
+    m_Address: Assets/Prefabs/Enemy/Loki.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
