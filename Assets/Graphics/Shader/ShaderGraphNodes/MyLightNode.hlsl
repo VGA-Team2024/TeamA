@@ -106,10 +106,10 @@ half SampleOffsetDepth(float3 positionVS, float2 offset)
 
 #endif
 
-void SobelFilter_float(float3 PositionWS, float Thickness, float SobelFilterThreshold, out float Out)
+void SobelFilter_float(float3 PositionWS, float Thickness, float SobelFilterThreshold, out float4 Out)
 {
     #ifdef SHADERGRAPH_PREVIEW
-    Out =  0.5;
+    Out = float4(0.5, 0.5, 0.5, 1);
 
     #else
     float3x3 sobel_x = float3x3(-1, 0, 1, -2, 0, 2, -1, 0, 1);
