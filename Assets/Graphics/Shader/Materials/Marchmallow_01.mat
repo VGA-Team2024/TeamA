@@ -38,7 +38,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _EmissonTexture:
-        m_Texture: {fileID: 2800000, guid: 9689ff4447a6b4e43b9b278097ebbd28, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmmisionTexture:
@@ -62,11 +62,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadowTexture1:
-        m_Texture: {fileID: 2800000, guid: 26b9798f9c519456ea132cec918a7a12, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadowTexture2:
-        m_Texture: {fileID: 2800000, guid: 0768363e183f4a44ba70ecfddc0dcb29, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Stroke1:
@@ -113,8 +113,8 @@ Material:
     - _RimThreshold: 0.1
     - _ShadowColor2: 0
     - _ShadowIntensity: 1
-    - _ShadowStrength: 0.85
-    - _ShadowThreshold1: 0.05
+    - _ShadowStrength: 0.5
+    - _ShadowThreshold1: 0.1
     - _ShadowThreshold2: 0
     - _SobelFilterThreshold: 1
     - _SpecularIntensitySmooth: 0.763
