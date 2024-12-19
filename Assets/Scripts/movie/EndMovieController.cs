@@ -3,6 +3,7 @@ using Alchemy.Inspector;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class EndMovieController : MonoBehaviour
 {
@@ -11,14 +12,9 @@ public class EndMovieController : MonoBehaviour
     [LabelText("フェード時間")]
     [SerializeField] private float fadeDuration = 1f;
 
-    private Action _action;
-
+    [LabelText("VideoPlayer")] 
+    [SerializeField] private VideoPlayer _videoPlayer;
     bool _isSkip;
-
-    private void Awake()
-    {
-        _action += MoveScene;
-    }
 
     private void Update()
     {
@@ -43,7 +39,7 @@ public class EndMovieController : MonoBehaviour
     /// <summary>
     /// ゲーム終了時の処理
     /// </summary>
-    private void GameEnd()
+    public void GameEnd()
     {
         GameEventRecorder.GameEnd(MoveScene);
     }
@@ -51,7 +47,7 @@ public class EndMovieController : MonoBehaviour
     /// <summary>
     /// シーン遷移
     /// </summary>
-    public void MoveScene()
+    private void MoveScene()
     {
         SceneLoader.LoadSceneSimple("FirstStageSystem");
     }
@@ -68,11 +64,8 @@ public class EndMovieController : MonoBehaviour
             yield return null;
         }
 
+        _videoPlayer.playbackSpeed = 0;
         GameEnd();
     }
-
-    private void OnDestroy()
-    {
-        _action -= MoveScene;
-    }
+    
 }

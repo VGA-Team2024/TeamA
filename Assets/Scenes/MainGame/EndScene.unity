@@ -200,6 +200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 82354187}
   - component: {fileID: 82354186}
+  - component: {fileID: 82354188}
   m_Layer: 0
   m_Name: EndMovieTimeLine
   m_TagString: Untagged
@@ -224,6 +225,8 @@ PlayableDirector:
   m_SceneBindings:
   - key: {fileID: -6356971313556768177, guid: fe58611a9cf7d094390e45014920214c, type: 2}
     value: {fileID: 1922672093}
+  - key: {fileID: -8667590151137216708, guid: fe58611a9cf7d094390e45014920214c, type: 2}
+    value: {fileID: 82354188}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &82354187
@@ -241,6 +244,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &82354188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82354185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 21237fd1349046946bf73066cfc92f67, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1798715915}
+          m_TargetAssemblyTypeName: EndMovieController, Assembly-CSharp
+          m_MethodName: GameEnd
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &860408959
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,7 +461,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1798715914}
-  - component: {fileID: 1798715913}
+  - component: {fileID: 1798715915}
   m_Layer: 0
   m_Name: EndMovieController
   m_TagString: Untagged
@@ -436,20 +469,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1798715913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1798715912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7b93ca3a94258b44b7be8e99786f4f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _panelImage: {fileID: 1072974430}
-  fadeDuration: 1
 --- !u!4 &1798715914
 Transform:
   m_ObjectHideFlags: 0
@@ -465,6 +484,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1798715915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798715912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43431f914224df048990a6345ebd0e6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _panelImage: {fileID: 1072974430}
+  fadeDuration: 1
+  _videoPlayer: {fileID: 1922672095}
 --- !u!1 &1824103959
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,7 +800,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1922672093}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: a891355b1be660d43b9b414ca8e3893c, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: f911d035418de2f4da5a7b9158dc0572, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -783,7 +817,7 @@ VideoPlayer:
   m_TargetAudioSources:
   - {fileID: 0}
   m_DirectAudioVolumes:
-  - 0
+  - 1
   m_Url: 
   m_EnabledAudioTracks: 01
   m_DirectAudioMutes: 00
@@ -791,7 +825,7 @@ VideoPlayer:
   m_PlayOnAwake: 1
   m_SkipOnDrop: 1
   m_Looping: 0
-  m_WaitForFirstFrame: 1
+  m_WaitForFirstFrame: 0
   m_FrameReadyEventEnabled: 0
   m_VideoShaders: []
 --- !u!114 &1922672096
