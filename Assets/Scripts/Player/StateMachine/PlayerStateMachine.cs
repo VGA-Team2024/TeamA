@@ -17,8 +17,7 @@ public class PlayerStateMachine : StateMachine, IPlayerAnimationSePlayable,IPlay
     [field: SerializeField, FoldoutGroup("CompRefs")] public PlayerStatus Status { get; private set; }
     [field: SerializeField, FoldoutGroup("CompRefs")] public WandManager WandManager { get; private set; }
 
-
-
+    [field: SerializeField, FoldoutGroup("CompRefs")] public Cinemachine.CinemachineInputProvider Provider{ get; private set; }
 
 
 
@@ -30,6 +29,12 @@ public class PlayerStateMachine : StateMachine, IPlayerAnimationSePlayable,IPlay
 
         Cursor.lockState = CursorLockMode.Locked;
 
+        InputReader.Instance.OnEscapeAsObservable()
+            .Where(c => c.performed)
+            .Subscribe(_ =>
+            {
+                ChangeState(new PlayerOperatingUIState(this));
+            }).AddTo(this);
 
     }
 

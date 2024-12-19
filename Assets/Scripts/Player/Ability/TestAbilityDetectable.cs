@@ -17,14 +17,14 @@ public class TestAbilityDetectable : MonoBehaviour,IAbilityDetectable
         {
             case WandManager.CaptureAbility.None:
                 break;
-            case WandManager.CaptureAbility.Test1:
+            case WandManager.CaptureAbility.Candle:
                 Debug.Log("Test1 Ability Detected");
                 break;
-            case WandManager.CaptureAbility.Test2:
+            case WandManager.CaptureAbility.Marshmallow:
                 Debug.Log("Test2 Ability Detected");
 
                 break;
-            case WandManager.CaptureAbility.Test3:
+            case WandManager.CaptureAbility.Gum:
                 Debug.Log("Test3 Ability Detected");
 
                 break;

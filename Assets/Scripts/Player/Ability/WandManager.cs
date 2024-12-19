@@ -123,9 +123,9 @@ public partial class WandManager : MonoBehaviour
     public enum CaptureAbility
     {
         None = 0,
-        Test1 = 1 << 0,
-        Test2 = 1 << 1,
-        Test3 = 1 << 2,
+        Candle      = 1 << 0,
+        Marshmallow = 1 << 1,
+        Gum         = 1 << 2,
 
     }
 
