@@ -18,7 +18,7 @@ public class CandleChacker : StageGimmickBase
             foreach(var candle in candleAppearanceChangers)
             {
                 candleDictionary.Add(candle, candle.IsFiredCorrect);
-                candle.OnStateChanged += CheckIfClear;
+                candle.OnStateChanged.AddListener(CheckIfClear);
             }
         }
         else
@@ -48,7 +48,7 @@ public class CandleChacker : StageGimmickBase
         {
             if (candleAppearance != null)
             {
-                candleAppearance.OnStateChanged -= CheckIfClear;
+                candleAppearance.OnStateChanged.RemoveListener(CheckIfClear);
             }
         }
     }

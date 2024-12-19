@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ability;
 using System;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
+
 public class CandleAppearanceChanger : MonoBehaviour, IInteractable, IResetable, IAbilityDetectable
 {
     private bool _processed = true;
@@ -20,7 +23,7 @@ public class CandleAppearanceChanger : MonoBehaviour, IInteractable, IResetable,
 
     public bool IsEnableDetect => true;
 
-    public event Action OnStateChanged;
+    public UnityEvent OnStateChanged;
 
     private void Start()
     {
