@@ -2,16 +2,19 @@ using Alchemy.Inspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using UnityEngine;
 
 public class RotatableObject : MonoBehaviour
 {
-    private bool _isRotatable = false;
     private float _obstacledInput = 0;
     private GameObject _parent;
     [SerializeField] private float _adjustOverlapBoxRange = 0.1f;
     private int _obstacleOrRotateLayer;
     private int _floorLayer;
+
+    bool _isContainParent = false;
+    bool _isObstacled = false;
     private void Start()
     {
         _obstacleOrRotateLayer = 1 << 10;
@@ -21,39 +24,37 @@ public class RotatableObject : MonoBehaviour
     {
         _parent = gameObject;
     }
-    public void CheckObstacle(float rotateInput)
+    private void CheckObstacles(float rotateInput)
     {
-        if (CheckRotateFloor())
-        {
-            if (_obstacledInput != 0 && rotateInput != 0 && Mathf.Sign(_obstacledInput) != Mathf.Sign(rotateInput))
-            {
-                _isRotatable = true;
-                _obstacledInput = 0;
-                return;
-            }
-        }
         if (Physics.OverlapBox(this.transform.position,
             this.transform.localScale * (0.5f + _adjustOverlapBoxRange),
             transform.rotation, _obstacleOrRotateLayer, QueryTriggerInteraction.Collide).Length > 0)
         {
-            _isRotatable = false;
-            if (rotateInput != 0 && _obstacledInput == 0)
+            //後天的なら入力値保存
+            if (rotateInput != 0 && !_isObstacled)
             {
                 _obstacledInput = rotateInput > 0 ? 1 : -1;
                 Debug.Log($"{this.gameObject.name} : {_obstacledInput}");
             }
+            _isObstacled = true;
+        }
+        else
+        {
+            _isObstacled = false;
         }
     }
-    public bool CheckRotateFloor()
+    private void CheckRotateFloor()
     {
         if (Physics.OverlapBox(this.transform.position,
             this.transform.localScale * (0.5f + _adjustOverlapBoxRange),
-            transform.rotation, _floorLayer, QueryTriggerInteraction.Collide).Length > 1)
+            transform.rotation, _floorLayer, QueryTriggerInteraction.Collide).Any(x => x.gameObject == _parent))
         {
-            _isRotatable = true;
-            return true;
+            _isContainParent = true;
         }
-        return false;
+        else
+        {
+            _isContainParent = false;
+        }
     }
     /// <summary>
     /// 回せない状態かつ入力が前回止まっていた入力であるならfalse、それ以外ならtrueを返す
@@ -63,7 +64,14 @@ public class RotatableObject : MonoBehaviour
     /// </param>
     public bool IsRotatable(float rotateInput)
     {
-        if (!_isRotatable && (rotateInput - _obstacledInput) * (rotateInput - _obstacledInput) < 2)
+        CheckObstacles(rotateInput);
+        CheckRotateFloor();
+        
+        if(!_isContainParent)
+        {
+            return false;
+        }
+        if(_isObstacled && (rotateInput - _obstacledInput) * (rotateInput - _obstacledInput) < 2)
         {
             return false;
         }

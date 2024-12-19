@@ -11,11 +11,6 @@ public class EnemyData
     [LabelText("エネミーの巡回位置を表示するか")]
     public bool IsDrawTargetsPosition = false;
 #endif
-    /// <summary>
-    /// ※旧形式のためEnumを使用した方式に完全に移行した後削除されます
-    /// </summary>
-    [LabelText("エネミーのプレハブ")]
-    public GameObject EnemyPrefab;
 
     [LabelText("エネミーの種類")]
     public EnemyEnum Enemy;

@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class PendantController : MonoBehaviour, IInteractable, IActivatable
+public class PendantController : MonoBehaviour, IInteractable
 {
-    public event Action OnActivated;
+    public UnityEvent OnActivated;
 
     public bool CanInteract()
     {
