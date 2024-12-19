@@ -19,7 +19,8 @@ public class Donuts : MonoBehaviour
 
     private Rigidbody _rigidbody;
     private float _timer;
-
+    public bool _isClear;
+    
     const int LayerMask = 1 << 7;
 
     private DonutsObjectPool _pool; //所属オブジェクトプール
@@ -54,7 +55,7 @@ public class Donuts : MonoBehaviour
         */
         //生存時間の管理
         _timer += Time.deltaTime;
-        if(_timer >= _lifeTime)
+        if(_timer >= _lifeTime && !_isClear)
         {
             _pool.ReturnToPool(this);
         }
