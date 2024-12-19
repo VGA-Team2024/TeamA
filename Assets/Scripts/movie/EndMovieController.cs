@@ -1,20 +1,23 @@
+using System;
 using Alchemy.Inspector;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OpMovieController : MonoBehaviour
+public class EndMovieController : MonoBehaviour
 {
     [LabelText("フェード用のイメージ")]
     [SerializeField] private Image _panelImage;
     [LabelText("フェード時間")]
     [SerializeField] private float fadeDuration = 1f;
 
+    private Action _action;
+
     bool _isSkip;
+
     private void Awake()
     {
-        //レコードスタート
-        GameEventRecorder.GameStart();
+        _action += MoveScene;
     }
 
     private void Update()
@@ -38,6 +41,14 @@ public class OpMovieController : MonoBehaviour
     }
 
     /// <summary>
+    /// ゲーム終了時の処理
+    /// </summary>
+    private void GameEnd()
+    {
+        GameEventRecorder.GameEnd(MoveScene);
+    }
+    
+    /// <summary>
     /// シーン遷移
     /// </summary>
     public void MoveScene()
@@ -57,6 +68,11 @@ public class OpMovieController : MonoBehaviour
             yield return null;
         }
 
-        MoveScene();
+        GameEnd();
+    }
+
+    private void OnDestroy()
+    {
+        _action -= MoveScene;
     }
 }
