@@ -15,25 +15,33 @@ public class OpMovieController : MonoBehaviour
     [LabelText("VideoPlayer")] 
     [SerializeField] private VideoPlayer _videoPlayer;
 
-    bool _isSkip;
-    private void Awake()
+    private bool _isSkip;
+    private bool _isActive;
+    
+    private void Start()
     {
         //レコードスタート
         GameEventRecorder.GameStart();
-        
+        _videoPlayer.isLooping = false; // ループ再生を無効化
         _videoPlayer.Prepare();
+        _videoPlayer.prepareCompleted += OnPrepareCompleted;
+        _videoPlayer.loopPointReached += MoveScene;
     }
 
-    private void Start()
+    private void OnPrepareCompleted(VideoPlayer vp)
     {
-        _videoPlayer.loopPointReached += FinishMovie;
-        //ビデオプレイヤーを再生
+        Color color = _panelImage.color;
+        color.a = 0;
+        _panelImage.color = color;
+        _isActive = true;
+        // 動画再生を開始
+        _videoPlayer.time = 0;
         _videoPlayer.Play();
     }
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && _isActive)
         {
             SkipMove();
         }
@@ -56,17 +64,17 @@ public class OpMovieController : MonoBehaviour
     /// </summary>
     public void MoveScene()
     {
-        ResetVideo();
+        _videoPlayer.Pause();
         SceneLoader.LoadSceneSimple("FirstStageSystem");
     }
 
     /// <summary>
     /// ビデオ終了時に呼び出す
     /// </summary>
-    private void FinishMovie(VideoPlayer vp)
+    private void MoveScene(VideoPlayer vp)
     {
         _isSkip = true;
-        ResetVideo();
+        _videoPlayer.Pause();
         SceneLoader.LoadSceneSimple("FirstStageSystem");
     }
 
@@ -84,13 +92,10 @@ public class OpMovieController : MonoBehaviour
 
         MoveScene();
     }
-
-    /// <summary>
-    /// ビデオの初期化
-    /// </summary>
-    private void ResetVideo()
+    
+    private void OnDestroy()
     {
-        _videoPlayer.frame = 0;
-        _videoPlayer.Pause();
+        _videoPlayer.prepareCompleted -= OnPrepareCompleted;
+        _videoPlayer.loopPointReached -= MoveScene;
     }
 }

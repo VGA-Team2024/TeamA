@@ -1,4 +1,3 @@
-using System;
 using Alchemy.Inspector;
 using System.Collections;
 using UnityEngine;
@@ -15,10 +14,31 @@ public class EndMovieController : MonoBehaviour
     [LabelText("VideoPlayer")] 
     [SerializeField] private VideoPlayer _videoPlayer;
     bool _isSkip;
+    private bool _isActive;
+    
 
+    private void Start()
+    {
+        _videoPlayer.isLooping = false; // ループ再生を無効化
+        _videoPlayer.Prepare();
+        _videoPlayer.prepareCompleted += OnPrepareCompleted;
+        _videoPlayer.loopPointReached += GameEnd;
+    }
+
+    private void OnPrepareCompleted(VideoPlayer vp)
+    {
+        Color color = _panelImage.color;
+        color.a = 0;
+        _panelImage.color = color;
+        _isActive = true;
+        // 動画再生を開始
+        _videoPlayer.time = 0;
+        _videoPlayer.Play();
+    }
+    
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && _isActive)
         {
             SkipMove();
         }
@@ -41,6 +61,14 @@ public class EndMovieController : MonoBehaviour
     /// </summary>
     public void GameEnd()
     {
+        _videoPlayer.Pause();
+        GameEventRecorder.GameEnd(MoveScene);
+    }
+
+    private void GameEnd(VideoPlayer vp)
+    {
+        _isSkip = true;
+        _videoPlayer.Pause();
         GameEventRecorder.GameEnd(MoveScene);
     }
     
@@ -63,9 +91,13 @@ public class EndMovieController : MonoBehaviour
             _panelImage.color = color;
             yield return null;
         }
-
-        _videoPlayer.playbackSpeed = 0;
+        
         GameEnd();
     }
-    
+
+    private void OnDestroy()
+    {
+        _videoPlayer.prepareCompleted -= OnPrepareCompleted;
+        _videoPlayer.loopPointReached -= GameEnd;
+    }
 }
