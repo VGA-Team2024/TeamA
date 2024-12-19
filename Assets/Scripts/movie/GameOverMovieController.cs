@@ -2,10 +2,11 @@ using System;
 using Alchemy.Inspector;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
-public class OpMovieController : MonoBehaviour
+public class GameOverMovieController : MonoBehaviour
 {
     [LabelText("フェード用のイメージ")]
     [SerializeField] private Image _panelImage;
@@ -15,8 +16,14 @@ public class OpMovieController : MonoBehaviour
     [LabelText("VideoPlayer")] 
     [SerializeField] private VideoPlayer _videoPlayer;
 
+    [FormerlySerializedAs("_videoClip")]
+    [LabelText("差し替えたいVideoClip")] 
+    [SerializeField] private VideoClip _newVideoClip;
+
     private bool _isSkip;
     private bool _isActive;
+
+    private string _sceneName = "FirstStageSystem";
     
     private void Start()
     {
@@ -25,7 +32,7 @@ public class OpMovieController : MonoBehaviour
         _videoPlayer.isLooping = false; // ループ再生を無効化
         _videoPlayer.Prepare();
         _videoPlayer.prepareCompleted += OnPrepareCompleted;
-        _videoPlayer.loopPointReached += MoveScene;
+        _videoPlayer.loopPointReached += ChangeVideo;
     }
 
     private void OnPrepareCompleted(VideoPlayer vp)
@@ -33,7 +40,6 @@ public class OpMovieController : MonoBehaviour
         Color color = _panelImage.color;
         color.a = 0;
         _panelImage.color = color;
-        _isActive = true;
         // 動画再生を開始
         _videoPlayer.time = 0;
         _videoPlayer.Play();
@@ -43,39 +49,50 @@ public class OpMovieController : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0) && _isActive)
         {
-            SkipMove();
-        }
-    }
-
-    /// <summary>
-    /// Moveスキップを行う
-    /// </summary>
-    public void SkipMove()
-    {
-        if(!_isSkip)
-        {
-            _isSkip = true;
-            StartCoroutine("FadeOut");
+            ActiveButton();
         }
     }
 
     /// <summary>
     /// シーン遷移
     /// </summary>
-    public void MoveScene()
+    public void ActiveButton()
     {
+        if(!_isSkip)
+        {
+            _isSkip = true;
+            StartCoroutine("FadeOut");
+        }
+        
+    }
+    
+    private void MoveScene()
+    {
+        //ここでシーン名を受け取る
+        
         _videoPlayer.Pause();
-        SceneLoader.LoadSceneSimple("FirstStageSystem");
+        SceneLoader.LoadSceneSimple(_sceneName);
     }
 
-    /// <summary>
-    /// ビデオ終了時に呼び出す
-    /// </summary>
-    private void MoveScene(VideoPlayer vp)
+    private void ChangeVideo(VideoPlayer vp)
     {
-        _isSkip = true;
-        _videoPlayer.Pause();
-        SceneLoader.LoadSceneSimple("FirstStageSystem");
+        _videoPlayer.loopPointReached -= ChangeVideo;
+        _isActive = true;
+        _videoPlayer.clip = _newVideoClip;
+        
+        //再準備
+        _videoPlayer.Prepare();
+        _videoPlayer.prepareCompleted += OnNewClipPrepared;
+    }
+    
+    private void OnNewClipPrepared(VideoPlayer vp)
+    {
+        _videoPlayer.prepareCompleted -= OnNewClipPrepared;
+
+        // 再生を開始
+        _videoPlayer.time = 0;
+        _videoPlayer.isLooping = true;
+        _videoPlayer.Play();
     }
 
     private IEnumerator FadeOut()
@@ -96,6 +113,6 @@ public class OpMovieController : MonoBehaviour
     private void OnDestroy()
     {
         _videoPlayer.prepareCompleted -= OnPrepareCompleted;
-        _videoPlayer.loopPointReached -= MoveScene;
+        _videoPlayer.loopPointReached -= ChangeVideo;
     }
 }

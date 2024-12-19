@@ -1,11 +1,10 @@
-using System;
 using Alchemy.Inspector;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
-public class OpMovieController : MonoBehaviour
+public class EndMovieController : MonoBehaviour
 {
     [LabelText("フェード用のイメージ")]
     [SerializeField] private Image _panelImage;
@@ -14,18 +13,16 @@ public class OpMovieController : MonoBehaviour
 
     [LabelText("VideoPlayer")] 
     [SerializeField] private VideoPlayer _videoPlayer;
-
-    private bool _isSkip;
+    bool _isSkip;
     private bool _isActive;
     
+
     private void Start()
     {
-        //レコードスタート
-        GameEventRecorder.GameStart();
         _videoPlayer.isLooping = false; // ループ再生を無効化
         _videoPlayer.Prepare();
         _videoPlayer.prepareCompleted += OnPrepareCompleted;
-        _videoPlayer.loopPointReached += MoveScene;
+        _videoPlayer.loopPointReached += GameEnd;
     }
 
     private void OnPrepareCompleted(VideoPlayer vp)
@@ -38,7 +35,7 @@ public class OpMovieController : MonoBehaviour
         _videoPlayer.time = 0;
         _videoPlayer.Play();
     }
-
+    
     private void Update()
     {
         if(Input.GetMouseButtonDown(0) && _isActive)
@@ -60,21 +57,26 @@ public class OpMovieController : MonoBehaviour
     }
 
     /// <summary>
-    /// シーン遷移
+    /// ゲーム終了時の処理
     /// </summary>
-    public void MoveScene()
+    public void GameEnd()
     {
         _videoPlayer.Pause();
-        SceneLoader.LoadSceneSimple("FirstStageSystem");
+        GameEventRecorder.GameEnd(MoveScene);
     }
 
-    /// <summary>
-    /// ビデオ終了時に呼び出す
-    /// </summary>
-    private void MoveScene(VideoPlayer vp)
+    private void GameEnd(VideoPlayer vp)
     {
         _isSkip = true;
         _videoPlayer.Pause();
+        GameEventRecorder.GameEnd(MoveScene);
+    }
+    
+    /// <summary>
+    /// シーン遷移
+    /// </summary>
+    private void MoveScene()
+    {
         SceneLoader.LoadSceneSimple("FirstStageSystem");
     }
 
@@ -89,13 +91,13 @@ public class OpMovieController : MonoBehaviour
             _panelImage.color = color;
             yield return null;
         }
-
-        MoveScene();
+        
+        GameEnd();
     }
-    
+
     private void OnDestroy()
     {
         _videoPlayer.prepareCompleted -= OnPrepareCompleted;
-        _videoPlayer.loopPointReached -= MoveScene;
+        _videoPlayer.loopPointReached -= GameEnd;
     }
 }

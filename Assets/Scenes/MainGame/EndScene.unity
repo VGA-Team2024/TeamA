@@ -377,29 +377,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1798715914}
-  - component: {fileID: 1798715913}
+  - component: {fileID: 1798715915}
   m_Layer: 0
-  m_Name: OpMovieController
+  m_Name: EndMovieController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1798715913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1798715912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7b93ca3a94258b44b7be8e99786f4f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _panelImage: {fileID: 1072974430}
-  fadeDuration: 1
-  _videoPlayer: {fileID: 1922672095}
 --- !u!4 &1798715914
 Transform:
   m_ObjectHideFlags: 0
@@ -415,6 +400,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1798715915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798715912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43431f914224df048990a6345ebd0e6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _panelImage: {fileID: 1072974430}
+  fadeDuration: 1
+  _videoPlayer: {fileID: 1922672095}
 --- !u!1 &1824103959
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,11 +716,11 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1922672093}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: a891355b1be660d43b9b414ca8e3893c, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: f911d035418de2f4da5a7b9158dc0572, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
-  m_TargetTexture: {fileID: 8400000, guid: a32913e8b70017d4797b64f6a78e1950, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 72253d9acbe30894ba350c7f12d27f49, type: 2}
   m_TimeReference: 0
   m_TargetMaterialRenderer: {fileID: 0}
   m_TargetMaterialProperty: <noninit>
@@ -738,10 +738,10 @@ VideoPlayer:
   m_EnabledAudioTracks: 01
   m_DirectAudioMutes: 00
   m_ControlledAudioTrackCount: 1
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_SkipOnDrop: 1
   m_Looping: 0
-  m_WaitForFirstFrame: 1
+  m_WaitForFirstFrame: 0
   m_FrameReadyEventEnabled: 0
   m_VideoShaders: []
 --- !u!114 &1922672096
@@ -764,7 +764,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 8400000, guid: a32913e8b70017d4797b64f6a78e1950, type: 2}
+  m_Texture: {fileID: 8400000, guid: 72253d9acbe30894ba350c7f12d27f49, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0
