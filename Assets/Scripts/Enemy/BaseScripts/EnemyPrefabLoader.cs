@@ -25,8 +25,8 @@ public class EnemyPrefabLoader : MonoBehaviour
     private string[] _addressableAssetsPath = new string[(int)EnemyEnum.Max]
     {
         "Assets/Prefabs/Enemy/Surtr.prefab",
-        "",
-        "",
+        "Assets/Prefabs/Enemy/Marchmallow.prefab",
+        "Assets/Prefabs/Enemy/Loki.prefab",
         "",
         ""
     };

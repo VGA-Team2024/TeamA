@@ -58,6 +58,9 @@ public class EnemyBase : MonoBehaviour , IDamagable
     [LabelText("プレイヤーを視野できる角度(正面からの角度)")]
     [SerializeField] private float _fieldOfViewHalf = 90;
 
+    [LabelText("レイを飛ばすときの調整数値")]
+    [SerializeField] private Vector3 _enemyOffsetLay = Vector3.zero;
+
     [LabelText("攻撃可能距離")]
     [SerializeField] private float _attackableDistance = 4;
 
@@ -217,8 +220,8 @@ public class EnemyBase : MonoBehaviour , IDamagable
 
         bool seachablePlayerDistance = toPlayerDirection.magnitude < _searchablePlayerDistance;
         bool playerInSight = Vector3.Angle(transform.forward, toPlayerDirection) < _fieldOfViewHalf;
-        bool playerVisible = Physics.Raycast(transform.position + Vector3.up * _navMeshAgent.baseOffset, toPlayerDirection, toPlayerDirection.magnitude + 1, _onlyPlayerLayerInt);
-        bool noObstaclesExistPlayerDirection = !Physics.Raycast(transform.position + Vector3.up * _navMeshAgent.baseOffset, toPlayerDirection, _searchablePlayerDistance, _withoutPlayerLayerInt);
+        bool playerVisible = Physics.Raycast(transform.position + _enemyOffsetLay, toPlayerDirection, toPlayerDirection.magnitude + 1, _onlyPlayerLayerInt);
+        bool noObstaclesExistPlayerDirection = !Physics.Raycast(transform.position + _enemyOffsetLay, toPlayerDirection, _searchablePlayerDistance, _withoutPlayerLayerInt);
 
         if (seachablePlayerDistance && playerInSight && playerVisible && noObstaclesExistPlayerDirection)
         {
@@ -494,6 +497,10 @@ public class EnemyBase : MonoBehaviour , IDamagable
         }
         return true;
     }
+    public void CapturedDamage()
+    {
+        ApplyDamage(1);
+    }
 
     private void OnDisable()
     {
@@ -526,7 +533,7 @@ public class EnemyBase : MonoBehaviour , IDamagable
     {
         ChangeEnemyStateAsync(state);
     }
-    private void OnDrawGizmos()
+    protected virtual void DrawGizmos()
     {
         if (_isViewLastTarget)
         {
@@ -542,19 +549,19 @@ public class EnemyBase : MonoBehaviour , IDamagable
         }
         Gizmos.color = Color.yellow;
         // 正面の視野ラインを描画
-        Gizmos.DrawLine(this.transform.position, this.transform.position + this.transform.forward * _searchablePlayerDistance);
-        
+        Gizmos.DrawLine(this.transform.position + _enemyOffsetLay, this.transform.position + this.transform.forward * _searchablePlayerDistance);
+
         Gizmos.color = Color.blue;
         // 左側の視野ラインを描画
         Vector3 leftDirection = this.transform.rotation * Quaternion.Euler(0, -_fieldOfViewHalf, 0) * Vector3.forward;
-        Gizmos.DrawLine(this.transform.position, this.transform.position + leftDirection * _searchablePlayerDistance);
+        Gizmos.DrawLine(this.transform.position + _enemyOffsetLay, this.transform.position + leftDirection * _searchablePlayerDistance);
 
         // 右側の視野ラインを描画
         Vector3 rightDirection = this.transform.rotation * Quaternion.Euler(0, _fieldOfViewHalf, 0) * Vector3.forward;
-        Gizmos.DrawLine(this.transform.position, this.transform.position + rightDirection * _searchablePlayerDistance);
+        Gizmos.DrawLine(this.transform.position + _enemyOffsetLay, this.transform.position + rightDirection * _searchablePlayerDistance);
 
         //攻撃判定を描画
-        if(_isEnableDamageArea)
+        if (_isEnableDamageArea)
         {
             Gizmos.color = Color.green;
         }
@@ -566,6 +573,10 @@ public class EnemyBase : MonoBehaviour , IDamagable
         Gizmos.matrix = Matrix4x4.TRS(transform.position + Vector3.up * _attackArea.y * 0.5f, transform.rotation, transform.lossyScale);
         Gizmos.DrawWireCube(Vector3.forward * _attackArea.z * 0.5f, _attackArea);
         Gizmos.matrix = cache;
+    }
+    private void OnDrawGizmos()
+    {
+        DrawGizmos();
     }
 
 #endif
