@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3800869029977391213}
   - component: {fileID: 642633839585395556}
   - component: {fileID: 5648371450054704929}
+  - component: {fileID: 4833439375243411800}
   m_Layer: 10
   m_Name: BreakableBlock6.2.6
   m_TagString: Untagged
@@ -71,6 +72,22 @@ MonoBehaviour:
   _collapseForce: 150
   _collapseRadius: 5
   _collapseDestorySecond: 5
+--- !u!208 &4833439375243411800
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933295517254927009}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1, y: 3, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 3, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &8340127243094763505
 PrefabInstance:
   m_ObjectHideFlags: 0

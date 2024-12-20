@@ -7,7 +7,7 @@ using System;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 
-public class CandleAppearanceChanger : MonoBehaviour, IInteractable, IResetable, IAbilityDetectable
+public class CandleAppearanceChanger : MonoBehaviour, IResetable, IAbilityDetectable
 {
     private bool _processed = true;
     private Renderer _candleRenderer;
@@ -33,34 +33,6 @@ public class CandleAppearanceChanger : MonoBehaviour, IInteractable, IResetable,
             _candleObject.SetActive(false);
         }
         FindAnyObjectByType<GimmickResetManager>().GetComponent<GimmickResetManager>()._resetAction += ResetGimmick;
-    }
-    public bool CanInteract()
-    {
-        return false;
-    }
-
-    public string GetInteractionMessage()
-    {
-        if (IsEnableDetect)
-        {
-            if (_isFire)
-            {
-                return "火を消す";
-            }
-            else
-            {
-                return "火を灯す";
-            }
-        }
-        else
-        {
-            return "火があれば...";
-        }
-    }
-
-    public void OnInteract(IInteractCallBackReceivable caller)
-    {
-        
     }
 
     /// <summary>
@@ -131,7 +103,6 @@ public class CandleAppearanceChanger : MonoBehaviour, IInteractable, IResetable,
                 _candleGimmick.OnFire();
                 CRIAudioManager.SE.Play3D(Vector3.zero, "CueSheet_0", "SE_fire_tukeru");
             }
-            _processed = false;
         }
         else
         {

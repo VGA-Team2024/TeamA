@@ -458,10 +458,11 @@ public class EnemyBase : MonoBehaviour , IDamagable
         Debug.Log($"Enemy:{this.gameObject.name} dead！\nStart dead action");
         try
         {
-            await LMotion.Create(this.transform.position, this.transform.position + this.transform.forward * -5, 1)
-                .WithEase(Ease.InOutCubic).BindToPosition(this.transform).ToUniTask(token);
-            var material = this.GetComponent<MeshRenderer>().material;
-            await LMotion.Create(this.transform.localScale, Vector3.zero, 1)
+            await LMotion.Create(this.transform.position, this.transform.position + this.transform.up * 0.15f, 0.1f)
+                .WithEase(Ease.InCubic).BindToPosition(this.transform).ToUniTask(token);
+            await LMotion.Create(this.transform.position, this.transform.position - this.transform.up * 0.15f, 0.1f)
+                .WithEase(Ease.OutCubic).BindToPosition(this.transform).ToUniTask(token);
+            await LMotion.Create(this.transform.localScale, Vector3.zero, 1f)
                 .WithEase(Ease.OutCirc).BindToLocalScale(this.transform).ToUniTask(token);
         }
         catch
