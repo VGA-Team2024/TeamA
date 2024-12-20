@@ -16,18 +16,8 @@ public class DonutsGenerator : MonoBehaviour
     {
         _pool = GameObject.FindObjectOfType<DonutsObjectPool>();
     }
-
-    private void Update()
-    {
-        _timer += Time.deltaTime;
-        if( _timer > _generateInterval )
-        {
-            DonutsGenerate();
-            _timer = 0;
-        }
-    }
-
-    private void DonutsGenerate()
+    
+    public void DonutsGenerate()
     {
         // プールからオブジェクトを取得
         Donuts obj = _pool.Get();
@@ -48,4 +38,6 @@ public class DonutsGenerator : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawCube(_generatePosition.position, this.transform.localScale);
     }
+
+    
 }

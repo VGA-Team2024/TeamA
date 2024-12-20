@@ -27,9 +27,10 @@ public class HoleGimmickChacker : StageGimmickBase
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Donuts"))
+        if(other.TryGetComponent<Donuts>(out var donutsComponent))
         {
             ClearActive(true);
+            donutsComponent._isClear = true;
         }
     }
 }
