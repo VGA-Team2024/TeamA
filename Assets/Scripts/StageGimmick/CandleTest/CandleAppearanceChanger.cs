@@ -6,6 +6,7 @@ using Ability;
 using System;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
+using Cysharp.Threading.Tasks;
 
 public class CandleAppearanceChanger : MonoBehaviour, IResetable, IAbilityDetectable
 {
@@ -15,6 +16,8 @@ public class CandleAppearanceChanger : MonoBehaviour, IResetable, IAbilityDetect
     [LabelText("火がついている状態が正しい")]
     [SerializeField] private bool _isFiredCorrect = true;
     public bool IsFiredCorrect => _isFiredCorrect;
+    [LabelText("火がついたときのみUnityEventを起動するかどうか")]
+    [SerializeField] private bool _isInvokeIfOnlyFired = false;
 
     /// <summary>
     /// 現在、火がついているかを管理するブール
@@ -32,24 +35,44 @@ public class CandleAppearanceChanger : MonoBehaviour, IResetable, IAbilityDetect
         {
             _candleObject.SetActive(false);
         }
-        FindAnyObjectByType<GimmickResetManager>().GetComponent<GimmickResetManager>()._resetAction += ResetGimmick;
+        try
+        {
+            GimmickResetManager[] objects = FindObjectsByType<GimmickResetManager>(FindObjectsSortMode.None);
+            foreach (var resetManager in objects)
+            {
+                resetManager._resetAction += ResetGimmick;
+            }
+        }
+        catch
+        {
+            Debug.Log($"{this.gameObject.name} can't register ResetGimmick ");
+        }
     }
 
     /// <summary>
     /// ロウソクの火が変更された時に呼ぶ関数
     /// </summary>
     /// <param name="newState">火のオンオフ</param>
-    public void SetState(bool newState)
+    public void SetState()
     {
+        if(_isInvokeIfOnlyFired && !_isFire)
+        {
+            return;
+        }
         OnStateChanged?.Invoke(); // イベントを発火
-    }/// <summary>
+    }
+    /// <summary>
      /// リセットアクションの追加
      /// </summary>
     public void RegisterReset()
     {
         try
         {
-            FindAnyObjectByType<GimmickResetManager>().GetComponent<GimmickResetManager>()._resetAction += ResetGimmick;
+            GimmickResetManager[] objects = FindObjectsByType<GimmickResetManager>(FindObjectsSortMode.None);
+            foreach (var resetManager in objects)
+            {
+                resetManager._resetAction += ResetGimmick;
+            }
         }
         catch
         {
@@ -66,7 +89,6 @@ public class CandleAppearanceChanger : MonoBehaviour, IResetable, IAbilityDetect
 
         _isFire = false;
         _candleObject.SetActive(false);
-        SetState(_isFiredCorrect ? _isFire : !_isFire);
         Debug.Log($"{this.gameObject.name} reset gimmick");
     }
 
@@ -77,11 +99,15 @@ public class CandleAppearanceChanger : MonoBehaviour, IResetable, IAbilityDetect
     {
         try
         {
-            FindAnyObjectByType<GimmickResetManager>().GetComponent<GimmickResetManager>()._resetAction -= ResetGimmick;
+            GimmickResetManager[] objects = FindObjectsByType<GimmickResetManager>(FindObjectsSortMode.None);
+            foreach (var resetManager in objects)
+            {
+                resetManager._resetAction -= ResetGimmick;
+            }
         }
         catch
         {
-            Debug.Log($"{this.gameObject.name} can't register ResetGimmick ");
+            Debug.Log($"{this.gameObject.name} can't remove ResetGimmick ");
         }
     }
     private void OnDisable()
@@ -89,24 +115,31 @@ public class CandleAppearanceChanger : MonoBehaviour, IResetable, IAbilityDetect
         CancelletionReset();
     }
 
-    public void OnAbilityDetect(WandManager.CaptureAbility ability)
+    public async void OnAbilityDetect(WandManager.CaptureAbility ability)
     {
         if (WandManager.CaptureAbility.Candle != ability) { return; }
-        if (IsEnableDetect && _processed)
+        if (_processed)
         {
+            _processed = false;
             _isFire = !_isFire;
-            SetState(_isFiredCorrect ? _isFire : !_isFire);
+            Debug.Log($"isFire:{_isFire}");
+            SetState();
             if (_candleObject)
             {
                 _candleObject.SetActive(_isFire);
                 var _candleGimmick = this.GetComponent<TestCandleGimmick>();
                 _candleGimmick.OnFire();
-                CRIAudioManager.SE.Play3D(Vector3.zero, "CueSheet_0", "SE_fire_tukeru");
+                if(_isFire)
+                {
+                    CRIAudioManager.SE.Play3D(Vector3.zero, "CueSheet_0", "SE_fire_tukeru");
+                }
+                else
+                {
+                    CRIAudioManager.SE.Play3D(Vector3.zero, "CueSheet_0", "SE_fire_kesu");
+                }
             }
-        }
-        else
-        {
-            Debug.Log("何か火があれば……");
+            await UniTask.WaitForSeconds(1);
+            _processed = true;
         }
     }
 

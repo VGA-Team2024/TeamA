@@ -395,7 +395,7 @@ public class EnemyBase : MonoBehaviour , IDamagable
 
         Debug.Log($"Enemy:{this.gameObject.name} finish attacked action");
     }
-    private void DetectPlayer()
+    protected virtual void DetectPlayer()
     {
         if(_isAttackDamagedPlayer)
         {
@@ -489,11 +489,12 @@ public class EnemyBase : MonoBehaviour , IDamagable
         if (_currentHp <= 0)
         {
             _currentHp = 0;
+            CRIAudioManager.SE.Play3D(Vector3.zero, "CueSheet_0", "SE_enemy_die");
             ChangeEnemyStateAsync(EnemyState.Death);
         }
         else
         {
-            //CRIAudioManager.SE.Play3D(Vector3.zero, _cueSheet, "ダメージ音CueName");
+            CRIAudioManager.SE.Play3D(Vector3.zero, "CueSheet_0", "SE_enemy_damage");
             ChangeEnemyStateAsync(EnemyState.Damage);
         }
         return true;
@@ -534,7 +535,7 @@ public class EnemyBase : MonoBehaviour , IDamagable
     {
         ChangeEnemyStateAsync(state);
     }
-    protected virtual void DrawGizmos()
+    protected virtual void VirtualDrawGizmos()
     {
         if (_isViewLastTarget)
         {
@@ -577,7 +578,7 @@ public class EnemyBase : MonoBehaviour , IDamagable
     }
     private void OnDrawGizmos()
     {
-        DrawGizmos();
+        VirtualDrawGizmos();
     }
 
 #endif
