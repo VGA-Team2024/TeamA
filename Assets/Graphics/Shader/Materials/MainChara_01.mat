@@ -24,14 +24,16 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: 92351672ab31a044d95d601484ea601b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _ALPHATEST_ON
   m_InvalidKeywords:
   - _RENDERFACE_FRONT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: TransparentCutout
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
@@ -100,7 +102,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _AdditionalLightIntensity: 0.5
+    - _AlphaClip: 1
+    - _AlphaToMask: 1
+    - _Blend: 0
+    - _CastShadows: 1
+    - _Cull: 0
     - _DitherStrength: 1
+    - _DstBlend: 0
     - _EmissonIntensity: 0.5
     - _Glossiness: 10
     - _LightIntensity: 0.1
@@ -114,10 +122,15 @@ Material:
     - _ShadowColor2: 0
     - _ShadowIntensity: 1
     - _ShadowStrength: 0.5
-    - _ShadowThreshold1: 0.1
-    - _ShadowThreshold2: 0
+    - _ShadowThreshold1: 0.6
+    - _ShadowThreshold2: 0.5
     - _SobelFilterThreshold: 1
     - _SpecularIntensitySmooth: 0.763
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _ZTest: 4
+    - _ZWrite: 1
+    - _ZWriteControl: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissonColor: {r: 0, g: 0, b: 0, a: 1}
