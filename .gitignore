@@ -11,8 +11,8 @@
 /[Uu]ser[Ss]ettings/
 
 # Add
-/Assets/Scenes/SceneDependencies.asset
-/ProjectSettings/EditorBuildSettings.asset
+# /Assets/Scenes/SceneDependencies.asset
+# /ProjectSettings/EditorBuildSettings.asset
 
 
 
