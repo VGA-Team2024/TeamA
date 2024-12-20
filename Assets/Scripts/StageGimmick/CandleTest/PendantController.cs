@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PendantController : MonoBehaviour, IInteractable
+public class PendantController : StageGimmickBase, IInteractable
 {
     public UnityEvent OnActivated;
 
@@ -22,5 +22,10 @@ public class PendantController : MonoBehaviour, IInteractable
     {
         Debug.Log("インタラクト確認");
         OnActivated?.Invoke();
+        ClearActive(true);
+    }
+    protected override void ClearActive(bool changeIsClear)
+    {
+        isClear = changeIsClear;
     }
 }
