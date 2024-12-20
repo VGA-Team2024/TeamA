@@ -395,7 +395,7 @@ public class EnemyBase : MonoBehaviour , IDamagable
 
         Debug.Log($"Enemy:{this.gameObject.name} finish attacked action");
     }
-    private void DetectPlayer()
+    protected virtual void DetectPlayer()
     {
         if(_isAttackDamagedPlayer)
         {
@@ -458,10 +458,11 @@ public class EnemyBase : MonoBehaviour , IDamagable
         Debug.Log($"Enemy:{this.gameObject.name} dead！\nStart dead action");
         try
         {
-            await LMotion.Create(this.transform.position, this.transform.position + this.transform.forward * -5, 1)
-                .WithEase(Ease.InOutCubic).BindToPosition(this.transform).ToUniTask(token);
-            var material = this.GetComponent<MeshRenderer>().material;
-            await LMotion.Create(this.transform.localScale, Vector3.zero, 1)
+            await LMotion.Create(this.transform.position, this.transform.position + this.transform.up * 0.15f, 0.1f)
+                .WithEase(Ease.InCubic).BindToPosition(this.transform).ToUniTask(token);
+            await LMotion.Create(this.transform.position, this.transform.position - this.transform.up * 0.15f, 0.1f)
+                .WithEase(Ease.OutCubic).BindToPosition(this.transform).ToUniTask(token);
+            await LMotion.Create(this.transform.localScale, Vector3.zero, 1f)
                 .WithEase(Ease.OutCirc).BindToLocalScale(this.transform).ToUniTask(token);
         }
         catch
@@ -488,11 +489,12 @@ public class EnemyBase : MonoBehaviour , IDamagable
         if (_currentHp <= 0)
         {
             _currentHp = 0;
+            CRIAudioManager.SE.Play3D(Vector3.zero, "CueSheet_0", "SE_enemy_die");
             ChangeEnemyStateAsync(EnemyState.Death);
         }
         else
         {
-            //CRIAudioManager.SE.Play3D(Vector3.zero, _cueSheet, "ダメージ音CueName");
+            CRIAudioManager.SE.Play3D(Vector3.zero, "CueSheet_0", "SE_enemy_damage");
             ChangeEnemyStateAsync(EnemyState.Damage);
         }
         return true;
@@ -533,7 +535,7 @@ public class EnemyBase : MonoBehaviour , IDamagable
     {
         ChangeEnemyStateAsync(state);
     }
-    protected virtual void DrawGizmos()
+    protected virtual void VirtualDrawGizmos()
     {
         if (_isViewLastTarget)
         {
@@ -576,7 +578,7 @@ public class EnemyBase : MonoBehaviour , IDamagable
     }
     private void OnDrawGizmos()
     {
-        DrawGizmos();
+        VirtualDrawGizmos();
     }
 
 #endif

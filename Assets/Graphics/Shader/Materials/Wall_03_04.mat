@@ -49,7 +49,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
         m_Texture: {fileID: 2800000, guid: 77bb2d6b922dd504b9a39c101cb0caa8, type: 3}
-        m_Scale: {x: 2.51, y: 1}
+        m_Scale: {x: 2.5, y: 5}
         m_Offset: {x: 0, y: 0}
     - _NormalFromTexture_a52edcf62dc546238c95ed4d221b0a05_Texture_0_Texture2D:
         m_Texture: {fileID: 0}

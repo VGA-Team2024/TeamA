@@ -275,7 +275,11 @@ public class BallonController : MonoBehaviour, IAbilityDetectable, IResetable
     {
         try
         {
-            FindAnyObjectByType<GimmickResetManager>().GetComponent<GimmickResetManager>()._resetAction += ResetGimmick;
+            GimmickResetManager[] objects = FindObjectsByType<GimmickResetManager>(FindObjectsSortMode.None);
+            foreach(var resetManager in objects)
+            {
+                resetManager._resetAction += ResetGimmick;
+            }
         }
         catch
         {
@@ -299,7 +303,11 @@ public class BallonController : MonoBehaviour, IAbilityDetectable, IResetable
     {
         try
         {
-            FindAnyObjectByType<GimmickResetManager>().GetComponent<GimmickResetManager>()._resetAction -= ResetGimmick;
+            GimmickResetManager[] objects = FindObjectsByType<GimmickResetManager>(FindObjectsSortMode.None);
+            foreach (var resetManager in objects)
+            {
+                resetManager._resetAction -= ResetGimmick;
+            }
         }
         catch
         {
