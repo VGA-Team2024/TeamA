@@ -20,6 +20,9 @@ public class TitleSceneController : MonoBehaviour
     [LabelText("ゲーム終了時のフェード時間")]
     [SerializeField] private float _endFadeDuration = 1f;
 
+    [LabelText("遷移先のシーン")] 
+    [SerializeField] private string _sceneName = "OpScene";
+
     private bool _isButton;
     
     /// <summary>
@@ -68,7 +71,7 @@ public class TitleSceneController : MonoBehaviour
             yield return null;
         }
         
-        SceneLoader.LoadSceneSimple("OpScene");
+        SceneLoader.LoadSceneSimple(_sceneName);
     }
 
     /// <summary>
