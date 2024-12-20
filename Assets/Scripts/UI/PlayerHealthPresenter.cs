@@ -6,10 +6,9 @@ public class PlayerHealthPresenter : UIGroup
 {
     [SerializeField] private List<HelthUIVIew> _helthUIVIews = new();
     
-    //[SerializeField]PlayerStatus status;
-    //Debug—p
-    //–{—ˆ‚ÍPlayerStatus‚ÌHealth‚É‚àSubscribe‚·‚é
+    [SerializeField]PlayerStatus status;
 
+    //–{—ˆ‚ÍPlayerStatus‚ÌHealth‚É‚àSubscribe‚·‚é
 
     public override void Initialize()
     {
@@ -27,6 +26,18 @@ public class PlayerHealthPresenter : UIGroup
                     view.SetView(ability);
                 });
             }).AddTo(this);
+
+        status.Health.Subscribe(status =>
+        {
+            int helath = Mathf.RoundToInt(status.GetStatus().value);
+            for (int i = 0; i < _helthUIVIews.Count; i++)
+            {
+                if (i >= helath)
+                {
+                    _helthUIVIews[i].gameObject.SetActive(false);
+                }
+            }
+        }).AddTo(this);
     }
 
 }

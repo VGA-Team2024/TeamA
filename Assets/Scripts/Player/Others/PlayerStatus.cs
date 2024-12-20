@@ -2,27 +2,68 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
-using Ability;
-//仮プレイヤーステータス
-public class PlayerStatus : MonoBehaviour
-{
+using DamageSystem;
+using UniRx.Triggers;
 
+public class PlayerStatus : MonoBehaviour,DamageSystem.IDamagable
+{
     private void Awake()
     {
-        Ability = new NoneAbility();
 
-        Health = new ObservableStatus(100, 100);
+        Health = new ObservableStatus(3, 3);
+        Observable.FromEvent<bool>(
+            f => PlayerEventHelper.SetPlayerInvulnerable += f,
+            f => PlayerEventHelper.SetPlayerInvulnerable -= f)
+            .Subscribe(inv =>
+            {
+                IsInvulnerable = inv;
+            }).AddTo(this.gameObject);
 
-        //InputReader.Instance.OnSkillAsObservable()
-        //    .Where(c => c.performed)
-        //    .Subscribe(_ =>
-        //    {
-        //        Ability.PerformAbility();
-        //    }).AddTo(this);
+
+        Health.Where(status => status.GetStatus().value == 0)
+            .Subscribe(_ => { PlayerEventHelper.OnPlayerDie?.Invoke(); })
+            .AddTo(this);
+        #region Test
+        //    this.UpdateAsObservable()
+        //        .Where(_ => Input.GetKeyDown(KeyCode.Return))
+        //        .Subscribe(_ =>
+        //        {
+        //            PlayerManager.Instance.TryGetPlayerRef(out var player);
+        //            if (player.TryGetComponent(out DamageSystem.IDamagable damagable))
+        //            {
+        //                damagable.ApplyDamage(1f);
+        //            }
+        //        }).AddTo(this);
+        //    PlayerEventHelper.OnPlayerDie += () => print("Die");
+        //    this.UpdateAsObservable()
+        //.Where(_ => Input.GetKeyDown(KeyCode.Space))
+        //.Subscribe(_ =>
+        //{
+        //    PlayerEventHelper.SetPlayerInvulnerable(true);
+        //}).AddTo(this);
+
+        //MessageBroker.Default.Receive<CameraSensePram>().Subscribe(param => print($"カメラ感度 {param.value}")).AddTo(this);
+        //MessageBroker.Default.Receive<MainVolumePram>().Subscribe(param => print($"主音量 {param.value}")).AddTo(this);
+        //MessageBroker.Default.Receive<CvVolumePram>().Subscribe(param => print($"CV音量 {param.value}")).AddTo(this);
+        //MessageBroker.Default.Receive<SeVolumePram>().Subscribe(param => print($"SE音量 {param.value}")).AddTo(this);
+
+        //MessageBroker.Default.Receive<OptionExit>().Subscribe(_ => { print("終了"); }).AddTo(this);
+        #endregion
     }
 
 
+    public bool IsInvulnerable { get; set; } = false;
+
+    public bool ApplyDamage(float damage, IDamageArg arg = null)
+    {
+        if (IsInvulnerable) { return false; }
+
+        Health.Value -= (int)damage;
+
+        return true;
+
+    }
+
     public ObservableStatus Health { get; private set; } = null;
 
-    public IPlayerAbility Ability { get; set; }
 }

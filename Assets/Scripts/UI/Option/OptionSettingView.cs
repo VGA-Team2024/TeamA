@@ -30,12 +30,12 @@ public class OptionSettingView : OptionViewBase
             .AddTo(this); ;
     }
 
-    public class CameraSensePram { public float value = 0; }
-    public class MainVolumePram { public float value = 0; }
-    public class CvVolumePram { public float value = 0; }
-    public class SeVolumePram { public float value = 0; }
-
 
 
 
 }
+public class CameraSensePram { public float value = 0; }
+public class MainVolumePram { public float value = 0; }
+public class CvVolumePram { public float value = 0; }
+public class SeVolumePram { public float value = 0; }
+
