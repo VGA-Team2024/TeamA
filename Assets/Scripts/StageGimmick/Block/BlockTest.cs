@@ -20,6 +20,7 @@ public class BlockTest : MonoBehaviour, IAbilityDetectable
     /// </summary>
     private void Collapse()
     {
+        CRIAudioManager.SE.Play3D(Vector3.zero, "CueSheet_0", "SE_clash_block");
         //分割されたブロックのPrefabを生成する
         Transform breakBlockTransform = Instantiate(_breakBlockPrefab, transform.position, Quaternion.identity);
 
@@ -45,7 +46,7 @@ public class BlockTest : MonoBehaviour, IAbilityDetectable
 
     public void OnAbilityDetect(WandManager.CaptureAbility ability)
     {
-        if(ability == WandManager.CaptureAbility.Test2)
+        if(ability == WandManager.CaptureAbility.Marshmallow)
         {
             Collapse();
         }

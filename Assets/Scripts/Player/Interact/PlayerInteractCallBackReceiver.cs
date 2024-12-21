@@ -31,7 +31,6 @@ public class PlayerInteractCallBackReceiver : MonoBehaviour, IInteractCallBackRe
     {
         _socketManager.DetachFrom(AttachSocketName);
         _socketManager.AttachTo(go.GetComponent<IAttachable>(), AttachSocketName);
-        _status.Ability = new Ability.CandleAbility();
     }
 
 

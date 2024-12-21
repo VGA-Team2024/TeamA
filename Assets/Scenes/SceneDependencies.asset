@@ -46,8 +46,24 @@ MonoBehaviour:
     AssetPath: Assets/Scenes/ForPlaner/Stage_4.unity
     SceneType: 0
   - CanIDebugSelect: 1
+    Name: BossStage
+    AssetPath: Assets/Scenes/MainGame/BossStage.unity
+    SceneType: 2
+  - CanIDebugSelect: 1
+    Name: EndScene
+    AssetPath: Assets/Scenes/MainGame/EndScene.unity
+    SceneType: 2
+  - CanIDebugSelect: 1
     Name: FirstStageSystem
     AssetPath: Assets/Scenes/MainGame/FirstStageSystem.unity
+    SceneType: 2
+  - CanIDebugSelect: 1
+    Name: GameOverScene
+    AssetPath: Assets/Scenes/MainGame/GameOverScene.unity
+    SceneType: 2
+  - CanIDebugSelect: 1
+    Name: OpScene
+    AssetPath: Assets/Scenes/MainGame/OpScene.unity
     SceneType: 2
   - CanIDebugSelect: 1
     Name: SecondStageSystem
@@ -58,12 +74,12 @@ MonoBehaviour:
     AssetPath: Assets/Scenes/MainGame/ThirdStageSystem.unity
     SceneType: 2
   - CanIDebugSelect: 1
+    Name: TitleScene
+    AssetPath: Assets/Scenes/MainGame/TitleScene.unity
+    SceneType: 2
+  - CanIDebugSelect: 1
     Name: MockUp
     AssetPath: Assets/Scenes/Mockup/MockUp.unity
-    SceneType: 0
-  - CanIDebugSelect: 1
-    Name: 3DSoundSample
-    AssetPath: Assets/Scenes/Sample/3DSoundSample.unity
     SceneType: 0
   - CanIDebugSelect: 1
     Name: GameLauncher
@@ -76,6 +92,10 @@ MonoBehaviour:
   - CanIDebugSelect: 1
     Name: IngameSystem
     AssetPath: Assets/Scenes/System/IngameSystem.unity
+    SceneType: 0
+  - CanIDebugSelect: 1
+    Name: ReviewTest
+    AssetPath: Assets/Scenes/System/ReviewTest.unity
     SceneType: 0
   - CanIDebugSelect: 1
     Name: BaseGimmickTest
@@ -102,6 +122,22 @@ MonoBehaviour:
     AssetPath: Assets/Scenes/TestScene/RotateFloorTest.unity
     SceneType: 0
   - CanIDebugSelect: 1
+    Name: TitleScene
+    AssetPath: Assets/Scenes/TestScene/TitleScene.unity
+    SceneType: 0
+  - CanIDebugSelect: 1
     Name: BallonTest
     AssetPath: Assets/Scenes/TestScene/GimmickTest/BallonTest.unity
+    SceneType: 0
+  - CanIDebugSelect: 1
+    Name: DonutsTest
+    AssetPath: Assets/Scenes/TestScene/GimmickTest/DonutsTest.unity
+    SceneType: 0
+  - CanIDebugSelect: 1
+    Name: FloorTest
+    AssetPath: Assets/Scenes/TestScene/GimmickTest/FloorTest.unity
+    SceneType: 0
+  - CanIDebugSelect: 1
+    Name: WallTest
+    AssetPath: Assets/Scenes/TestScene/GimmickTest/WallTest.unity
     SceneType: 0

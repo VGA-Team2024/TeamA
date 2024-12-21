@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Events;
 /// <summary>
 /// すべてのギミックをクリアしたときに通知をするクラス
 /// </summary>
@@ -18,6 +19,7 @@ public class StageGimmickObserver : MonoBehaviour
 
     // クリア時のイベントデリゲート
     public event Action OnAllGimmicksClear;
+    [SerializeField] private UnityEvent _onClearedGimmicks;
 
     private void Start()
     {
@@ -67,6 +69,7 @@ public class StageGimmickObserver : MonoBehaviour
     {
         Debug.Log("すべてのギミックがクリアされました！");
         OnAllGimmicksClear?.Invoke(); // イベントを発行
+        _onClearedGimmicks?.Invoke();
     }
 
     private void OnDisable()

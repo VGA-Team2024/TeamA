@@ -78,6 +78,7 @@ public class UIManager : SingletonMonoBehavior<UIManager>
         GameObject canvasObject = Instantiate(_canvasPrefab);
         canvasObject.name = $"Canvas_{sortOrder}";
         CanvasData canvasData = canvasObject.GetComponent<CanvasData>();
+        canvasData.Canvas.sortingOrder = sortOrder;
         int index = _canvases.FindIndex(c => c.Canvas.sortingOrder > sortOrder);
         if(index != -1)
         {

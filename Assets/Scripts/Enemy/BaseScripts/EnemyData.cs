@@ -1,4 +1,4 @@
-using Alchemy.Inspector;
+ï»¿using Alchemy.Inspector;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Threading;
@@ -8,34 +8,29 @@ using UnityEngine;
 public class EnemyData
 {
 #if UNITY_EDITOR
-    [LabelText("ƒGƒlƒ~[‚Ì„‰ñˆÊ’u‚ğ•\¦‚·‚é‚©")]
+    [LabelText("ã‚¨ãƒãƒŸãƒ¼ã®å·¡å›ä½ç½®ã‚’è¡¨ç¤ºã™ã‚‹ã‹")]
     public bool IsDrawTargetsPosition = false;
 #endif
-    /// <summary>
-    /// ¦‹ŒŒ`®‚Ì‚½‚ßEnum‚ğg—p‚µ‚½•û®‚ÉŠ®‘S‚ÉˆÚs‚µ‚½Œãíœ‚³‚ê‚Ü‚·
-    /// </summary>
-    [LabelText("ƒGƒlƒ~[‚ÌƒvƒŒƒnƒu")]
-    public GameObject EnemyPrefab;
 
-    [LabelText("ƒGƒlƒ~[‚Ìí—Ş")]
+    [LabelText("ã‚¨ãƒãƒŸãƒ¼ã®ç¨®é¡")]
     public EnemyEnum Enemy;
 
-    [LabelText("ƒGƒlƒ~[‚ÌƒXƒ|[ƒ“ˆÊ’u")]
+    [LabelText("ã‚¨ãƒãƒŸãƒ¼ã®ã‚¹ãƒãƒ¼ãƒ³ä½ç½®")]
     public Vector3 SpawnPoint = Vector3.zero;
 
-    [LabelText("ƒGƒlƒ~[‚ÌƒXƒ|[ƒ“‚ÌŒü‚«")]
+    [LabelText("ã‚¨ãƒãƒŸãƒ¼ã®ã‚¹ãƒãƒ¼ãƒ³æ™‚ã®å‘ã")]
     public float SpawnedEnemyRotationY = 0;
 
-    [LabelText("¶¬‚·‚é‰ñ” / -1‚ğ‘I‚Ô‚Æ–³ŒÀ‚É¶¬")]
+    [LabelText("ç”Ÿæˆã™ã‚‹å›æ•° / -1ã‚’é¸ã¶ã¨ç„¡é™ã«ç”Ÿæˆ")]
     public int MaxGenerateCnt = 0;
 
-    [LabelText("¶¬‚É‚©‚©‚éŠÔ")]
+    [LabelText("ç”Ÿæˆã«ã‹ã‹ã‚‹æ™‚é–“")]
     public float GenerateInterval = 5;
 
-    [LabelText("¶¬‰Â”\‚ÈƒvƒŒƒCƒ„[‚Æ‚Ì‹——£‚Ì“ñæ")]
+    [LabelText("ç”Ÿæˆå¯èƒ½ãªãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã®è·é›¢ã®äºŒä¹—")]
     public float SpawnablePlayerDistanceSquare = 256;
 
-    [LabelText("ƒGƒlƒ~[‚Ì‹““®")]
+    [LabelText("ã‚¨ãƒãƒŸãƒ¼ã®æŒ™å‹•")]
     [SerializeReference] public IMovePatternEnemy MovePatern;
 
 }
@@ -47,11 +42,11 @@ public interface IMovePatternEnemy : IDisposable
 
     public void Dispose();
     /// <summary>
-    /// ƒGƒlƒ~[‚ÌŸ‚Ì–Ú“I’n‚ÉˆÚs‚·‚éÛ‚Ì‰ñ“]‚ğ§Œä‚·‚é
+    /// ã‚¨ãƒãƒŸãƒ¼ã®æ¬¡ã®ç›®çš„åœ°ã«ç§»è¡Œã™ã‚‹éš›ã®å›è»¢ã‚’åˆ¶å¾¡ã™ã‚‹
     /// </summary>
-    /// <param name="rotation">Ÿ‚Ì–Ú“I’n‚É‚Äİ’è‚³‚ê‚Ä‚¢‚éŒü‚«</param>
-    /// <param name="transform">ƒGƒlƒ~[‚Ìtransform</param>
-    /// <param name="token">ƒLƒƒƒ“ƒZƒ‹—pƒg[ƒNƒ“</param>
+    /// <param name="rotation">æ¬¡ã®ç›®çš„åœ°ã«ã¦è¨­å®šã•ã‚Œã¦ã„ã‚‹å‘ã</param>
+    /// <param name="transform">ã‚¨ãƒãƒŸãƒ¼ã®transform</param>
+    /// <param name="token">ã‚­ãƒ£ãƒ³ã‚»ãƒ«ç”¨ãƒˆãƒ¼ã‚¯ãƒ³</param>
     /// <returns></returns>
     public UniTask NextTargetActionAsync(Quaternion rotation, Transform transform, CancellationToken token);
 }

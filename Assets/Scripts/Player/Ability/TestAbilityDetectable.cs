@@ -11,24 +11,33 @@ public class TestAbilityDetectable : MonoBehaviour,IAbilityDetectable
         PlayerEventHelper.OnCaptureAbility.Subscribe(Ability => print(Ability)).AddTo(this);
     }
 
+
     public void OnAbilityDetect(WandManager.CaptureAbility ability)
     {
         switch (ability)
         {
             case WandManager.CaptureAbility.None:
                 break;
-            case WandManager.CaptureAbility.Test1:
+            case WandManager.CaptureAbility.Candle:
                 Debug.Log("Test1 Ability Detected");
+                PlayerEventHelper.SetPlayerStateAsOperatingPlatform(true);
+
                 break;
-            case WandManager.CaptureAbility.Test2:
+            case WandManager.CaptureAbility.Marshmallow:
                 Debug.Log("Test2 Ability Detected");
 
                 break;
-            case WandManager.CaptureAbility.Test3:
+            case WandManager.CaptureAbility.Gum:
                 Debug.Log("Test3 Ability Detected");
 
                 break;
         }
+    }
+
+    private void Update()
+    {
+        if (!PlayerEventHelper.IsExceptionalState()) { return; }
+        transform.Translate(new Vector3(InputReader.Instance.MovementInput.x*Time.deltaTime, 0, InputReader.Instance.MovementInput.y*Time.deltaTime));
     }
 
     public Transform GetTransform()

@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class PendantController : MonoBehaviour, IInteractable, IActivatable
+public class PendantController : StageGimmickBase, IInteractable
 {
-    public event Action OnActivated;
+    public UnityEvent OnActivated;
 
     public bool CanInteract()
     {
@@ -21,5 +22,11 @@ public class PendantController : MonoBehaviour, IInteractable, IActivatable
     {
         Debug.Log("インタラクト確認");
         OnActivated?.Invoke();
+        ClearActive(true);
+        CRIAudioManager.SE.Play3D(Vector3.zero, "CueSheet_0", "SE_clash_pendant");
+    }
+    protected override void ClearActive(bool changeIsClear)
+    {
+        isClear = changeIsClear;
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorTest : MonoBehaviour, IGimmick
+public class DoorTest : MonoBehaviour
 {
     Animator _doorAnimator;
     void Start()
