@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,12 +11,12 @@ public class TreasureBox : MonoBehaviour, IInteractable
 
     public string GetInteractionMessage()
     {
-        return "äJÇØÇÈ";
+        return "Èñã„Åë„Çã";
     }
 
     public void OnInteract(IInteractCallBackReceivable caller)
     {
-        //âπ
+        //Èü≥
         //CRIAudioManager.SE.Play3D(Vector3.zero, "CueSheet_0", "SE_fire_tukeru");
         SceneLoader.LoadSceneSimple("EndScene");
     }

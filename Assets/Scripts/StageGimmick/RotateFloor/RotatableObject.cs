@@ -1,4 +1,4 @@
-using Alchemy.Inspector;
+ï»¿using Alchemy.Inspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,7 +34,7 @@ public class RotatableObject : MonoBehaviour, IResetable
             this.transform.localScale * (0.5f + _adjustOverlapBoxRange),
             transform.rotation, _obstacleOrRotateLayer, QueryTriggerInteraction.Collide).Length > 0)
         {
-            //Œã“V“I‚È‚ç“ü—Í’l•Û‘¶
+            //å¾Œå¤©çš„ãªã‚‰å…¥åŠ›å€¤ä¿å­˜
             if (rotateInput != 0 && !_isObstacled)
             {
                 _obstacledInput = rotateInput > 0 ? 1 : -1;
@@ -61,10 +61,10 @@ public class RotatableObject : MonoBehaviour, IResetable
         }
     }
     /// <summary>
-    /// ‰ñ‚¹‚È‚¢ó‘Ô‚©‚Â“ü—Í‚ª‘O‰ñ~‚Ü‚Á‚Ä‚¢‚½“ü—Í‚Å‚ ‚é‚È‚çfalseA‚»‚êˆÈŠO‚È‚çtrue‚ğ•Ô‚·
+    /// å›ã›ãªã„çŠ¶æ…‹ã‹ã¤å…¥åŠ›ãŒå‰å›æ­¢ã¾ã£ã¦ã„ãŸå…¥åŠ›ã§ã‚ã‚‹ãªã‚‰falseã€ãã‚Œä»¥å¤–ãªã‚‰trueã‚’è¿”ã™
     /// </summary>
     /// <param name="rotateInput">
-    /// ‰ñ“]—p‚Ì“ü—Í
+    /// å›è»¢ç”¨ã®å…¥åŠ›
     /// </param>
     public bool IsRotatable(float rotateInput)
     {

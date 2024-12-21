@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/ForPlaner/Stage_4.unity
     guid: e75a7b4e78698dd48a05b0dc7c9f41f2
   - enabled: 1
+    path: Assets/Scenes/MainGame/TitleScene.unity
+    guid: d775e50a3cb9f544296fe7215a049240
+  - enabled: 1
     path: Assets/Scenes/MainGame/FirstStageSystem.unity
     guid: a6c7107efa221464ebf0edd5a51b6a21
   - enabled: 1
@@ -80,7 +83,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/System/ReviewTest.unity
     guid: 963cf3fb75ade1343879e65c8c838a10
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/TestScene/TitleScene.unity
     guid: 752e7a788ef43d44fa86c1a3c5cdfe0b
   - enabled: 0
@@ -98,8 +101,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainGame/BossStage.unity
     guid: cef0f015527f1de469980258a92da530
-  - enabled: 1
-    path: Assets/Scenes/MainGame/TitleScene.unity
-    guid: d775e50a3cb9f544296fe7215a049240
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 7366e43fa3f777f4292c2095e8b63e4c, type: 2}
