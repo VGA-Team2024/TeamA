@@ -91,12 +91,12 @@ public class OptionPresenter : UIGroup
             .Subscribe(_=>
             {
                 //ÉQÅ[ÉÄèIóπèàóù
-#if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
-#endif
+                MessageBroker.Default.Publish(new OptionExit());
             }).AddTo(this);
+        System.Array.ForEach(GetComponentsInChildren<OptionViewBase>(true), viewBase => viewBase.Entry());
     }
 }
 
 public class OptionEnable { }
 public class OptionDisable { }
+public class OptionExit { }

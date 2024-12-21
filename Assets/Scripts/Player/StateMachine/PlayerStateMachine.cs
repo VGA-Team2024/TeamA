@@ -36,11 +36,27 @@ public class PlayerStateMachine : StateMachine, IPlayerAnimationSePlayable,IPlay
                 ChangeState(new PlayerOperatingUIState(this));
             }).AddTo(this);
 
+        Observable.FromEvent<bool>(
+            f => PlayerEventHelper.SetPlayerStateAsOperatingPlatform += f,
+            f => PlayerEventHelper.SetPlayerStateAsOperatingPlatform -= f)
+            .Subscribe(enable =>
+            {
+                if (enable) { ChangeState(new PlayerOperatingPlatformState(this)); }
+                else { ChangeState(new PlayerFreeLookState(this)); }
+                
+            }).AddTo(this);
+
+
     }
 
     protected override void Update()
     {
         base.Update();
+    }
+
+    public bool IsPlayerExceptionalState()
+    {
+        return _currentState is PlayerOperatingPlatformState;
     }
 
     #region AnimationEventReceiver
@@ -85,3 +101,4 @@ namespace AnimaitonEventReceivable
 
     
 }
+
