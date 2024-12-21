@@ -20,6 +20,6 @@ public class OptionMenuView : OptionViewBase
 
     public override void Entry()
     {
-        throw new NotImplementedException();
+        
     }
 }
