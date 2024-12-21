@@ -5,18 +5,22 @@ using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 
-public class RotatableObject : MonoBehaviour
+public class RotatableObject : MonoBehaviour, IResetable
 {
     private float _obstacledInput = 0;
     private GameObject _parent;
     [SerializeField] private float _adjustOverlapBoxRange = 0.1f;
     private int _obstacleOrRotateLayer;
     private int _floorLayer;
+    private Vector3 _initialPosition;
+    private Quaternion _initialRotation;
 
     bool _isContainParent = false;
     bool _isObstacled = false;
     private void Start()
     {
+        _initialPosition = transform.position;
+        _initialRotation = transform.rotation;
         _obstacleOrRotateLayer = 1 << 10;
         _floorLayer = 1 << 11;
     }
@@ -84,5 +88,43 @@ public class RotatableObject : MonoBehaviour
         Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
         Gizmos.DrawWireCube(Vector3.zero, transform.localScale * (1 + _adjustOverlapBoxRange));
         Gizmos.matrix = normalMatrix;
+    }
+
+    public void RegisterReset()
+    {
+        try
+        {
+            GimmickResetManager[] objects = FindObjectsByType<GimmickResetManager>(FindObjectsSortMode.None);
+            foreach (var resetManager in objects)
+            {
+                resetManager._resetAction += ResetGimmick;
+            }
+        }
+        catch
+        {
+            Debug.Log($"{this.gameObject.name} can't register ResetGimmick ");
+        }
+    }
+
+    public void ResetGimmick()
+    {
+        transform.position = _initialPosition;
+        transform.rotation = _initialRotation;
+    }
+
+    public void CancelletionReset()
+    {
+        try
+        {
+            GimmickResetManager[] objects = FindObjectsByType<GimmickResetManager>(FindObjectsSortMode.None);
+            foreach (var resetManager in objects)
+            {
+                resetManager._resetAction -= ResetGimmick;
+            }
+        }
+        catch
+        {
+            Debug.Log($"{this.gameObject.name} can't remove ResetGimmick ");
+        }
     }
 }

@@ -2,6 +2,7 @@ using Alchemy.Inspector;
 using Cinemachine;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class RotateManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class RotateManager : MonoBehaviour
     [SerializeField] private float _rotateSpeedCoefficient = 10;
     [SerializeField] private bool _isEnableGimmick = false;
     private float _inputHori;
+    [SerializeField] private UnityEvent _onCanceledAciton;
     void Start()
     {
         if (!_cam)
@@ -37,32 +39,25 @@ public class RotateManager : MonoBehaviour
             _rotateFloorDataList[i].SetParent(_rotateFloorDataList[i - 1].gameObject);
         }
     }
-    public void OnInputVec2()
-    {
-        _inputHori = Input.GetAxisRaw("Horizontal");
-    }
     private void FixedUpdate()
     {
-        if (!_isEnableGimmick)
+        if (_isEnableGimmick && PlayerEventHelper.IsExceptionalState())
         {
-            return;
+            _inputHori = InputReader.Instance.MovementInput.x;
+            Rotate();
         }
-        Rotate();
+        if (_isEnableGimmick && !PlayerEventHelper.IsExceptionalState())
+        {
+            _isEnableGimmick = false;
+            _cam.Priority = -9999;
+            _onCanceledAciton?.Invoke();
+        }
     }
-
-    private void Update()
+    public void EnableRotate()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            _isEnableGimmick = !_isEnableGimmick;
-            Debug.Log($"RotateGimmick : {_isEnableGimmick}");
-        }
-        if (!_isEnableGimmick)
-        {
-            return;
-        }
-
-        OnInputVec2();
+        _cam.Priority = 9999;
+        PlayerEventHelper.SetPlayerStateAsOperatingPlatform(true);
+        _isEnableGimmick = true;
     }
     private void Rotate()
     {
