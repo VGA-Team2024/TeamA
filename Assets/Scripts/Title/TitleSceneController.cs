@@ -35,18 +35,16 @@ public class TitleSceneController : MonoBehaviour
         //クリック音を流す
         CRIAudioManager.SE.Play3D(Vector3.zero, "CueSheet_0", "jingle_start");
 
-        // //各オブジェクトのアニメーションを再生
-        // foreach (GameObject obj in _targetObject)
-        // {
-        //     Animator animator = obj.GetComponent<Animator>();
-        //     if(animator != null)
-        //     {
-        //         animator.SetTrigger(_animationTrigger);
-        //     }
-        // }
-
-        //テスト用にシーン遷移
-        MoveScene();
+        //各オブジェクトのアニメーションを再生
+        foreach (GameObject obj in _targetObject)
+        {
+            Animator animator = obj.GetComponent<Animator>();
+            if(animator != null)
+            {
+                animator.SetTrigger(_animationTrigger);
+            }
+        }
+        
     }
 
     /// <summary>
