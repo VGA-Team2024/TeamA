@@ -121,9 +121,11 @@ Material:
     - _RimThreshold: 1
     - _ShadowColor2: 0
     - _ShadowIntensity: 1
+    - _ShadowOozeThreshold1: 0.1
+    - _ShadowOozeThreshold2: 0.01
     - _ShadowStrength: 0.5
     - _ShadowThreshold1: 0.6
-    - _ShadowThreshold2: 0.6
+    - _ShadowThreshold2: 0.5
     - _SobelFilterThreshold: 2
     - _SpecularIntensitySmooth: 0.763
     - _SrcBlend: 1
