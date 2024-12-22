@@ -185,7 +185,7 @@ public class BallonController1 : MonoBehaviour, IAbilityDetectable, IResetable
 
     public void OnAbilityDetect(WandManager.CaptureAbility ability)
     {
-        if(ability != WandManager.CaptureAbility.Test3 || !_isEnableDetect)
+        if(ability != WandManager.CaptureAbility.Gum || !_isEnableDetect)
             return;
         _isEnableDetect = false;
         if (!_isPause)
