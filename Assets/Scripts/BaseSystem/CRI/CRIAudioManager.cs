@@ -156,6 +156,8 @@ public class CRIAudioManager
 
         public bool IsPlaying => _atomExPlayer.GetStatus() == CriAtomExPlayer.Status.Playing;
 
+        //OkamuraAdd
+        public float GetAtomExPlayerVol => _volume;
 
         public SoundPlayer(SoundType type)
         {
@@ -176,6 +178,8 @@ public class CRIAudioManager
         {
             _volume = vol;
             _atomExPlayer.SetVolume(_volume);
+            //OkamuraAdd
+            _atomExPlayer.UpdateAll();
         }
 
         public virtual CriAtomExPlayback Play(string cueSheet, string cueName, float delay = 0.0f)

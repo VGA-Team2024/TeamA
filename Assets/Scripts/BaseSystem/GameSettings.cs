@@ -25,7 +25,8 @@ public class GameSettings
             new SceneSetting(){
                 BaseSceneName = "@PlayScene",
                 AdditiveSceneName = new List<string>(){
-                    "CRIExecuter"
+                    "CRIExecuter",
+                    "LocalDataManager"
                 }
             }
         },
@@ -36,7 +37,7 @@ public class GameSettings
                 AdditiveSceneName = new List<string>(){
                     "IngameSystem",
                     "IngameDebug",
-                    "CRIExecuter"
+                    "CRIExecuter",
                 }
             }
         },

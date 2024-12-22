@@ -101,5 +101,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainGame/BossStage.unity
     guid: cef0f015527f1de469980258a92da530
+  - enabled: 1
+    path: Assets/Scenes/System/LocalDataManager.unity
+    guid: 726cbf90bf0744d448928a95af1fbe0c
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 7366e43fa3f777f4292c2095e8b63e4c, type: 2}

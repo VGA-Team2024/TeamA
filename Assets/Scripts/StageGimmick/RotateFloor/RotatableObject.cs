@@ -23,6 +23,8 @@ public class RotatableObject : MonoBehaviour, IResetable
         _initialRotation = transform.rotation;
         _obstacleOrRotateLayer = 1 << 10;
         _floorLayer = 1 << 11;
+
+        RegisterReset();
     }
     public void SetParent(GameObject gameObject)
     {
@@ -80,6 +82,10 @@ public class RotatableObject : MonoBehaviour, IResetable
             return false;
         }
         return true;
+    }
+    private void OnDisable()
+    {
+        CancelletionReset();
     }
     private void OnDrawGizmos()
     {
