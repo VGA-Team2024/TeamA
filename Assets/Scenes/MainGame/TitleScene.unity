@@ -2363,34 +2363,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1459481070589982728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4774453607498838407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50adba0074472de4ea5cb6bbfd311f1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <CapturableAbility>k__BackingField: 2
-  OnCaptured:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3988137023824618635}
-        m_TargetAssemblyTypeName: EnemyBase, Assembly-CSharp
-        m_MethodName: CapturedDamage
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1466082777052929597
 GameObject:
   m_ObjectHideFlags: 0
@@ -2888,29 +2860,6 @@ Transform:
   - {fileID: 7953960089604144311}
   m_Father: {fileID: 697828363}
   m_LocalEulerAnglesHint: {x: 0, y: 188.288, z: 0}
---- !u!136 &2500865258491730444
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4774453607498838407}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &2530092543972090245
 GameObject:
   m_ObjectHideFlags: 0
@@ -3425,34 +3374,6 @@ Transform:
   - {fileID: 3659126446712717464}
   m_Father: {fileID: 2459347270042751318}
   m_LocalEulerAnglesHint: {x: -0.00062689185, y: -0.000010013813, z: -0.000010080985}
---- !u!114 &3988137023824618635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4774453607498838407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff93071b986358846be99ee75103df14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerTransform: {fileID: 0}
-  _cueSheet: CueSheet_0
-  _currentHp: 0
-  _initialized: 0
-  _enemyState: 1
-  _enemyHp: 1
-  _enemyMaxSpeed: 7.22
-  _stopDistance: 1
-  _enemyAngularSpeed: 360
-  _searchablePlayerDistance: 8
-  _fieldOfViewHalf: 50
-  _enemyOffsetLay: {x: 0, y: 1, z: 0}
-  _attackableDistance: 3
-  _attackArea: {x: 1.3, y: 2.2, z: 1.3}
-  _isViewLastTarget: 0
-  _sampleFloat: 1
 --- !u!1 &4132554615980199720
 GameObject:
   m_ObjectHideFlags: 0
@@ -3646,10 +3567,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 974839273282579751}
-  - component: {fileID: 2500865258491730444}
-  - component: {fileID: 7148893836443962978}
-  - component: {fileID: 3988137023824618635}
-  - component: {fileID: 1459481070589982728}
+  - component: {fileID: 4774453607498838408}
   m_Layer: 8
   m_Name: Marchmallow
   m_TagString: Untagged
@@ -3657,6 +3575,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &4774453607498838408
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4774453607498838407}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4a6f942d148609741984815181b5ff2f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4871788748022357146
 GameObject:
   m_ObjectHideFlags: 0
@@ -4502,28 +4441,6 @@ Transform:
   - {fileID: 5472116617218633512}
   m_Father: {fileID: 3388848961644597350}
   m_LocalEulerAnglesHint: {x: 35.592003, y: 2.0754757, z: -8.539878}
---- !u!195 &7148893836443962978
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4774453607498838407}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 7.35
-  avoidancePriority: 50
-  m_AngularSpeed: 360
-  m_StoppingDistance: 1
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!4 &7164492019544819701
 Transform:
   m_ObjectHideFlags: 0
