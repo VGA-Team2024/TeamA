@@ -56,6 +56,5 @@ public sealed class PatrolEnemy : IMovePatternEnemy
     public async UniTask NextTargetActionAsync(Quaternion rotation, Transform transform, CancellationToken token)
     {
         await UniTask.Delay(10);
-        Debug.Log("Still this Method Undifined");
     }
 }

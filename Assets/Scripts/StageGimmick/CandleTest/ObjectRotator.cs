@@ -1,4 +1,6 @@
+using Cinemachine;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ObjectRotator : MonoBehaviour
 {
@@ -13,34 +15,29 @@ public class ObjectRotator : MonoBehaviour
     private float _inputHori = 0;
 
     private bool _isEnabled = false;
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            _isEnabled = !_isEnabled;
-            Debug.Log($"ObjectRotator is {_isEnabled}");
-        }
 
-        if(_isEnabled)
+    [SerializeField] private UnityEvent _onCanceledAciton;
+
+    [SerializeField] CinemachineVirtualCamera _cam;
+    public void ChangeRotateEnable()
+    {
+        _cam.Priority = 9999;
+        PlayerEventHelper.SetPlayerStateAsOperatingPlatform(true);
+        _isEnabled = !_isEnabled;
+    }
+    void FixedUpdate()
+    {
+        if(_isEnabled && PlayerEventHelper.IsExceptionalState())
         {
-            _inputHori = Input.GetAxis("Horizontal");
+            _inputHori = InputReader.Instance.MovementInput.x;
             Rotate();
         }
-
-        //Vector3 currentEuler = RotatableObject.transform.eulerAngles;
-        //float currentY = currentEuler.y;
-        //if (currentY > 180f)
-        //{
-        //    currentY -= 360f;
-        //}
-        //float targetY = currentY + input * rotationSpeed * Time.deltaTime;
-        //targetY = Mathf.Clamp(targetY, 0, angle); //êßå¿Ç©ÇØÇÈ
-        //if (targetY < 0f)
-        //{
-        //    targetY += 360f;
-        //}
-        //RotatableObject.transform.eulerAngles = new Vector3(currentEuler.x, targetY, currentEuler.z);
-
+        if(_isEnabled && !PlayerEventHelper.IsExceptionalState())
+        {
+            _isEnabled = false;
+            _cam.Priority = -9999;
+            _onCanceledAciton?.Invoke();
+        }
     }
     void Rotate()
     {
