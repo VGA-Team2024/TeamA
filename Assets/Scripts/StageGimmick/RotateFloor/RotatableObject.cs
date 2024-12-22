@@ -1,24 +1,30 @@
-using Alchemy.Inspector;
+ï»¿using Alchemy.Inspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 
-public class RotatableObject : MonoBehaviour
+public class RotatableObject : MonoBehaviour, IResetable
 {
     private float _obstacledInput = 0;
     private GameObject _parent;
     [SerializeField] private float _adjustOverlapBoxRange = 0.1f;
     private int _obstacleOrRotateLayer;
     private int _floorLayer;
+    private Vector3 _initialPosition;
+    private Quaternion _initialRotation;
 
     bool _isContainParent = false;
     bool _isObstacled = false;
     private void Start()
     {
+        _initialPosition = transform.position;
+        _initialRotation = transform.rotation;
         _obstacleOrRotateLayer = 1 << 10;
         _floorLayer = 1 << 11;
+
+        RegisterReset();
     }
     public void SetParent(GameObject gameObject)
     {
@@ -30,7 +36,7 @@ public class RotatableObject : MonoBehaviour
             this.transform.localScale * (0.5f + _adjustOverlapBoxRange),
             transform.rotation, _obstacleOrRotateLayer, QueryTriggerInteraction.Collide).Length > 0)
         {
-            //Œã“V“I‚È‚ç“ü—Í’l•Û‘¶
+            //å¾Œå¤©çš„ãªã‚‰å…¥åŠ›å€¤ä¿å­˜
             if (rotateInput != 0 && !_isObstacled)
             {
                 _obstacledInput = rotateInput > 0 ? 1 : -1;
@@ -57,10 +63,10 @@ public class RotatableObject : MonoBehaviour
         }
     }
     /// <summary>
-    /// ‰ñ‚¹‚È‚¢ó‘Ô‚©‚Â“ü—Í‚ª‘O‰ñ~‚Ü‚Á‚Ä‚¢‚½“ü—Í‚Å‚ ‚é‚È‚çfalseA‚»‚êˆÈŠO‚È‚çtrue‚ğ•Ô‚·
+    /// å›ã›ãªã„çŠ¶æ…‹ã‹ã¤å…¥åŠ›ãŒå‰å›æ­¢ã¾ã£ã¦ã„ãŸå…¥åŠ›ã§ã‚ã‚‹ãªã‚‰falseã€ãã‚Œä»¥å¤–ãªã‚‰trueã‚’è¿”ã™
     /// </summary>
     /// <param name="rotateInput">
-    /// ‰ñ“]—p‚Ì“ü—Í
+    /// å›è»¢ç”¨ã®å…¥åŠ›
     /// </param>
     public bool IsRotatable(float rotateInput)
     {
@@ -77,6 +83,10 @@ public class RotatableObject : MonoBehaviour
         }
         return true;
     }
+    private void OnDisable()
+    {
+        CancelletionReset();
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -84,5 +94,43 @@ public class RotatableObject : MonoBehaviour
         Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
         Gizmos.DrawWireCube(Vector3.zero, transform.localScale * (1 + _adjustOverlapBoxRange));
         Gizmos.matrix = normalMatrix;
+    }
+
+    public void RegisterReset()
+    {
+        try
+        {
+            GimmickResetManager[] objects = FindObjectsByType<GimmickResetManager>(FindObjectsSortMode.None);
+            foreach (var resetManager in objects)
+            {
+                resetManager._resetAction += ResetGimmick;
+            }
+        }
+        catch
+        {
+            Debug.Log($"{this.gameObject.name} can't register ResetGimmick ");
+        }
+    }
+
+    public void ResetGimmick()
+    {
+        transform.position = _initialPosition;
+        transform.rotation = _initialRotation;
+    }
+
+    public void CancelletionReset()
+    {
+        try
+        {
+            GimmickResetManager[] objects = FindObjectsByType<GimmickResetManager>(FindObjectsSortMode.None);
+            foreach (var resetManager in objects)
+            {
+                resetManager._resetAction -= ResetGimmick;
+            }
+        }
+        catch
+        {
+            Debug.Log($"{this.gameObject.name} can't remove ResetGimmick ");
+        }
     }
 }

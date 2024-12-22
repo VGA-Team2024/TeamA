@@ -23,6 +23,7 @@ public class PendantController : StageGimmickBase, IInteractable
         Debug.Log("インタラクト確認");
         OnActivated?.Invoke();
         ClearActive(true);
+        CRIAudioManager.SE.Play3D(Vector3.zero, "CueSheet_0", "SE_clash_pendant");
     }
     protected override void ClearActive(bool changeIsClear)
     {

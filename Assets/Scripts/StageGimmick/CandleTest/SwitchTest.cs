@@ -37,6 +37,6 @@ public class SwitchTest : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position + Vector3.up, _halfExtents + new Vector3(0, _switchDistance, 0));
+        Gizmos.DrawWireCube(transform.position + Vector3.up, _halfExtents * 2 + new Vector3(0, _switchDistance, 0));
     }
 }

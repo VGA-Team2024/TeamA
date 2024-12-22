@@ -152,6 +152,7 @@ MonoBehaviour:
   _lifeTime: 20
   _radius: 1.65
   ProceedVector: {x: 0, y: 0, z: 1}
+  _isClear: 0
 --- !u!1001 &6053022590115126732
 PrefabInstance:
   m_ObjectHideFlags: 0

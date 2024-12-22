@@ -37,6 +37,10 @@ public class Donuts : MonoBehaviour
         {
             //プレイヤーに近づいた時の処理
             Debug.Log("near player");
+            if (hit.collider.gameObject.TryGetComponent(out DamageSystem.IDamagable damagable))
+            {
+                damagable.ApplyDamage(1f);//HPは3に設定されています
+            }
         }
         /*
         //現在の速度

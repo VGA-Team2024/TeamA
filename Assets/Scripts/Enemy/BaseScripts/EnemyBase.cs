@@ -205,7 +205,6 @@ public class EnemyBase : MonoBehaviour , IDamagable
             if (_cts != null)
             {
                 _cts.Dispose();
-                Debug.Log("Dispose cts");
             }
         }
     }
@@ -279,14 +278,14 @@ public class EnemyBase : MonoBehaviour , IDamagable
     {
         try
         {
-            Debug.Log("見失い挙動開始");
+            //見失い挙動開始
             //２秒で時計回りに75度回転
             await LMotion.Create(this.transform.rotation, this.transform.rotation * Quaternion.AngleAxis(60, Vector3.up), 2)
                 .WithEase(Ease.InOutCubic).BindToLocalRotation(transform).ToUniTask(token);
             //２秒で反時計回りに130度回転
             await LMotion.Create(this.transform.rotation, this.transform.rotation * Quaternion.AngleAxis(-130, Vector3.up), 2)
                 .WithEase(Ease.InOutCubic).BindToLocalRotation(transform).ToUniTask(token);
-            Debug.Log("見失い挙動終了");
+            //見失い挙動終了
         }
         catch
         {
