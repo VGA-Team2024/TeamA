@@ -188,7 +188,7 @@ PrefabInstance:
     - target: {fileID: -6119968760146394587, guid: 523a7580286e05942b8e333ff7154791, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 6015b3c6e2af7184887323b65b310217, type: 2}
+      objectReference: {fileID: 2100000, guid: 09d16b9a72838e943920b627f934a65e, type: 2}
     - target: {fileID: 919132149155446097, guid: 523a7580286e05942b8e333ff7154791, type: 3}
       propertyPath: m_Name
       value: ChMD_Cake

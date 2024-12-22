@@ -48,7 +48,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: edf88bde2d9175a489356f49f571a807, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2eea1937b9696694bbc331b5d27bf35b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalFromTexture_a52edcf62dc546238c95ed4d221b0a05_Texture_0_Texture2D:
@@ -56,7 +56,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 9ff10f497b3a5e249a6f913483a99520, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadowTexture:
@@ -110,9 +110,9 @@ Material:
     - _DitherStrength: 1
     - _DstBlend: 0
     - _EmissonIntensity: 0.5
-    - _Glossiness: 10
+    - _Glossiness: 32
     - _LightIntensity: 0.1
-    - _NormalStrength: 1
+    - _NormalStrength: 0
     - _OutLineThickness: 0.01
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -121,11 +121,13 @@ Material:
     - _RimThreshold: 0.1
     - _ShadowColor2: 0
     - _ShadowIntensity: 1
+    - _ShadowOozeThreshold1: 0.1
+    - _ShadowOozeThreshold2: 0.01
     - _ShadowStrength: 0.5
     - _ShadowThreshold1: 0.6
     - _ShadowThreshold2: 0.5
     - _SobelFilterThreshold: 1
-    - _SpecularIntensitySmooth: 0.763
+    - _SpecularIntensitySmooth: 0.01
     - _SrcBlend: 1
     - _Surface: 0
     - _ZTest: 4

@@ -185,6 +185,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 54411d71ae6adf649a9b469023aa2a64, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2e002faae53b4ee49a484965c96a9176, type: 2}
     - target: {fileID: 919132149155446097, guid: 54411d71ae6adf649a9b469023aa2a64, type: 3}
       propertyPath: m_Name
       value: MD_20241106_Ishii_Marshmallow

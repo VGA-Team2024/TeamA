@@ -56,7 +56,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 1b9447fcb00f2f147bcdee244a9ed356, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadowTexture:
@@ -110,7 +110,7 @@ Material:
     - _DitherStrength: 1
     - _DstBlend: 0
     - _EmissonIntensity: 0.5
-    - _Glossiness: 10
+    - _Glossiness: 32
     - _LightIntensity: 0.1
     - _NormalStrength: 1
     - _OutLineThickness: 0.01
@@ -121,11 +121,13 @@ Material:
     - _RimThreshold: 1
     - _ShadowColor2: 0
     - _ShadowIntensity: 1
+    - _ShadowOozeThreshold1: 0.1
+    - _ShadowOozeThreshold2: 0.01
     - _ShadowStrength: 0.5
     - _ShadowThreshold1: 0.6
     - _ShadowThreshold2: 0.5
     - _SobelFilterThreshold: 2
-    - _SpecularIntensitySmooth: 0.763
+    - _SpecularIntensitySmooth: 0.01
     - _SrcBlend: 1
     - _Surface: 0
     - _ZTest: 4
