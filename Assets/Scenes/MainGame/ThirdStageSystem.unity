@@ -5396,10 +5396,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BreakableBlock6.2.6 (91)
       objectReference: {fileID: 0}
-    - target: {fileID: 1933295517254927009, guid: 3a73fc34dd96de248980111fc0183e39, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3800869029977391213, guid: 3a73fc34dd96de248980111fc0183e39, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.6
@@ -12825,10 +12821,6 @@ PrefabInstance:
     - target: {fileID: 1933295517254927009, guid: 3a73fc34dd96de248980111fc0183e39, type: 3}
       propertyPath: m_Name
       value: BreakableBlock6.2.6 (56)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1933295517254927009, guid: 3a73fc34dd96de248980111fc0183e39, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3800869029977391213, guid: 3a73fc34dd96de248980111fc0183e39, type: 3}
       propertyPath: m_LocalPosition.x
