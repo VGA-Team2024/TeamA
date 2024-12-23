@@ -5177,6 +5177,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pendant
       objectReference: {fileID: 0}
+    - target: {fileID: 6429985315200706802, guid: b57d75ce25554ec43a19b00490b82daf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7594093271660352343, guid: b57d75ce25554ec43a19b00490b82daf, type: 3}
       propertyPath: OnActivated.m_PersistentCalls.m_Calls.Array.size
       value: 2
