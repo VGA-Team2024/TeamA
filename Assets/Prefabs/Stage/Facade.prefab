@@ -61,7 +61,7 @@ Animator:
   m_GameObject: {fileID: 1960000014999129343}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c82bd119bbfda3742808cc525dd87cd9, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9caf87be321343244a5fc7391fa171fa, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -406,7 +406,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "Stage2\n\u56DE\u8EE2\u3059\u308B\u67B6\u3051\u6A4B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 204d70ff17b37554599a1537470d3496, type: 2}
   m_sharedMaterial: {fileID: 7986779715220568750, guid: 204d70ff17b37554599a1537470d3496, type: 2}
