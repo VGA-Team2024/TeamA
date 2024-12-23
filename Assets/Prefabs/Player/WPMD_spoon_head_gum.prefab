@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e731d732bad59d94485caefdd7b7cee2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.157016
+      value: -0.038575172
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e731d732bad59d94485caefdd7b7cee2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.4793563
+      value: -0.4793559
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e731d732bad59d94485caefdd7b7cee2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -38.667976
+      value: 5.6373
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e731d732bad59d94485caefdd7b7cee2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: e731d732bad59d94485caefdd7b7cee2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 75a4d6dbaaaf213428f5f3c7f1b11e50, type: 2}
+      objectReference: {fileID: 2100000, guid: 4b3332179aca81246bf428f5056017db, type: 2}
     - target: {fileID: 919132149155446097, guid: e731d732bad59d94485caefdd7b7cee2, type: 3}
       propertyPath: m_Name
       value: WPMD_spoon_head_gum

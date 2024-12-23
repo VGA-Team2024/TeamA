@@ -20,7 +20,14 @@ public class MainStageFacade : MonoBehaviour
     /// </summary>
     protected virtual void Start()
     {
-        LocalDataManager.Instance.UpdateLastSceneName();
+        if(LocalDataManager.Instance != null)
+        {
+            LocalDataManager.Instance.UpdateLastSceneName();
+        }
+        else
+        {
+            Debug.Log("Not Loaded LocalDataManager instance");
+        }
         try
         {
             CRIAudioManager.BGM.Play("CueSheet_0", _bgmCueName);
