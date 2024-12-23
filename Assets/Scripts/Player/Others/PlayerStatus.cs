@@ -4,6 +4,7 @@ using UnityEngine;
 using UniRx;
 using DamageSystem;
 using UniRx.Triggers;
+using Cysharp.Threading.Tasks;
 
 public class PlayerStatus : MonoBehaviour,DamageSystem.IDamagable
 {
@@ -24,16 +25,16 @@ public class PlayerStatus : MonoBehaviour,DamageSystem.IDamagable
             .Subscribe(_ => { PlayerEventHelper.OnPlayerDie?.Invoke(); })
             .AddTo(this);
         #region Test
-        //    this.UpdateAsObservable()
-        //        .Where(_ => Input.GetKeyDown(KeyCode.Return))
-        //        .Subscribe(_ =>
+        //this.UpdateAsObservable()
+        //    .Where(_ => Input.GetKeyDown(KeyCode.Return))
+        //    .Subscribe(_ =>
+        //    {
+        //        PlayerManager.Instance.TryGetPlayerRef(out var player);
+        //        if (player.TryGetComponent(out DamageSystem.IDamagable damagable))
         //        {
-        //            PlayerManager.Instance.TryGetPlayerRef(out var player);
-        //            if (player.TryGetComponent(out DamageSystem.IDamagable damagable))
-        //            {
-        //                damagable.ApplyDamage(1f);
-        //            }
-        //        }).AddTo(this);
+        //            damagable.ApplyDamage(1f);
+        //        }
+        //    }).AddTo(this);
         //    PlayerEventHelper.OnPlayerDie += () => print("Die");
         //    this.UpdateAsObservable()
         //.Where(_ => Input.GetKeyDown(KeyCode.Space))
@@ -51,14 +52,24 @@ public class PlayerStatus : MonoBehaviour,DamageSystem.IDamagable
         #endregion
     }
 
+    bool IsForcedInvulnerable = false;
+
 
     public bool IsInvulnerable { get; set; } = false;
 
     public bool ApplyDamage(float damage, IDamageArg arg = null)
     {
         if (IsInvulnerable) { return false; }
+        if (IsForcedInvulnerable) { return false; }
 
         Health.Value -= (int)damage;
+
+        UniTask.Create(async () =>
+        {
+            IsForcedInvulnerable = true;
+            await UniTask.Delay(Mathf.RoundToInt(PlayerEventHelper.InvulnerableTime * 1000));
+            IsForcedInvulnerable = false;
+        }).Forget();
 
         return true;
 
