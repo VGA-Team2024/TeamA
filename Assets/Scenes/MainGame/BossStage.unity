@@ -5122,6 +5122,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pendant (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7594093271660352343, guid: b57d75ce25554ec43a19b00490b82daf, type: 3}
+      propertyPath: OnActivated.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7594093271660352343, guid: b57d75ce25554ec43a19b00490b82daf, type: 3}
+      propertyPath: OnActivated.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7594093271660352343, guid: b57d75ce25554ec43a19b00490b82daf, type: 3}
+      propertyPath: OnActivated.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1296968374}
+    - target: {fileID: 7594093271660352343, guid: b57d75ce25554ec43a19b00490b82daf, type: 3}
+      propertyPath: OnActivated.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 7594093271660352343, guid: b57d75ce25554ec43a19b00490b82daf, type: 3}
+      propertyPath: OnActivated.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.Animator, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7594093271660352343, guid: b57d75ce25554ec43a19b00490b82daf, type: 3}
+      propertyPath: OnActivated.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Break
+      objectReference: {fileID: 0}
     - target: {fileID: 8475950519396526275, guid: b57d75ce25554ec43a19b00490b82daf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.1
@@ -5178,6 +5202,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad6db50652904a45a7a4b7217499dd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1296968374 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 359023945116477877, guid: b57d75ce25554ec43a19b00490b82daf, type: 3}
+  m_PrefabInstance: {fileID: 1296968372}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1324779423
 PrefabInstance:
   m_ObjectHideFlags: 0

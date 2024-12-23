@@ -68,9 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e1418e20c1079b4b979afb84ea34d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _breakBlockPrefab: {fileID: 6608610123604862115, guid: dc90f3b7dfc253d4f9b7be28b97e8a68, type: 3}
-  _collapseForce: 150
-  _collapseRadius: 5
+  _breakBlockPrefab: {fileID: 4924737814796448478, guid: 0adb3fc508b181848ab487f169581a43, type: 3}
   _collapseDestorySecond: 5
 --- !u!208 &4833439375243411800
 NavMeshObstacle:
