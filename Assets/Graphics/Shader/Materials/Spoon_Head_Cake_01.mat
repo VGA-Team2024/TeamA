@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Floor_04
+  m_Name: Spoon_Head_Cake_01
   m_Shader: {fileID: -6465566751694194690, guid: 92351672ab31a044d95d601484ea601b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -48,16 +48,16 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: ea826be5c5b9a2a47a9470b3b92fce03, type: 3}
-        m_Scale: {x: 10, y: 17}
+        m_Texture: {fileID: 2800000, guid: 7312220b2c7fd474f94246fedfc499c9, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalFromTexture_a52edcf62dc546238c95ed4d221b0a05_Texture_0_Texture2D:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: a0c5d64001b67a84d850678f866341c1, type: 3}
-        m_Scale: {x: 10, y: 17}
+        m_Texture: {fileID: 2800000, guid: ce415d0758f6edd4b9a1c63365b575e0, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadowTexture:
         m_Texture: {fileID: 0}
@@ -110,15 +110,15 @@ Material:
     - _DitherStrength: 1
     - _DstBlend: 0
     - _EmissonIntensity: 0.5
-    - _Glossiness: 10
+    - _Glossiness: 32
     - _LightIntensity: 0.1
-    - _NormalStrength: 2
-    - _OutLineThickness: 0
+    - _NormalStrength: 1
+    - _OutLineThickness: 0.01
     - _QueueControl: 0
     - _QueueOffset: 0
     - _RENDERFACE: 0
-    - _RimAmount: 1
-    - _RimThreshold: 1
+    - _RimAmount: 0.716
+    - _RimThreshold: 0.1
     - _ShadowColor2: 0
     - _ShadowIntensity: 1
     - _ShadowOozeThreshold1: 0.1
@@ -126,8 +126,8 @@ Material:
     - _ShadowStrength: 0.5
     - _ShadowThreshold1: 0.6
     - _ShadowThreshold2: 0.5
-    - _SobelFilterThreshold: 2
-    - _SpecularIntensitySmooth: 0.763
+    - _SobelFilterThreshold: 1
+    - _SpecularIntensitySmooth: 0.01
     - _SrcBlend: 1
     - _Surface: 0
     - _ZTest: 4
@@ -140,7 +140,7 @@ Material:
     - _ManColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutLineColor: {r: 0.4188679, g: 0.21354051, b: 0, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _ShadowColor: {r: 0, g: 0.5019608, b: 0.5764706, a: 1}
+    - _ShadowColor: {r: 0, g: 0.50264156, b: 0.5773585, a: 1}
     - _ShadowColor1: {r: 0.4509804, g: 0.29411766, b: 0.44861424, a: 1}
     - _ShadowColor2: {r: 0.36111683, g: 0.29400492, b: 0.4490565, a: 1}
     - _SpecularColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}

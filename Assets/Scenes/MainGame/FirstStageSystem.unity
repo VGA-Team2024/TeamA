@@ -605,11 +605,11 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: db1570f3e2b31294aa741e17df2d1c5e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: c987fede8ed03284f8e01e8abab5f825, type: 2}
+      objectReference: {fileID: 2100000, guid: 700a5aa453f77d643a2a03ba0e511199, type: 2}
     - target: {fileID: -7511558181221131132, guid: db1570f3e2b31294aa741e17df2d1c5e, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: fc56652f1e522474a946cfe9f1ba0ddc, type: 2}
+      objectReference: {fileID: 2100000, guid: 1719a58edc7293c42a879ea9092deae1, type: 2}
     - target: {fileID: 919132149155446097, guid: db1570f3e2b31294aa741e17df2d1c5e, type: 3}
       propertyPath: m_Name
       value: BgMD_Wall_Door
@@ -1590,13 +1590,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 479105300}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.422216, y: -0.039532606, z: 0.018434355, w: 0.9054452}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: -5, z: 0}
 --- !u!114 &479105303
 MonoBehaviour:
   m_ObjectHideFlags: 0

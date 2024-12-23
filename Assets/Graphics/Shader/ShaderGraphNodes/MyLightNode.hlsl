@@ -10,7 +10,7 @@
 
 #endif
 
-void GetMainLightParams_float(float3 WorldPosition, out half3 Direction, out half3 Color, out float DistanceAttenuation,
+void GetMainLightParams_float(float3 PositionWS, out half3 Direction, out half3 Color, out float DistanceAttenuation,
                               out half ShadowAttenuation)
 {
     #if defined(SHADERGRAPH_PREVIEW)
@@ -20,7 +20,7 @@ void GetMainLightParams_float(float3 WorldPosition, out half3 Direction, out hal
     ShadowAttenuation = 1;
     
     #else
-    float4 shadowCoord = TransformWorldToShadowCoord(WorldPosition);
+    float4 shadowCoord = TransformWorldToShadowCoord(PositionWS);
     Light mainLight = GetMainLight(shadowCoord);
     Direction = mainLight.direction;
     Color = mainLight.color;
@@ -30,7 +30,7 @@ void GetMainLightParams_float(float3 WorldPosition, out half3 Direction, out hal
     #endif
 }
 
-void GetAdditionalLight_float(float3 WorldPosition, float3 Normal, out half3 Color)
+void GetAdditionalLight_float(float3 PositionWS, float3 Normal, out half3 Color)
 {
     #ifdef SHADERGRAPH_PREVIEW
     Color = half3(0.5, 0.5, 0.5);
@@ -41,7 +41,7 @@ void GetAdditionalLight_float(float3 WorldPosition, float3 Normal, out half3 Col
     for (uint lightIndex = 0u; lightIndex < lightCount; ++lightIndex)
     {
         //ライトの取得
-        Light light = GetAdditionalLight(lightIndex, WorldPosition);
+        Light light = GetAdditionalLight(lightIndex, PositionWS);
         //ライティングの計算
         half3 lightColor = light.color * (light.distanceAttenuation * light.shadowAttenuation);
         Color += LightingLambert(lightColor, light.direction, Normal);
@@ -59,20 +59,20 @@ void GetHalfVector_float(float3 ViewVector, out float3 HalfVector)
     #endif
 }
 
-void GetReceiveShadow_float(float ShadowAlpha, float3 WorldPos, out half ShadowAttenuation)
+void GetReceiveShadow_float(float ShadowAlpha, float3 PositionWS, out half ShadowAttenuation)
 {
     #ifdef SHADERGRAPH_PREVIEW
     ShadowAttenuation = 1.0;
     
     #else
-    half4 shadowCoord = TransformWorldToShadowCoord(WorldPos);
+    half4 shadowCoord = TransformWorldToShadowCoord(PositionWS);
     Light mainLight = GetMainLight(shadowCoord);
     half shadow = mainLight.shadowAttenuation;
     int pixelLightCount = GetAdditionalLightsCount();
 
     for (int i = 0; i < pixelLightCount; i++)
     {
-        Light AddLight0 = GetAdditionalLight(i, WorldPos, 1);
+        Light AddLight0 = GetAdditionalLight(i, PositionWS, 1);
         half shadow0 = AddLight0.shadowAttenuation;
         shadow *= shadow0;
     }
