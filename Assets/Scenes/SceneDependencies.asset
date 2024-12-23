@@ -94,6 +94,10 @@ MonoBehaviour:
     AssetPath: Assets/Scenes/System/IngameSystem.unity
     SceneType: 0
   - CanIDebugSelect: 1
+    Name: LocalDataManager
+    AssetPath: Assets/Scenes/System/LocalDataManager.unity
+    SceneType: 0
+  - CanIDebugSelect: 1
     Name: ReviewTest
     AssetPath: Assets/Scenes/System/ReviewTest.unity
     SceneType: 0
@@ -123,7 +127,7 @@ MonoBehaviour:
     SceneType: 0
   - CanIDebugSelect: 1
     Name: TitleScene
-    AssetPath: Assets/Scenes/TestScene/TitleScene.unity
+    AssetPath: Assets/Scenes/MainGame/TitleScene.unity
     SceneType: 0
   - CanIDebugSelect: 1
     Name: BallonTest

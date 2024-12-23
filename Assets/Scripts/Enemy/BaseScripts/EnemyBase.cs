@@ -40,6 +40,9 @@ public class EnemyBase : MonoBehaviour , IDamagable
     [LabelText("現在の状態")]
     [SerializeField] private EnemyState _enemyState = EnemyState.Move;
 
+    [LabelText("モデル用Animator")]
+    [SerializeField] private Animator _animator;
+
     [LabelText("設定するHP")]
     [SerializeField] private float _enemyHp = 1;
 
@@ -98,7 +101,7 @@ public class EnemyBase : MonoBehaviour , IDamagable
         _navMeshAgent = this.gameObject.GetComponent<NavMeshAgent>();
         GameObject playerObject;
         //初期化できたかどうかのnullチェック
-        if (PlayerManager.Instance.TryGetPlayerRef(out playerObject) && _navMeshAgent && GetNextPosition != null && GetNextGoalAction != null && OnStart())
+        if (PlayerManager.Instance.TryGetPlayerRef(out playerObject) && _navMeshAgent && GetNextPosition != null && GetNextGoalAction != null　&& _animator && OnStart())
         {
             _initialized = true;
         }
@@ -115,6 +118,8 @@ public class EnemyBase : MonoBehaviour , IDamagable
         _navMeshAgent.angularSpeed = _enemyAngularSpeed;
         NavMesh.SamplePosition(GetNextPosition().position, out _navMeshHit, _searchableTargetRange, 1);
         _navMeshAgent.destination = _navMeshHit.position;
+
+        _animator.SetTrigger(_enemyState.ToString());
     }
     /// <summary>
     /// 継承先で、本来Start()でしたい処理をここに書く
@@ -323,7 +328,7 @@ public class EnemyBase : MonoBehaviour , IDamagable
         _isAttackDamagedPlayer = false;
 
         Debug.Log($"Enemy:{this.gameObject.name} change state {enemyState}");
-
+        _animator.SetTrigger(enemyState.ToString());
         switch (enemyState)
         {
             case EnemyState.Attack:
