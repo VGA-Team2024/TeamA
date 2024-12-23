@@ -1,5 +1,7 @@
-using System;
 using Alchemy.Inspector;
+using Cysharp.Threading.Tasks;
+using LitMotion;
+using LitMotion.Extensions;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -8,23 +10,28 @@ using UnityEngine.Video;
 
 public class GameOverMovieController : MonoBehaviour
 {
+    [LabelText("シーン移動用のボタンがまとめられてるCanvasGroup")]
+
+    [SerializeField] private CanvasGroup _canvasGroup;
+    [LabelText("ボタンのフェードインの時間")]
+    [SerializeField] private float _fadeinDuration = 0.5f;
     [LabelText("フェード用のイメージ")]
     [SerializeField] private Image _panelImage;
     [LabelText("フェード時間")]
-    [SerializeField] private float fadeDuration = 1f;
+    [SerializeField] private float _fadeoutDuration = 1f;
 
-    [LabelText("VideoPlayer")] 
+    [LabelText("VideoPlayer")]
     [SerializeField] private VideoPlayer _videoPlayer;
 
     [FormerlySerializedAs("_videoClip")]
-    [LabelText("差し替えたいVideoClip")] 
+    [LabelText("差し替えたいVideoClip")]
     [SerializeField] private VideoClip _newVideoClip;
 
     private bool _isSkip;
     private bool _isActive;
 
-    private string _sceneName = "FirstStageSystem";
-    
+    private string _sceneNameTitle = "TitleScene";
+
     private void Start()
     {
         //レコードスタート
@@ -44,34 +51,25 @@ public class GameOverMovieController : MonoBehaviour
         _videoPlayer.time = 0;
         _videoPlayer.Play();
     }
-
-    private void Update()
+    public async void MoveSceneLastScene()
     {
-        if(Input.GetMouseButtonDown(0) && _isActive)
+        await FadeOutScene();
+        try
         {
-            ActiveButton();
+            SceneLoader.LoadSceneSimple(LocalDataManager.Instance.GetLocalData.LastStageName);
+        }
+        catch
+        {
+            Debug.LogWarning("LastStageName not exist");
+            SceneLoader.LoadSceneSimple(_sceneNameTitle);
         }
     }
 
-    /// <summary>
-    /// シーン遷移
-    /// </summary>
-    public void ActiveButton()
+    public async void MoveSceneTitle()
     {
-        if(!_isSkip)
-        {
-            _isSkip = true;
-            StartCoroutine("FadeOut");
-        }
-        
-    }
-    
-    private void MoveScene()
-    {
+        await FadeOutScene();
         //ここでシーン名を受け取る
-        
-        _videoPlayer.Pause();
-        SceneLoader.LoadSceneSimple(_sceneName);
+        SceneLoader.LoadSceneSimple(_sceneNameTitle);
     }
 
     private void ChangeVideo(VideoPlayer vp)
@@ -79,12 +77,12 @@ public class GameOverMovieController : MonoBehaviour
         _videoPlayer.loopPointReached -= ChangeVideo;
         _isActive = true;
         _videoPlayer.clip = _newVideoClip;
-        
+
         //再準備
         _videoPlayer.Prepare();
         _videoPlayer.prepareCompleted += OnNewClipPrepared;
     }
-    
+
     private void OnNewClipPrepared(VideoPlayer vp)
     {
         _videoPlayer.prepareCompleted -= OnNewClipPrepared;
@@ -93,23 +91,15 @@ public class GameOverMovieController : MonoBehaviour
         _videoPlayer.time = 0;
         _videoPlayer.isLooping = true;
         _videoPlayer.Play();
+        LMotion.Create(0f, 1f, _fadeinDuration).Bind(x => _canvasGroup.alpha = x);
+        _canvasGroup.blocksRaycasts = true;
     }
-
-    private IEnumerator FadeOut()
+    private async UniTask FadeOutScene()
     {
-        float timer = 0f;
-        while (timer < fadeDuration)
-        {
-            timer += Time.deltaTime;
-            Color color = _panelImage.color;
-            color.a = Mathf.Lerp(0, 1, timer / fadeDuration);
-            _panelImage.color = color;
-            yield return null;
-        }
-
-        MoveScene();
+        await LMotion.Create(0f, 1f, _fadeoutDuration).BindToColorA(_panelImage);
+        _videoPlayer.Pause();
     }
-    
+
     private void OnDestroy()
     {
         _videoPlayer.prepareCompleted -= OnPrepareCompleted;
