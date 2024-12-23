@@ -30,7 +30,7 @@ half SampleOffsetDepth(float3 positionVS, float2 offset)
 
 #endif
 
-void SobelFilter_float(float3 PositionWS, float Thickness, float SobelFilterThreshold, out float4 Out)
+void SobelFilter_float(float3 PositionWS, float Thickness, float OutLineThreshold, out float4 Out)
 {
     #ifdef SHADERGRAPH_PREVIEW
     Out = float4(0.5, 0.5, 0.5, 1);
@@ -62,7 +62,7 @@ void SobelFilter_float(float3 PositionWS, float Thickness, float SobelFilterThre
 
     // エッジの強度を計算
     float edgeStrength = length(float2(edgeX, edgeY));
-    edgeStrength = step(SobelFilterThreshold, edgeStrength);
+    edgeStrength = step(OutLineThreshold, edgeStrength);
     Out = float4(edgeStrength, edgeStrength, edgeStrength, 1);
     #endif
 }
