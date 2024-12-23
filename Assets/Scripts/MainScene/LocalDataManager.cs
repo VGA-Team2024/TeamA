@@ -38,7 +38,7 @@ public class LocalDataManager : MonoBehaviour
     }
     private void Start()
     {
-        InitializeGameSetting();
+        //InitializeGameSetting();
     }
     private void InitializeGameSetting()
     {
