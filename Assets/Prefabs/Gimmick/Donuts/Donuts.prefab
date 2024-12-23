@@ -216,11 +216,11 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 55132dbb165c5f0468f35c956889f715, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 24adab0bce537f54fb87fba67b290de5, type: 2}
+      objectReference: {fileID: 2100000, guid: f74c2a2c6a79f9848a7f56994e8d4d97, type: 2}
     - target: {fileID: -7511558181221131132, guid: 55132dbb165c5f0468f35c956889f715, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 24adab0bce537f54fb87fba67b290de5, type: 2}
+      objectReference: {fileID: 2100000, guid: f74c2a2c6a79f9848a7f56994e8d4d97, type: 2}
     - target: {fileID: 919132149155446097, guid: 55132dbb165c5f0468f35c956889f715, type: 3}
       propertyPath: m_Name
       value: BgMD_Akimoto_Donut
