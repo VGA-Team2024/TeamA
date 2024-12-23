@@ -9,8 +9,17 @@ using UnityEngine.Events;
 /// </summary>
 public class BossStageFacade : MainStageFacade
 {
+    [SerializeField] Animator _animator;
     public void BossDeathState()
     {
-
+        _animator.SetTrigger("Death");
+    }
+    public void BossDamageState()
+    {
+        _animator.SetTrigger("Damage");
+    }
+    public void BossAttackState()
+    {
+        _animator.SetTrigger("Attack");
     }
 }
