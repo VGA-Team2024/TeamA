@@ -38,6 +38,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _OutLineThickness: 0.005
+    - _OutLineThreshold: 2
     - _SobelFilterThreshold: 3
     m_Colors:
     - _OutLineColor: {r: 0.41960785, g: 0.21176471, b: 0, a: 1}
