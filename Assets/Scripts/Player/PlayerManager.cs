@@ -39,6 +39,11 @@ public class PlayerManager : SingletonMonoBehavior<PlayerManager>
 
     public bool DoesPlayerExist() { return  _playerRef != null; }
 
+    public void SearchPlayerInScene()
+    {
+        _playerRef = FindAnyObjectByType<PlayerStateMachine>()?.gameObject;
+    }
+
     /// <summary>
     ///Playerを指定した絶対位置に生成します。指定しない場合はPrefabの値に従います
     /// </summary>
