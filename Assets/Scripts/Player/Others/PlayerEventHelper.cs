@@ -10,6 +10,7 @@ public static class PlayerEventHelper
     public static Action<bool> SetPlayerInvulnerable;
     public static Action OnPlayerDie;
     public static Action<bool> SetPlayerStateAsOperatingPlatform;
+    public static float InvulnerableTime => 2.0f;
     public static bool IsExceptionalState()
     {
         if (PlayerManager.Instance.TryGetPlayerRef(out var player))
