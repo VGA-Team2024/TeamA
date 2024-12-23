@@ -117,7 +117,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _RENDERFACE: 0
-    - _RimAmount: 0.716
+    - _RimAmount: 0.75
     - _RimThreshold: 0.1
     - _ShadowColor2: 0
     - _ShadowIntensity: 1
