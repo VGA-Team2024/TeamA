@@ -8056,6 +8056,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5822312220311414559, guid: 672f6cf323d758046a2c15efb2d0a5c4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 510bf90e01c708848a878bcdea596eab, type: 2}
     - target: {fileID: 7788180722089972346, guid: 672f6cf323d758046a2c15efb2d0a5c4, type: 3}
       propertyPath: m_Name
       value: TreasureBox
