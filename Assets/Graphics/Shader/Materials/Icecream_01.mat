@@ -110,14 +110,14 @@ Material:
     - _DitherStrength: 1
     - _DstBlend: 0
     - _EmissonIntensity: 0.5
-    - _Glossiness: 32
+    - _Glossiness: 21
     - _LightIntensity: 0.1
     - _NormalStrength: 1
     - _OutLineThickness: 0.01
     - _QueueControl: 0
     - _QueueOffset: 0
     - _RENDERFACE: 0
-    - _RimAmount: 0.716
+    - _RimAmount: 0.8
     - _RimThreshold: 0.1
     - _ShadowColor2: 0
     - _ShadowIntensity: 1
@@ -143,5 +143,5 @@ Material:
     - _ShadowColor: {r: 0, g: 0.50264156, b: 0.5773585, a: 1}
     - _ShadowColor1: {r: 0.4509804, g: 0.29411766, b: 0.44861424, a: 1}
     - _ShadowColor2: {r: 0.36111683, g: 0.29400492, b: 0.4490565, a: 1}
-    - _SpecularColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+    - _SpecularColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_BuildTextureStacks: []
