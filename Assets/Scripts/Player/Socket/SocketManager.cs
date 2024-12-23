@@ -10,7 +10,7 @@ using UniRx;
 [AlchemySerialize]
 public partial class SocketManager : MonoBehaviour
 {
-    [AlchemySerializeField,NonSerialized]
+    [AlchemySerializeField]
     private Dictionary<string, Socket> _soketsTable = new();
 
 

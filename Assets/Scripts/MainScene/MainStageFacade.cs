@@ -36,6 +36,19 @@ public class MainStageFacade : MonoBehaviour
         {
             Debug.LogWarning($"{_bgmCueName}:this bgm doesn't exist");
         }
+        if(PlayerManager.Instance != null)
+        {
+            PlayerManager.Instance.SearchPlayerInScene();
+        }
+        PlayerEventHelper.OnPlayerDie += SubscribeGameOverLoad;
         OnAwaked?.Invoke();
+    }
+    private void SubscribeGameOverLoad()
+    {
+        SceneLoader.LoadSceneSimple("GameOverScene");
+    }
+    private void OnDisable()
+    {
+        PlayerEventHelper.OnPlayerDie -= SubscribeGameOverLoad;
     }
 }
