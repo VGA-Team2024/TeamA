@@ -93,6 +93,7 @@ public class GameOverMovieController : MonoBehaviour
         _videoPlayer.Play();
         LMotion.Create(0f, 1f, _fadeinDuration).Bind(x => _canvasGroup.alpha = x);
         _canvasGroup.blocksRaycasts = true;
+        Cursor.visible = true;
     }
     private async UniTask FadeOutScene()
     {

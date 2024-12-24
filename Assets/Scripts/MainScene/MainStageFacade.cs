@@ -20,6 +20,7 @@ public class MainStageFacade : MonoBehaviour
     /// </summary>
     protected virtual void Start()
     {
+        Cursor.visible = false;
         if(LocalDataManager.Instance != null)
         {
             LocalDataManager.Instance.UpdateLastSceneName();
