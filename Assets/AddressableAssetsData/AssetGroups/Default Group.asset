@@ -37,6 +37,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b7f272b4a64653647b4d4ba249b8836f
+    m_Address: Assets/Scenes/SceneDependencies.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e0d0367a3ee85d04e9e02597765e473d
     m_Address: CanvasPrefab
     m_ReadOnly: 0

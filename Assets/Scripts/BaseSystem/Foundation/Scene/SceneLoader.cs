@@ -79,7 +79,8 @@ public class SceneLoader
             await UniTask.WaitUntil(() => handle.IsDone);
             _sceneDependencies = handle.Result;
         }
-
+        //okamuraAdd
+        Debug.Log("LoadScene timing");
         var nextScene = _sceneDependencies.Get(sceneName);
         //依存シーンがある場合はベースシーンを拾ってきて再生する
         GameSettings.SceneSetting setting = null;

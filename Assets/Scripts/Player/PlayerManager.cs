@@ -84,5 +84,4 @@ public class PlayerManager : SingletonMonoBehavior<PlayerManager>
             Destroy(_playerRef);
         }
     }
-    
 }
