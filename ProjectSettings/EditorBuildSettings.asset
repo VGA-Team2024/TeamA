@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/ForPlaner/Stage_4.unity
     guid: e75a7b4e78698dd48a05b0dc7c9f41f2
   - enabled: 1
+    path: Assets/Scenes/System/GameLauncher.unity
+    guid: 8fddd8bd6df26f84eb0ce52c7a3f43e5
+  - enabled: 1
     path: Assets/Scenes/MainGame/TitleScene.unity
     guid: d775e50a3cb9f544296fe7215a049240
   - enabled: 1
@@ -41,9 +44,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/CRI/PlaySoundSample.unity
     guid: 0e43765a639212d4f9e16f128e114864
-  - enabled: 0
-    path: Assets/Scenes/System/GameLauncher.unity
-    guid: 8fddd8bd6df26f84eb0ce52c7a3f43e5
   - enabled: 0
     path: Assets/Scenes/System/IngameDebug.unity
     guid: f344c073eba28c247a464cfb6b57ff22
