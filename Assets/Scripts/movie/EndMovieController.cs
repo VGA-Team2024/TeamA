@@ -69,6 +69,8 @@ public class EndMovieController : MonoBehaviour
     {
         _isSkip = true;
         _videoPlayer.Pause();
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         GameEventRecorder.GameEnd(MoveScene);
     }
     

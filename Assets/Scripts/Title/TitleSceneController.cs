@@ -29,6 +29,7 @@ public class TitleSceneController : MonoBehaviour
     private async void Start()
     {
         Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         await FadeInScene();
         CRIAudioManager.BGM.Play("CueSheet_0", "BGM_title");
     }
