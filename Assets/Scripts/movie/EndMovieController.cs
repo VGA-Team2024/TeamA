@@ -77,7 +77,7 @@ public class EndMovieController : MonoBehaviour
     /// </summary>
     private void MoveScene()
     {
-        SceneLoader.LoadSceneSimple("FirstStageSystem");
+        SceneLoader.LoadScene("FirstStageSystem");
     }
 
     private IEnumerator FadeOut()

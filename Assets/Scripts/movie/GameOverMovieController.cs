@@ -34,8 +34,7 @@ public class GameOverMovieController : MonoBehaviour
 
     private void Start()
     {
-        //レコードスタート
-        GameEventRecorder.GameStart();
+        Cursor.visible = true;
         _videoPlayer.isLooping = false; // ループ再生を無効化
         _videoPlayer.Prepare();
         _videoPlayer.prepareCompleted += OnPrepareCompleted;
@@ -56,12 +55,12 @@ public class GameOverMovieController : MonoBehaviour
         await FadeOutScene();
         try
         {
-            SceneLoader.LoadSceneSimple(LocalDataManager.Instance.GetLocalData.LastStageName);
+            SceneLoader.LoadScene(LocalDataManager.Instance.GetLocalData.LastStageName);
         }
         catch
         {
             Debug.LogWarning("LastStageName not exist");
-            SceneLoader.LoadSceneSimple(_sceneNameTitle);
+            SceneLoader.LoadScene(_sceneNameTitle);
         }
     }
 
@@ -69,7 +68,7 @@ public class GameOverMovieController : MonoBehaviour
     {
         await FadeOutScene();
         //ここでシーン名を受け取る
-        SceneLoader.LoadSceneSimple(_sceneNameTitle);
+        SceneLoader.LoadScene(_sceneNameTitle);
     }
 
     private void ChangeVideo(VideoPlayer vp)

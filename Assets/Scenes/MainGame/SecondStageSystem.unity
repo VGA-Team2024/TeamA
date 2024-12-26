@@ -414,7 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b4a985d9c70d949aad51d8a8cd4fcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delay: 0
+  _delay: 1
   _sceneName: ThirdStageSystem
 --- !u!1 &70391843
 GameObject:
@@ -965,7 +965,7 @@ Transform:
   m_GameObject: {fileID: 160325037}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.11, z: 34.38}
+  m_LocalPosition: {x: 0, y: -1, z: 34.38}
   m_LocalScale: {x: 2.2, y: 0.19999999, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1753,11 +1753,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2515698738855617281, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.88977945
+      value: 0.8897795
       objectReference: {fileID: 0}
     - target: {fileID: 2515698738855617281, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.4563908
+      value: 0.45639068
       objectReference: {fileID: 0}
     - target: {fileID: 3016700800618485754, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_Name
@@ -1805,19 +1805,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8001119196997231442, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.87261385
+      value: 0.8726139
       objectReference: {fileID: 0}
     - target: {fileID: 8001119196997231442, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.4884108
+      value: 0.48841068
       objectReference: {fileID: 0}
     - target: {fileID: 8863535129066636339, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.88135344
+      value: 0.8813535
       objectReference: {fileID: 0}
     - target: {fileID: 8863535129066636339, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.47245762
+      value: 0.47245744
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
