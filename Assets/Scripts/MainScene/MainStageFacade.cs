@@ -21,7 +21,7 @@ public class MainStageFacade : MonoBehaviour
     protected virtual void Start()
     {
         Cursor.visible = false;
-        if(LocalDataManager.Instance != null)
+        if (LocalDataManager.Instance != null)
         {
             LocalDataManager.Instance.UpdateLastSceneName();
         }
@@ -42,14 +42,20 @@ public class MainStageFacade : MonoBehaviour
             PlayerManager.Instance.SearchPlayerInScene();
         }
         PlayerEventHelper.OnPlayerDie += SubscribeGameOverLoad;
+        PlayerEventHelper.OnPlayerDie += RegisterStopBGM;
         OnAwaked?.Invoke();
     }
     private void SubscribeGameOverLoad()
     {
-        SceneLoader.LoadSceneSimple("GameOverScene");
+        SceneLoader.LoadScene("GameOverScene");
+    }
+    private void RegisterStopBGM()
+    {
+        CRIAudioManager.BGM.Stop();
     }
     private void OnDisable()
     {
+        PlayerEventHelper.OnPlayerDie = RegisterStopBGM;
         PlayerEventHelper.OnPlayerDie -= SubscribeGameOverLoad;
     }
 }
