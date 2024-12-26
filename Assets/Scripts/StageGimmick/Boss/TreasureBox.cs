@@ -18,6 +18,6 @@ public class TreasureBox : MonoBehaviour, IInteractable
     {
         //音
         //CRIAudioManager.SE.Play3D(Vector3.zero, "CueSheet_0", "SE_fire_tukeru");
-        SceneLoader.LoadSceneSimple("EndScene");
+        SceneLoader.LoadScene("EndScene");
     }
 }

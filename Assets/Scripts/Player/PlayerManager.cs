@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 using System;
 using UniRx;
+using UnityEngine.InputSystem;
 
 public class PlayerManager : SingletonMonoBehavior<PlayerManager>
 {
@@ -41,7 +42,11 @@ public class PlayerManager : SingletonMonoBehavior<PlayerManager>
 
     public void SearchPlayerInScene()
     {
-        _playerRef = FindAnyObjectByType<PlayerStateMachine>()?.gameObject;
+        GameObject player = FindAnyObjectByType<PlayerStateMachine>().gameObject;
+        if (player != null)
+        {
+            _playerRef = player;
+        }
     }
 
     /// <summary>

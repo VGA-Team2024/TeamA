@@ -65,6 +65,7 @@ public class TitleSceneController : MonoBehaviour
     /// </summary>
     public void MoveScene()
     {
+        CRIAudioManager.BGM.Stop();
         StartCoroutine("FadeOutScene");
     }
 
@@ -80,7 +81,7 @@ public class TitleSceneController : MonoBehaviour
             yield return null;
         }
 
-        SceneLoader.LoadSceneSimple(_sceneName);
+        SceneLoader.LoadScene(_sceneName);
     }
 
     /// <summary>
