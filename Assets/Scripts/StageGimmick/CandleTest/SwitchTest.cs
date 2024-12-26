@@ -8,8 +8,6 @@ public class SwitchTest : MonoBehaviour
 {
     [SerializeField] private UnityEvent OnActivated;
     private bool _hasProcessed = false;
-    private float _rayDistance = 1f;
-    private float _switchDistance = 2f;
     [SerializeField] private Vector3 _halfExtents; //スイッチの大きさの半径
     [SerializeField] private LayerMask playerLayer;
     private Vector3 _switchCenterOffset = new Vector3(0, 0.5f, 0);
@@ -20,6 +18,7 @@ public class SwitchTest : MonoBehaviour
 
         if (IsPlayerOnSwitch())
         {
+            Debug.Log("PlayerOnSwitchGoal");
             OnActivated?.Invoke();
             _hasProcessed = true;
         }
@@ -27,16 +26,16 @@ public class SwitchTest : MonoBehaviour
     private bool IsPlayerOnSwitch()
     {
         RaycastHit hit;
-        return Physics.BoxCast(transform.position + new Vector3(0, -0.5f, 0)
-            , _halfExtents
+        return Physics.BoxCast(transform.position
+            , new Vector3(_halfExtents.x, 0.01f, _halfExtents.z)
             , Vector3.up
             , out hit
             , Quaternion.identity
-            , _switchDistance, playerLayer.value);
+            , _halfExtents.y * 2, playerLayer.value);
     }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position + Vector3.up, _halfExtents * 2 + new Vector3(0, _switchDistance, 0));
+        Gizmos.DrawWireCube(transform.position + new Vector3(0, _halfExtents.y, 0), _halfExtents * 2);
     }
 }

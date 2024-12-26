@@ -17,7 +17,7 @@ public class StairsTest : MonoBehaviour
         yield return new WaitForSeconds(delay);
         try
         {
-            SceneLoader.LoadSceneSimple(sceneName);
+            SceneLoader.LoadScene(sceneName);
         }
         catch
         {
