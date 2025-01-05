@@ -42,20 +42,21 @@ public class MainStageFacade : MonoBehaviour
             PlayerManager.Instance.SearchPlayerInScene();
         }
         PlayerEventHelper.OnPlayerDie += SubscribeGameOverLoad;
-        PlayerEventHelper.OnPlayerDie += RegisterStopBGM;
+        PlayerEventHelper.OnPlayerDie += StopBGM;
         OnAwaked?.Invoke();
     }
     private void SubscribeGameOverLoad()
     {
         SceneLoader.LoadScene("GameOverScene");
     }
-    private void RegisterStopBGM()
+    private void StopBGM()
     {
         CRIAudioManager.BGM.Stop();
     }
     private void OnDisable()
     {
-        PlayerEventHelper.OnPlayerDie = RegisterStopBGM;
+        StopBGM();
+        PlayerEventHelper.OnPlayerDie = StopBGM;
         PlayerEventHelper.OnPlayerDie -= SubscribeGameOverLoad;
     }
 }

@@ -8018,7 +8018,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b4a985d9c70d949aad51d8a8cd4fcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delay: 1
+  _delay: 0.3
   _sceneName: SecondStageSystem
 --- !u!1001 &2047962080
 PrefabInstance:
