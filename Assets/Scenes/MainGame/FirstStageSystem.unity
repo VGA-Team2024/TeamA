@@ -961,11 +961,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 448301698176418712, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_FollowOffset.y
-      value: 6
+      value: 0.2180139
       objectReference: {fileID: 0}
     - target: {fileID: 448301698176418712, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_FollowOffset.z
-      value: -3.49
+      value: -5.966175
       objectReference: {fileID: 0}
     - target: {fileID: 813438244498820438, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -974,6 +974,14 @@ PrefabInstance:
     - target: {fileID: 813438244498820438, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.000002597008
+      objectReference: {fileID: 0}
+    - target: {fileID: 1180215733269061845, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
+      propertyPath: m_Lens.FieldOfView
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1180215733269061845, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
+      propertyPath: m_Lens.NearClipPlane
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 1417700984754657397, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1011,6 +1019,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -3.7158384
       objectReference: {fileID: 0}
+    - target: {fileID: 2191958629487921061, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
+      propertyPath: m_Lens.FieldOfView
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191958629487921061, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
+      propertyPath: m_XAxis.m_AccelTime
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191958629487921061, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
+      propertyPath: m_XAxis.m_DecelTime
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191958629487921061, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
+      propertyPath: m_YAxis.m_AccelTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191958629487921061, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
+      propertyPath: m_YAxis.m_DecelTime
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191958629487921061, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
+      propertyPath: m_Lens.NearClipPlane
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 2515698738855617281, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
@@ -1021,23 +1053,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2515698738855617281, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.88977957
+      value: 0.8943719
       objectReference: {fileID: 0}
     - target: {fileID: 2515698738855617281, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.45639068
+      value: 0.4473241
       objectReference: {fileID: 0}
     - target: {fileID: 2515698738855617281, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000000022748454
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2515698738855617281, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000011668264
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3016700800618485754, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_Name
       value: PlayerRigWithAnimatinosAdjusted_
+      objectReference: {fileID: 0}
+    - target: {fileID: 3447070587479856475, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
+      propertyPath: m_Lens.FieldOfView
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3447070587479856475, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
+      propertyPath: m_Lens.NearClipPlane
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 3476702987604123271, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_IsActive
@@ -1177,11 +1217,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6703128451622580755, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_FollowOffset.y
-      value: 6
+      value: 0.2180139
       objectReference: {fileID: 0}
     - target: {fileID: 6703128451622580755, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_FollowOffset.z
-      value: -3.49
+      value: -5.966175
       objectReference: {fileID: 0}
     - target: {fileID: 6728010019917031403, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1245,27 +1285,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8001119196997231442, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.776951
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8001119196997231442, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.4454994
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8001119196997231442, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99709564
+      value: 0.8726139
       objectReference: {fileID: 0}
     - target: {fileID: 8001119196997231442, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.07615994
+      value: 0.48841068
       objectReference: {fileID: 0}
     - target: {fileID: 8001119196997231442, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000004202444
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8001119196997231442, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000003209902
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8379848352090122700, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
+      propertyPath: m_Lens.FieldOfView
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8379848352090122700, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
+      propertyPath: m_Lens.NearClipPlane
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 8444872717860219297, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -1301,27 +1349,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8863535129066636339, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.776951
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8863535129066636339, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.4454994
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8863535129066636339, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.998316
+      value: 0.8837553
       objectReference: {fileID: 0}
     - target: {fileID: 8863535129066636339, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.058010675
+      value: 0.46794933
       objectReference: {fileID: 0}
     - target: {fileID: 8863535129066636339, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000004207587
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8863535129066636339, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000024449671
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8879891834084965515, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1335,13 +1383,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 64.297104
       objectReference: {fileID: 0}
+    - target: {fileID: 8882019495298166303, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
+      propertyPath: m_Damping
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 9136448802437385809, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_FollowOffset.y
-      value: 6
+      value: 0.2180139
       objectReference: {fileID: 0}
     - target: {fileID: 9136448802437385809, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_FollowOffset.z
-      value: -3.49
+      value: -5.966175
       objectReference: {fileID: 0}
     - target: {fileID: 9220153556097619755, guid: dc54ac43de8ec5b4aa6c3a4496859530, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3520,7 +3572,7 @@ GameObject:
   - component: {fileID: 804203294}
   - component: {fileID: 804203293}
   - component: {fileID: 804203292}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4634,7 +4686,7 @@ GameObject:
   - component: {fileID: 1278544087}
   - component: {fileID: 1278544086}
   - component: {fileID: 1278544085}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5485,7 +5537,7 @@ GameObject:
   - component: {fileID: 1471800197}
   - component: {fileID: 1471800196}
   - component: {fileID: 1471800195}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7413,7 +7465,7 @@ GameObject:
   - component: {fileID: 1937702028}
   - component: {fileID: 1937702027}
   - component: {fileID: 1937702026}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
