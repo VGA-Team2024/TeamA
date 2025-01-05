@@ -18,7 +18,7 @@ public class GimmickResetManager : MonoBehaviour, IInteractable
 
     public string GetInteractionMessage()
     {
-        return "ギミックをリセット";
+        return "F:リセット";
     }
 
     public void OnInteract(IInteractCallBackReceivable caller)

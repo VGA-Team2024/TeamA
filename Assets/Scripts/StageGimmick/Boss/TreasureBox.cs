@@ -11,7 +11,7 @@ public class TreasureBox : MonoBehaviour, IInteractable
 
     public string GetInteractionMessage()
     {
-        return "開ける";
+        return "F:開ける";
     }
 
     public void OnInteract(IInteractCallBackReceivable caller)

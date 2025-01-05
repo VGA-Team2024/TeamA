@@ -15,7 +15,7 @@ public class PendantController : StageGimmickBase, IInteractable
 
     public string GetInteractionMessage()
     {
-        return "ƒhƒAŠJ‚¯‚Ü‚·";
+        return "F:‰ó‚·";
     }
 
     public void OnInteract(IInteractCallBackReceivable caller)
