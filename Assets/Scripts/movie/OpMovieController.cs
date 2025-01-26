@@ -65,7 +65,7 @@ public class OpMovieController : MonoBehaviour
     public void MoveScene()
     {
         _videoPlayer.Pause();
-        SceneLoader.LoadSceneSimple("FirstStageSystem");
+        SceneLoader.LoadScene("FirstStageSystem");
     }
 
     /// <summary>
@@ -75,7 +75,7 @@ public class OpMovieController : MonoBehaviour
     {
         _isSkip = true;
         _videoPlayer.Pause();
-        SceneLoader.LoadSceneSimple("FirstStageSystem");
+        SceneLoader.LoadScene("FirstStageSystem");
     }
 
     private IEnumerator FadeOut()

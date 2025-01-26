@@ -34,8 +34,8 @@ public class GameOverMovieController : MonoBehaviour
 
     private void Start()
     {
-        //レコードスタート
-        GameEventRecorder.GameStart();
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         _videoPlayer.isLooping = false; // ループ再生を無効化
         _videoPlayer.Prepare();
         _videoPlayer.prepareCompleted += OnPrepareCompleted;
@@ -56,12 +56,12 @@ public class GameOverMovieController : MonoBehaviour
         await FadeOutScene();
         try
         {
-            SceneLoader.LoadSceneSimple(LocalDataManager.Instance.GetLocalData.LastStageName);
+            SceneLoader.LoadScene(LocalDataManager.Instance.GetLocalData.LastStageName);
         }
         catch
         {
             Debug.LogWarning("LastStageName not exist");
-            SceneLoader.LoadSceneSimple(_sceneNameTitle);
+            SceneLoader.LoadScene(_sceneNameTitle);
         }
     }
 
@@ -69,7 +69,7 @@ public class GameOverMovieController : MonoBehaviour
     {
         await FadeOutScene();
         //ここでシーン名を受け取る
-        SceneLoader.LoadSceneSimple(_sceneNameTitle);
+        SceneLoader.LoadScene(_sceneNameTitle);
     }
 
     private void ChangeVideo(VideoPlayer vp)
@@ -91,11 +91,14 @@ public class GameOverMovieController : MonoBehaviour
         _videoPlayer.time = 0;
         _videoPlayer.isLooping = true;
         _videoPlayer.Play();
+        _panelImage.raycastTarget = false;
         LMotion.Create(0f, 1f, _fadeinDuration).Bind(x => _canvasGroup.alpha = x);
         _canvasGroup.blocksRaycasts = true;
+        Cursor.visible = true;
     }
     private async UniTask FadeOutScene()
     {
+        _panelImage.raycastTarget = true;
         await LMotion.Create(0f, 1f, _fadeoutDuration).BindToColorA(_panelImage);
         _videoPlayer.Pause();
     }

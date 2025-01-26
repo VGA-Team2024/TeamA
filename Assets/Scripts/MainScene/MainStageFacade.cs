@@ -20,7 +20,8 @@ public class MainStageFacade : MonoBehaviour
     /// </summary>
     protected virtual void Start()
     {
-        if(LocalDataManager.Instance != null)
+        Cursor.visible = false;
+        if (LocalDataManager.Instance != null)
         {
             LocalDataManager.Instance.UpdateLastSceneName();
         }
@@ -36,6 +37,26 @@ public class MainStageFacade : MonoBehaviour
         {
             Debug.LogWarning($"{_bgmCueName}:this bgm doesn't exist");
         }
+        if(PlayerManager.Instance != null)
+        {
+            PlayerManager.Instance.SearchPlayerInScene();
+        }
+        PlayerEventHelper.OnPlayerDie += SubscribeGameOverLoad;
+        PlayerEventHelper.OnPlayerDie += StopBGM;
         OnAwaked?.Invoke();
+    }
+    private void SubscribeGameOverLoad()
+    {
+        SceneLoader.LoadScene("GameOverScene");
+    }
+    private void StopBGM()
+    {
+        CRIAudioManager.BGM.Stop();
+    }
+    private void OnDisable()
+    {
+        StopBGM();
+        PlayerEventHelper.OnPlayerDie = StopBGM;
+        PlayerEventHelper.OnPlayerDie -= SubscribeGameOverLoad;
     }
 }

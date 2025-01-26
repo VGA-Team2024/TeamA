@@ -11,13 +11,13 @@ public class TreasureBox : MonoBehaviour, IInteractable
 
     public string GetInteractionMessage()
     {
-        return "開ける";
+        return "F:開ける";
     }
 
     public void OnInteract(IInteractCallBackReceivable caller)
     {
         //音
         //CRIAudioManager.SE.Play3D(Vector3.zero, "CueSheet_0", "SE_fire_tukeru");
-        SceneLoader.LoadSceneSimple("EndScene");
+        SceneLoader.LoadScene("EndScene");
     }
 }

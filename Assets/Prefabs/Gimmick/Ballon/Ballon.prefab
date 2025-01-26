@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3881071781306429750}
   - component: {fileID: 4540581199078612627}
   - component: {fileID: 8313400414213929149}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ballon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,6 +185,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7933054288862840198, guid: 9eea9dcf81090f846822d9cd11617309, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -4392125256588145644, guid: 9eea9dcf81090f846822d9cd11617309, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: -3602733277625554681, guid: 9eea9dcf81090f846822d9cd11617309, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -197,9 +205,25 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b3fa3cb46e1077c47b1a52740e2f36a3, type: 2}
+    - target: {fileID: -1057528531608244119, guid: 9eea9dcf81090f846822d9cd11617309, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9eea9dcf81090f846822d9cd11617309, type: 3}
       propertyPath: m_Name
       value: BgMD_Akimoto_GumFloor
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9eea9dcf81090f846822d9cd11617309, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2339224820720256554, guid: 9eea9dcf81090f846822d9cd11617309, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5476963654232713025, guid: 9eea9dcf81090f846822d9cd11617309, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6435691518960318598, guid: 9eea9dcf81090f846822d9cd11617309, type: 3}
       propertyPath: m_Materials.Array.data[0]

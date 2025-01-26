@@ -1,4 +1,7 @@
 using Alchemy.Inspector;
+using Cysharp.Threading.Tasks;
+using LitMotion;
+using LitMotion.Extensions;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +26,13 @@ public class TitleSceneController : MonoBehaviour
 
     private bool _isButton;
 
+    private async void Start()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        await FadeInScene();
+        CRIAudioManager.BGM.Play("CueSheet_0", "BGM_title");
+    }
     /// <summary>
     /// ゲームスタート時のアニメーションを再生
     /// </summary>
@@ -39,12 +49,16 @@ public class TitleSceneController : MonoBehaviour
         foreach (GameObject obj in _targetObject)
         {
             Animator animator = obj.GetComponent<Animator>();
-            if(animator != null)
+            if (animator != null)
             {
                 animator.SetTrigger(_animationTrigger);
             }
         }
-        
+
+    }
+    private async UniTask FadeInScene()
+    {
+        await LMotion.Create(1f, 0f, _startFadeDuration).BindToColorA(_panelImage);
     }
 
     /// <summary>
@@ -52,6 +66,7 @@ public class TitleSceneController : MonoBehaviour
     /// </summary>
     public void MoveScene()
     {
+        CRIAudioManager.BGM.Stop();
         StartCoroutine("FadeOutScene");
     }
 
@@ -67,7 +82,7 @@ public class TitleSceneController : MonoBehaviour
             yield return null;
         }
 
-        SceneLoader.LoadSceneSimple(_sceneName);
+        SceneLoader.LoadScene(_sceneName);
     }
 
     /// <summary>

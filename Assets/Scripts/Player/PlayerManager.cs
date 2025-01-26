@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 using System;
 using UniRx;
+using UnityEngine.InputSystem;
 
 public class PlayerManager : SingletonMonoBehavior<PlayerManager>
 {
@@ -38,6 +39,15 @@ public class PlayerManager : SingletonMonoBehavior<PlayerManager>
     }
 
     public bool DoesPlayerExist() { return  _playerRef != null; }
+
+    public void SearchPlayerInScene()
+    {
+        GameObject player = FindAnyObjectByType<PlayerStateMachine>().gameObject;
+        if (player != null)
+        {
+            _playerRef = player;
+        }
+    }
 
     /// <summary>
     ///Playerを指定した絶対位置に生成します。指定しない場合はPrefabの値に従います
@@ -79,5 +89,4 @@ public class PlayerManager : SingletonMonoBehavior<PlayerManager>
             Destroy(_playerRef);
         }
     }
-    
 }

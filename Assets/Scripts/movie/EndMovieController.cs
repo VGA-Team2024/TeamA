@@ -19,6 +19,8 @@ public class EndMovieController : MonoBehaviour
 
     private void Start()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         _videoPlayer.isLooping = false; // ループ再生を無効化
         _videoPlayer.Prepare();
         _videoPlayer.prepareCompleted += OnPrepareCompleted;
@@ -69,6 +71,8 @@ public class EndMovieController : MonoBehaviour
     {
         _isSkip = true;
         _videoPlayer.Pause();
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         GameEventRecorder.GameEnd(MoveScene);
     }
     
@@ -77,7 +81,7 @@ public class EndMovieController : MonoBehaviour
     /// </summary>
     private void MoveScene()
     {
-        SceneLoader.LoadSceneSimple("FirstStageSystem");
+        SceneLoader.LoadScene("TitleScene");
     }
 
     private IEnumerator FadeOut()

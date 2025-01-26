@@ -38,7 +38,7 @@ public class LocalDataManager : MonoBehaviour
     }
     private void Start()
     {
-        InitializeGameSetting();
+        //InitializeGameSetting();
     }
     private void InitializeGameSetting()
     {
@@ -91,9 +91,12 @@ public class LocalDataManager : MonoBehaviour
     }
     private void OnDisable()
     {
-        _localData.BGMVolume = CRIAudioManager.BGM.GetAtomExPlayerVol;
-        _localData.SEVolume = CRIAudioManager.SE.GetAtomExPlayerVol;
-        _localData.VoiceVolume = CRIAudioManager.VOICE.GetAtomExPlayerVol;
-        Save(_localData);
+        if(_localData != null)
+        {
+            _localData.BGMVolume = CRIAudioManager.BGM.GetAtomExPlayerVol;
+            _localData.SEVolume = CRIAudioManager.SE.GetAtomExPlayerVol;
+            _localData.VoiceVolume = CRIAudioManager.VOICE.GetAtomExPlayerVol;
+            Save(_localData);
+        }
     }
 }

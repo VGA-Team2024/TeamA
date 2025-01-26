@@ -128,7 +128,7 @@ MonoBehaviour:
   - CanIDebugSelect: 1
     Name: TitleScene
     AssetPath: Assets/Scenes/MainGame/TitleScene.unity
-    SceneType: 0
+    SceneType: 2
   - CanIDebugSelect: 1
     Name: BallonTest
     AssetPath: Assets/Scenes/TestScene/GimmickTest/BallonTest.unity
