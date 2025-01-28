@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveDistance: 12.5
-  _moveDuration: 7
+  _moveDuration: 4
   _pauseDuration: 1
   _disableDetectDuration: 1
   _offset: {x: 0, y: 2, z: 0}
