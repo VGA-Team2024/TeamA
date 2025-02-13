@@ -107,7 +107,9 @@ Material:
     - _Blend: 0
     - _CastShadows: 1
     - _Cull: 0
-    - _DitherStrength: 1
+    - _DitherStrength: 1.943
+    - _DitheringEndDistance: 6
+    - _DitheringStartDistance: 1
     - _DstBlend: 0
     - _EmissonIntensity: 0.5
     - _Glossiness: 10
@@ -130,6 +132,7 @@ Material:
     - _SpecularIntensitySmooth: 0.763
     - _SrcBlend: 1
     - _Surface: 0
+    - _USEDITHERING: 0
     - _ZTest: 4
     - _ZWrite: 1
     - _ZWriteControl: 0

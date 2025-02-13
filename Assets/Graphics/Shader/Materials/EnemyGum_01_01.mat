@@ -20,12 +20,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Spoon_Handle_01
+  m_Name: EnemyGum_01_01
   m_Shader: {fileID: -6465566751694194690, guid: 92351672ab31a044d95d601484ea601b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHATEST_ON
+  - _USEDITHERING
   m_InvalidKeywords:
   - _RENDERFACE_FRONT
   m_LightmapFlags: 4
@@ -48,7 +49,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: 6eb38f984d07ec746922d0806f71904a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2eea1937b9696694bbc331b5d27bf35b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalFromTexture_a52edcf62dc546238c95ed4d221b0a05_Texture_0_Texture2D:
@@ -56,7 +57,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 7544945f1fb74f54d8bcdb285abb0aa8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9ff10f497b3a5e249a6f913483a99520, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadowTexture:
@@ -107,12 +108,14 @@ Material:
     - _Blend: 0
     - _CastShadows: 1
     - _Cull: 2
-    - _DitherStrength: 1
+    - _DitherStrength: 1.943
+    - _DitheringEndDistance: 6
+    - _DitheringStartDistance: 1
     - _DstBlend: 0
     - _EmissonIntensity: 0.5
     - _Glossiness: 32
     - _LightIntensity: 0.1
-    - _NormalStrength: 1
+    - _NormalStrength: 0
     - _OutLineThickness: 0.01
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -130,6 +133,7 @@ Material:
     - _SpecularIntensitySmooth: 0.01
     - _SrcBlend: 1
     - _Surface: 0
+    - _USEDITHERING: 1
     - _ZTest: 4
     - _ZWrite: 1
     - _ZWriteControl: 0
@@ -140,7 +144,7 @@ Material:
     - _ManColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutLineColor: {r: 0.4188679, g: 0.21354051, b: 0, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _ShadowColor: {r: 0, g: 0.50264156, b: 0.5773585, a: 1}
+    - _ShadowColor: {r: 0, g: 0.5058824, b: 0.5803922, a: 1}
     - _ShadowColor1: {r: 0.4509804, g: 0.29411766, b: 0.44861424, a: 1}
     - _ShadowColor2: {r: 0.36111683, g: 0.29400492, b: 0.4490565, a: 1}
     - _SpecularColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
