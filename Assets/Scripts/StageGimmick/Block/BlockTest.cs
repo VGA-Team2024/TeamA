@@ -9,6 +9,7 @@ using UnityEngine;
 public class BlockTest : MonoBehaviour, IAbilityDetectable
 {
     [SerializeField, LabelText("崩れるプロックのプレハブ")] private Transform _breakBlockPrefab;
+    [SerializeField, LabelText("崩壊したパーツを出現させる位置のオフセット")] private Vector3 _breakBlockPositionOffset;
     [SerializeField, LabelText("崩壊したパーツを消す秒数")] private float _collapseDestorySecond = 5f;
 
     public bool IsEnableDetect => true;
@@ -20,7 +21,7 @@ public class BlockTest : MonoBehaviour, IAbilityDetectable
     {
         CRIAudioManager.SE.Play3D(Vector3.zero, "CueSheet_0", "SE_clash_block");
         //分割されたブロックのPrefabを生成する
-        Transform breakBlockTransform = Instantiate(_breakBlockPrefab, transform.position, Quaternion.identity);
+        Transform breakBlockTransform = Instantiate(_breakBlockPrefab, transform.position + _breakBlockPositionOffset, Quaternion.identity);
 
         //崩壊したパーツを消す処理
         Destroy(breakBlockTransform.gameObject, _collapseDestorySecond);

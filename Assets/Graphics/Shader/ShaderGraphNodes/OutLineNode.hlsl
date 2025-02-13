@@ -9,18 +9,18 @@
 #ifndef SHADERGRAPH_PREVIEW
 
 
-float4 TransformHClipToNormalizedScreenPos(float4 positionCS)
+float4 TransformHClipToNormalizedScreenPos(float4 PositionCS)
 {
-    float4 o = positionCS * 0.5f;
+    float4 o = PositionCS * 0.5f;
     o.xy = float2(o.x, o.y * _ProjectionParams.x) + o.w;
-    o.zw = positionCS.zw;
+    o.zw = PositionCS.zw;
     return o / o.w;
 }
 
-half SampleOffsetDepth(float3 positionVS, float2 offset)
+half SampleOffsetDepth(float3 PositionVS, float2 Offset)
 {
     // カメラとの距離やカメラのFOVで見た目上の輪郭の太さが変わらないように、オフセットをViewSpaceで計算する
-    float3 samplePositionVS = float3(positionVS.xy + offset, positionVS.z);
+    float3 samplePositionVS = float3(PositionVS.xy + Offset, PositionVS.z);
     float4 samplePositionCS = TransformWViewToHClip(samplePositionVS);
     float4 samplePositionVP = TransformHClipToNormalizedScreenPos(samplePositionCS);
         
